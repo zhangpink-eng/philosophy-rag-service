@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophia - Phase 4 安全与质量测试</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #fff; text-align: center; margin-bottom: 30px; }
+        h2 { color: #a5b4fc; margin: 24px 0 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; color: #aaa; }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            min-height: 100px;
+        }
+        textarea:focus { border-color: #6366f1; outline: none; }
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover { transform: translateY(-2px); }
+        button.secondary { background: rgba(255,255,255,0.1); }
+        .result {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 10px;
+            display: none;
+        }
+        .result.show { display: block; }
+        .result.safe { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); }
+        .result.warning { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); }
+        .result.danger { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); }
+        .result h4 { margin-bottom: 8px; }
+        .result.safe h4 { color: #34d399; }
+        .result.warning h4 { color: #fbbf24; }
+        .result.danger h4 { color: #f87171; }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 4px;
+        }
+        .tag.low { background: rgba(52,211,153,0.2); color: #34d399; }
+        .tag.medium { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .tag.high { background: rgba(249,115,22,0.2); color: #f97316; }
+        .tag.crisis { background: rgba(239,68,68,0.2); color: #f87171; }
+        pre { white-space: pre-wrap; font-size: 0.9rem; color: #ccc; }
+        .scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+        .score-card { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; text-align: center; }
+        .score-card .value { font-size: 1.5rem; font-weight: bold; color: #a5b4fc; }
+        .score-card .label { font-size: 0.75rem; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Philosophia Phase 4 测试</h1>
+        <h1 style="font-size: 1.2rem; color: #888; margin-top: -20px;">SafeGuard + Quality Evaluator</h1>
+
+        <!-- Safety Check -->
+        <div class="section">
+            <h2>SafeGuard - 安全检查</h2>
+            <div class="form-group">
+                <label>输入用户消息进行安全检查</label>
+                <textarea id="safetyInput" placeholder="输入测试文本..."></textarea>
+            </div>
+            <button onclick="checkSafety()">检查安全</button>
+            <button onclick="testCrisisKeyword()" class="secondary">测试危机关键词</button>
+            <button onclick="testBoundaryTopic()" class="secondary">测试边界话题</button>
+            <div id="safetyResult" class="result"></div>
+        </div>
+
+        <!-- Session Risk Assessment -->
+        <div class="section">
+            <h2>会话风险评估</h2>
+            <div class="form-group">
+                <label>对话历史 (JSON格式)</label>
+                <textarea id="dialogueHistory">[
+  {"role": "user", "content": "我最近工作压力很大"},
+  {"role": "oscar", "content": "工作压力让你感到怎样?"},
+  {"role": "user", "content": "我觉得活着没什么意思"}
+]</textarea>
+            </div>
+            <button onclick="assessRisk()">评估风险</button>
+            <div id="riskResult" class="result"></div>
+        </div>
+
+        <!-- Quality Evaluation -->
+        <div class="section">
+            <h2>对话质量评估</h2>
+            <div class="form-group">
+                <label>AI回复内容</label>
+                <textarea id="aiResponse" placeholder="输入Oscar的回复...">你说你想快乐，但又不愿意改变现状。这不是矛盾吗？</textarea>
+            </div>
+            <button onclick="evaluateTurn()">评估单轮</button>
+            <button onclick="evaluateSession()">评估整场会话</button>
+            <div id="qualityResult" class="result"></div>
+        </div>
+
+        <!-- Hotlines -->
+        <div class="section">
+            <h2>危机热线</h2>
+            <div id="hotlines"></div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'http://localhost:8000/api';
+
+        async function checkSafety() {
+            const text = document.getElementById('safetyInput').value;
+            const res = await fetch(`${API}/safety/check`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            const data = await res.json();
+            showResult('safetyResult', data);
+        }
+
+        async function assessRisk() {
+            const historyText = document.getElementById('dialogueHistory').value;
+            try {
+                const history = JSON.parse(historyText);
+                const res = await fetch(`${API}/safety/session-risk`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dialogue_history: history })
+                });
+                const data = await res.json();
+                showResult('riskResult', data);
+            } catch (e) {
+                alert('JSON格式错误: ' + e.message);
+            }
+        }
+
+        async function evaluateTurn() {
+            const response = document.getElementById('aiResponse').value;
+            const res = await fetch(`${API}/quality/turn`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ context: [], ai_response: response })
+            });
+            const data = await res.json();
+            showResult('qualityResult', data);
+        }
+
+        async function evaluateSession() {
+            const historyText = document.getElementById('dialogueHistory').value;
+            try {
+                const history = JSON.parse(historyText);
+                const res = await fetch(`${API}/quality/session?session_id=test`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dialogue_history: history, scenario: 'consultation' })
+                });
+                const data = await res.json();
+                showQualityResult('qualityResult', data);
+            } catch (e) {
+                alert('JSON格式错误: ' + e.message);
+            }
+        }
+
+        function showResult(id, data) {
+            const el = document.getElementById(id);
+            const isSafe = data.is_safe;
+            const level = data.risk_level;
+
+            let resultClass = 'safe';
+            if (!isSafe) resultClass = level === 'crisis' ? 'danger' : 'warning';
+
+            let html = `<h4>${isSafe ? '✓ 安全' : '⚠ ' + (level === 'crisis' ? '危机' : '警告')}</h4>`;
+            html += `<span class="tag ${level}">${level.toUpperCase()}</span>`;
+
+            if (data.trigger_type) {
+                html += `<p style="margin-top:8px;"><strong>触发类型:</strong> ${data.trigger_type}</p>`;
+            }
+            if (data.message) {
+                html += `<p style="margin-top:8px;"><strong>消息:</strong></p><pre>${data.message}</pre>`;
+            }
+            if (data.suggestion) {
+                html += `<p style="margin-top:8px;"><strong>建议:</strong> ${data.suggestion}</p>`;
+            }
+            if (data.risk_indicators && data.risk_indicators.length) {
+                html += `<p style="margin-top:8px;"><strong>风险指标:</strong></p>`;
+                data.risk_indicators.forEach(ind => {
+                    html += `<span class="tag high">${ind.substring(0, 30)}...</span>`;
+                });
+            }
+
+            el.className = `result show ${resultClass}`;
+            el.innerHTML = html;
+        }
+
+        function showQualityResult(id, data) {
+            const el = document.getElementById(id);
+            const scores = data.scores;
+
+            let html = `<h4>质量评估报告</h4>`;
+            html += `<div class="scores">`;
+            html += `<div class="score-card"><div class="value">${scores.overall}</div><div class="label">综合</div></div>`;
+            html += `<div class="score-card"><div class="value">${scores.depth}</div><div class="label">深度</div></div>`;
+            html += `<div class="score-card"><div class="value">${scores.insight}</div><div class="label">洞察</div></div>`;
+            html += `</div>`;
+
+            if (data.strengths && data.strengths.length) {
+                html += `<p style="margin-top:12px;"><strong>优点:</strong> ${data.strengths.join(', ')}</p>`;
+            }
+            if (data.weaknesses && data.weaknesses.length) {
+                html += `<p style="margin-top:8px;"><strong>不足:</strong> ${data.weaknesses.join(', ')}</p>`;
+            }
+            if (data.improvement_suggestions && data.improvement_suggestions.length) {
+                html += `<p style="margin-top:8px;"><strong>改进建议:</strong></p>`;
+                data.improvement_suggestions.forEach(s => {
+                    html += `<span class="tag medium">${s}</span>`;
+                });
+            }
+            if (data.summary) {
+                html += `<p style="margin-top:12px; color:#888;">${data.summary}</p>`;
+            }
+
+            el.className = 'result show safe';
+            el.innerHTML = html;
+        }
+
+        function testCrisisKeyword() {
+            document.getElementById('safetyInput').value = '我不想活了活着真没意思';
+        }
+
+        function testBoundaryTopic() {
+            document.getElementById('safetyInput').value = '我有抑郁症该怎么办？需要看医生吗？';
+        }
+
+        // Load hotlines
+        fetch(`${API}/safety/hotlines`)
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('hotlines').innerHTML = data.hotlines.map(h =>
+                    `<div class="score-card"><div class="value" style="font-size:1.2rem">${h.phone}</div><div class="label">${h.name}</div></div>`
+                ).join('');
+            });
+    </script>
+</body>
+</html>
