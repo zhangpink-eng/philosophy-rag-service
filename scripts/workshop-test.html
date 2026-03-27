@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophia - Phase 5 测试</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #fff; text-align: center; margin-bottom: 30px; }
+        h2 { color: #a5b4fc; margin: 24px 0 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; color: #aaa; }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        input:focus, textarea:focus { border-color: #6366f1; outline: none; }
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 4px;
+        }
+        button:hover { transform: translateY(-2px); }
+        button.secondary { background: rgba(255,255,255,0.1); }
+        button.success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        button.danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+        .result {
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            display: none;
+        }
+        .result.show { display: block; }
+        .tabs { display: flex; gap: 4px; margin-bottom: 20px; }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #888;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .tab.active { background: #6366f1; color: #fff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .participant-list { display: flex; flex-direction: column; gap: 8px; }
+        .participant {
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .participant .name { font-weight: 600; color: #a5b4fc; }
+        .participant .viewpoint { font-size: 0.85rem; color: #888; margin-top: 4px; }
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        .badge.host { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .badge.active { background: rgba(52,211,153,0.2); color: #34d399; }
+        .chat-box {
+            height: 200px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 16px;
+        }
+        .chat-message {
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .chat-message.user { background: rgba(99,102,241,0.2); }
+        .chat-message.oscar { background: rgba(52,211,153,0.2); }
+        .chat-message.system { background: rgba(255,255,255,0.1); color: #888; font-size: 0.85rem; }
+        pre { white-space: pre-wrap; font-size: 0.85rem; color: #ccc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Phase 5 测试</h1>
+        <h1 style="font-size: 1.2rem; color: #888; margin-top: -20px;">工作坊 + 辅助模式</h1>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('workshop')">工作坊</button>
+            <button class="tab" onclick="showTab('assistant')">辅助模式</button>
+        </div>
+
+        <!-- Workshop Tab -->
+        <div id="workshop-tab" class="tab-content active">
+            <div class="section">
+                <h2>创建工作坊</h2>
+                <div class="form-group">
+                    <label>主题</label>
+                    <input type="text" id="topic" placeholder="例如：什么是真正的自由？">
+                </div>
+                <div class="form-group">
+                    <label>主持人名称</label>
+                    <input type="text" id="hostName" placeholder="你的名字">
+                </div>
+                <button onclick="createRoom()">创建工作坊</button>
+            </div>
+
+            <div class="section" id="roomInfo" style="display:none;">
+                <h2>工作坊信息</h2>
+                <p><strong>主题：</strong><span id="currentTopic"></span></p>
+                <p><strong>房间ID：</strong><span id="currentRoomId"></span></p>
+                <p><strong>阶段：</strong><span id="currentPhase" class="badge active"></span></p>
+                <p><strong>你的ID：</strong><span id="myId"></span></p>
+                <div style="margin-top: 12px;">
+                    <button onclick="refreshRoom()">刷新</button>
+                    <button onclick="startDiscussion()" class="success">开始讨论</button>
+                    <button onclick="endWorkshop()" class="danger">结束工作坊</button>
+                </div>
+            </div>
+
+            <div class="section" id="joinSection" style="display:none;">
+                <h2>加入工作坊</h2>
+                <div class="form-group">
+                    <label>房间ID</label>
+                    <input type="text" id="joinRoomId" placeholder="输入房间ID">
+                </div>
+                <div class="form-group">
+                    <label>你的名称</label>
+                    <input type="text" id="joinName" placeholder="你的名字">
+                </div>
+                <button onclick="joinRoom()">加入</button>
+            </div>
+
+            <div class="section" id="participantsSection" style="display:none;">
+                <h2>参与者</h2>
+                <div id="participantsList" class="participant-list"></div>
+            </div>
+
+            <div class="section" id="viewpointSection" style="display:none;">
+                <h2>发表观点</h2>
+                <div class="form-group">
+                    <textarea id="viewpointInput" placeholder="分享你对主题的看法..."></textarea>
+                </div>
+                <button onclick="submitViewpoint()">提交观点</button>
+            </div>
+
+            <div class="section" id="assistantSection" style="display:none;">
+                <h2>辅助建议</h2>
+                <div class="form-group">
+                    <label>来访者消息</label>
+                    <textarea id="assistInput" placeholder="输入来访者的问题..."></textarea>
+                </div>
+                <button onclick="getSuggestions()">获取建议</button>
+                <button onclick="analyzeMessage()">分析消息</button>
+                <div id="assistResult" class="result"></div>
+            </div>
+        </div>
+
+        <!-- Assistant Tab -->
+        <div id="assistant-tab" class="tab-content">
+            <div class="section">
+                <h2>咨询师辅助工具</h2>
+                <div class="form-group">
+                    <label>来访者消息</label>
+                    <textarea id="clientMessage" placeholder="输入来访者说的话..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>当前话题</label>
+                    <input type="text" id="sessionTopic" placeholder="可选">
+                </div>
+                <button onclick="getAssistSuggestions()">获取追问建议</button>
+                <button onclick="getSafetyCheck()">安全检查</button>
+                <div id="assistantResult" class="result"></div>
+            </div>
+
+            <div class="section">
+                <h2>会话复盘</h2>
+                <div class="form-group">
+                    <label>对话历史 (JSON)</label>
+                    <textarea id="dialogueHistory">[
+  {"role": "user", "content": "我想谈谈工作压力"},
+  {"role": "oscar", "content": "工作压力让你感到怎样？"},
+  {"role": "user", "content": "我觉得很累，但又停不下来"}
+]</textarea>
+                </div>
+                <button onclick="reviewSession()">复盘会话</button>
+                <div id="reviewResult" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'http://localhost:8000/api';
+        let currentRoom = null;
+        let myId = null;
+        let isHost = false;
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        async function createRoom() {
+            const topic = document.getElementById('topic').value;
+            const hostName = document.getElementById('hostName').value;
+            if (!topic || !hostName) { alert('请填写所有字段'); return; }
+
+            const res = await fetch(`${API}/workshops/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, host_name: hostName })
+            });
+            const data = await res.json();
+            currentRoom = data;
+            myId = data.host_id;
+            isHost = true;
+            showRoomInfo(data);
+        }
+
+        async function joinRoom() {
+            const roomId = document.getElementById('joinRoomId').value;
+            const name = document.getElementById('joinName').value;
+            if (!roomId || !name) { alert('请填写所有字段'); return; }
+
+            const res = await fetch(`${API}/workshops/join`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ room_id: roomId, participant_name: name })
+            });
+            const data = await res.json();
+            currentRoom = { room_id: roomId };
+            myId = data.participant_id;
+            isHost = false;
+            document.getElementById('currentRoomId').textContent = roomId;
+            document.getElementById('currentTopic').textContent = data.topic;
+            document.getElementById('currentPhase').textContent = data.phase;
+            document.getElementById('myId').textContent = myId;
+            document.getElementById('roomInfo').style.display = 'block';
+            refreshRoom();
+        }
+
+        function showRoomInfo(data) {
+            document.getElementById('currentTopic').textContent = data.topic;
+            document.getElementById('currentRoomId').textContent = data.room_id;
+            document.getElementById('currentPhase').textContent = data.phase;
+            document.getElementById('myId').textContent = data.host_id;
+            document.getElementById('roomInfo').style.display = 'block';
+            document.getElementById('joinSection').style.display = 'none';
+            document.getElementById('participantsSection').style.display = 'block';
+            document.getElementById('viewpointSection').style.display = 'block';
+            refreshRoom();
+        }
+
+        async function refreshRoom() {
+            if (!currentRoom) return;
+            const res = await fetch(`${API}/workshops/${currentRoom.room_id}`);
+            const data = await res.json();
+            document.getElementById('currentPhase').textContent = data.phase;
+            renderParticipants(data.viewpoints || []);
+        }
+
+        function renderParticipants(viewpoints) {
+            const container = document.getElementById('participantsList');
+            container.innerHTML = viewpoints.map(v => `
+                <div class="participant">
+                    <div>
+                        <div class="name">${v.name} ${v.participant_id === myId ? '(你)' : ''}</div>
+                        <div class="viewpoint">${v.viewpoint || '暂无观点'}</div>
+                    </div>
+                    <span class="badge ${v.participant_id === myId ? 'host' : 'active'}">
+                        ${v.participant_id === myId ? '主持人' : '参与者'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        async function submitViewpoint() {
+            const viewpoint = document.getElementById('viewpointInput').value;
+            if (!viewpoint || !currentRoom || !myId) return;
+            await fetch(`${API}/workshops/viewpoint`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ room_id: currentRoom.room_id, participant_id: myId, viewpoint })
+            });
+            document.getElementById('viewpointInput').value = '';
+            refreshRoom();
+        }
+
+        async function startDiscussion() {
+            if (!isHost) return;
+            await fetch(`${API}/workshops/${currentRoom.room_id}/start?host_id=${myId}`, { method: 'POST' });
+            refreshRoom();
+        }
+
+        async function endWorkshop() {
+            if (!isHost) return;
+            const res = await fetch(`${API}/workshops/${currentRoom.room_id}/end?host_id=${myId}`, { method: 'POST' });
+            const data = await res.json();
+            alert('工作坊已结束');
+        }
+
+        // Assistant functions
+        async function getAssistSuggestions() {
+            const msg = document.getElementById('clientMessage').value;
+            const topic = document.getElementById('sessionTopic').value;
+            if (!msg) { alert('请输入来访者消息'); return; }
+
+            const res = await fetch(`${API}/assist/suggest`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ client_message: msg, session_topic: topic })
+            });
+            const data = await res.json();
+            showResult('assistantResult', data);
+        }
+
+        async function getSafetyCheck() {
+            const msg = document.getElementById('clientMessage').value;
+            if (!msg) { alert('请输入来访者消息'); return; }
+
+            const res = await fetch(`${API}/assist/safety-check`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: msg })
+            });
+            const data = await res.json();
+            showResult('assistantResult', data);
+        }
+
+        async function reviewSession() {
+            try {
+                const history = JSON.parse(document.getElementById('dialogueHistory').value);
+                const res = await fetch(`${API}/assist/review`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dialogue_history: history })
+                });
+                const data = await res.json();
+                showResult('reviewResult', data);
+            } catch (e) {
+                alert('JSON格式错误');
+            }
+        }
+
+        function showResult(id, data) {
+            const el = document.getElementById(id);
+            el.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            el.classList.add('show');
+        }
+    </script>
+</body>
+</html>

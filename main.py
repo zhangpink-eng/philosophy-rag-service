@@ -7,6 +7,8 @@ from api.router_user import router as user_router
 from api.router_session import router as session_router
 from api.router_memory import router as memory_router
 from api.router_safety import router as safety_router
+from api.router_workshop import router as workshop_router
+from api.router_assist import router as assist_router
 from config import settings
 
 # Create FastAPI app
@@ -33,6 +35,8 @@ app.include_router(user_router)
 app.include_router(session_router)
 app.include_router(memory_router)
 app.include_router(safety_router)
+app.include_router(workshop_router)
+app.include_router(assist_router)
 
 
 @app.get("/")
