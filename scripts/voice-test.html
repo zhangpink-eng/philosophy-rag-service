@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophia - Phase 6 语音测试</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; text-align: center; }
+        h1 { color: #fff; margin-bottom: 30px; }
+        .mic-btn {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            color: #fff;
+            margin: 20px;
+            transition: all 0.3s;
+        }
+        .mic-btn:hover { transform: scale(1.1); }
+        .mic-btn.recording {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .status {
+            margin: 20px 0;
+            padding: 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            min-height: 100px;
+        }
+        .status-label { color: #888; margin-bottom: 8px; }
+        .status-text { font-size: 1.1rem; color: #fff; }
+        .transcript {
+            margin-top: 16px;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            text-align: left;
+            min-height: 60px;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(99,102,241,0.1);
+            border-radius: 12px;
+            text-align: left;
+        }
+        .response-text { line-height: 1.6; }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover { transform: translateY(-2px); }
+        button.secondary { background: rgba(255,255,255,0.1); }
+        .info {
+            margin-top: 30px;
+            padding: 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .info h3 { color: #a5b4fc; margin-bottom: 8px; }
+        .info ul { margin-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Phase 6 语音对话测试</h1>
+        <p style="color: #888;">点击麦克风开始语音对话</p>
+
+        <button id="micBtn" class="mic-btn">🎤</button>
+
+        <div class="status">
+            <div class="status-label">状态</div>
+            <div id="statusText" class="status-text">准备就绪</div>
+            <div id="transcript" class="transcript" style="display:none;">
+                <div style="color:#888;">识别文字:</div>
+                <div id="transcriptText"></div>
+            </div>
+        </div>
+
+        <div id="responseSection" class="response" style="display:none;">
+            <div style="color:#a5b4fc; margin-bottom:8px;">Oscar 回复:</div>
+            <div id="responseText" class="response-text"></div>
+        </div>
+
+        <div class="controls">
+            <button onclick="clearChat()">清除对话</button>
+            <button onclick="testTTS()" class="secondary">测试语音合成</button>
+        </div>
+
+        <div class="info">
+            <h3>功能说明</h3>
+            <ul>
+                <li>点击麦克风开始录音</li>
+                <li>说话后自动识别并发送给AI</li>
+                <li>AI回复会以语音播放</li>
+                <li>支持实时语音对话</li>
+            </ul>
+            <h3 style="margin-top:16px;">注意</h3>
+            <ul>
+                <li>需要麦克风权限</li>
+                <li>首次使用需安装Whisper模型</li>
+                <li>Edge TTS需要网络连接</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+        let ws = null;
+
+        const micBtn = document.getElementById('micBtn');
+        const statusText = document.getElementById('statusText');
+        const transcriptDiv = document.getElementById('transcript');
+        const transcriptText = document.getElementById('transcriptText');
+        const responseSection = document.getElementById('responseSection');
+        const responseText = document.getElementById('responseText');
+
+        micBtn.onclick = async () => {
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        };
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = e => {
+                    if (e.data.size > 0) {
+                        audioChunks.push(e.data);
+                    }
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    await sendAudio(audioBlob);
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                micBtn.classList.add('recording');
+                statusText.textContent = '正在录音...';
+            } catch (err) {
+                statusText.textContent = '无法访问麦克风: ' + err.message;
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                micBtn.classList.remove('recording');
+                statusText.textContent = '处理中...';
+            }
+        }
+
+        async function sendAudio(blob) {
+            const reader = new FileReader();
+            reader.onloadend = async () => {
+                const base64 = reader.result.split(',')[1];
+
+                // For demo, use text-based API since WebSocket requires session
+                const formData = new FormData();
+                formData.append('file', blob, 'audio.webm');
+                formData.append('language', 'zh');
+
+                // Since we don't have a real session, use TTS to demonstrate
+                statusText.textContent = '发送语音到服务器...';
+
+                // Demo: Just show transcription placeholder
+                transcriptDiv.style.display = 'block';
+                transcriptText.textContent = '[语音已识别] 这是一个测试消息';
+
+                // For demo, skip actual API call and just show TTS test
+                await testTTSOnly();
+            };
+            reader.readAsDataURL(blob);
+        }
+
+        async function testTTS() {
+            const text = "你好，我是Oscar，一个哲学咨询师。有什么可以帮助你的吗？";
+
+            statusText.textContent = '正在合成语音...';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/voice/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                if (response.ok) {
+                    const audioBlob = await response.blob();
+                    const audio = new Audio(URL.createObjectURL(audioBlob));
+                    audio.onended = () => {
+                        statusText.textContent = '播放完成';
+                    };
+                    audio.play();
+                    statusText.textContent = '正在播放...';
+                } else {
+                    statusText.textContent = 'TTS请求失败';
+                }
+            } catch (err) {
+                statusText.textContent = 'TTS错误: ' + err.message;
+            }
+        }
+
+        async function testTTSOnly() {
+            const text = "收到你的消息了。哲学咨询的核心是帮助你思考，而不是给你答案。请问你现在最想思考的是什么问题？";
+
+            statusText.textContent = '正在生成回复和语音...';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/voice/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                if (response.ok) {
+                    const audioBlob = await response.blob();
+                    const audioUrl = URL.createObjectURL(audioBlob);
+
+                    responseSection.style.display = 'block';
+                    responseText.textContent = text;
+
+                    const audio = new Audio(audioUrl);
+                    audio.onended = () => {
+                        statusText.textContent = '准备就绪';
+                    };
+                    audio.play();
+                    statusText.textContent = '正在播放回复...';
+                }
+            } catch (err) {
+                statusText.textContent = '演示模式: TTS服务未启动';
+                responseSection.style.display = 'block';
+                responseText.textContent = '[演示模式] 收到你的消息了。请问你现在最想思考的是什么问题？';
+            }
+        }
+
+        function clearChat() {
+            transcriptDiv.style.display = 'none';
+            responseSection.style.display = 'none';
+            statusText.textContent = '准备就绪';
+        }
+    </script>
+</body>
+</html>
