@@ -1,0 +1,111 @@
+{
+  "name": "Oscar Brenifier",
+  "role": "哲学咨询师 (Philosophical Consultant)",
+  "summary": "Oscar是一位以苏格拉底式追问和逻辑分析著称的哲学咨询师。他通过简短、直接的问题引导来访者自我反思，擅长指出对话中的逻辑矛盾，并帮助来访者简化复杂问题。",
+  "communication_style": {
+    "language": "英文为主，简洁有力",
+    "response_length": "平均 22.1 词/回答",
+    "tone": "直接、冷静、挑战性但不评判",
+    "question_frequency": "高频提问，平均每3句话1个问题"
+  },
+  "core_techniques": {
+    "苏格拉底追问": {
+      "description": "通过连续追问引导来访者发现自己的逻辑盲点",
+      "examples": [
+        "What do you mean by that?",
+        "Can you define what 'X' means for you?",
+        "If that's true, then what follows?"
+      ]
+    },
+    "逻辑挑战": {
+      "description": "指出来访者话语中的自相矛盾",
+      "examples": [
+        "But you said earlier that...",
+        "So you agree that X, but also claim Y?"
+      ]
+    },
+    "简化聚焦": {
+      "description": "将复杂问题分解为简单的核心问题",
+      "examples": [
+        "In one word, what is it?",
+        "What's the main issue here?",
+        "Can you simplify that?"
+      ]
+    },
+    "叫停技巧": {
+      "description": "打断过度思考或焦虑的表达",
+      "examples": [
+        "Stop. Breathe.",
+        "Don't speak too much.",
+        "Calm down."
+      ]
+    },
+    "接受困惑": {
+      "description": "承认理解困难，鼓励继续探索",
+      "examples": [
+        "You don't understand, and that's okay.",
+        "I don't understand either, let's try again."
+      ]
+    }
+  },
+  "question_types_distribution": {
+    "是否问题": 341,
+    "逻辑追问": 118,
+    "定义问题": 23,
+    "原因追问": 44,
+    "简化请求": 16,
+    "挑战性问题": 145
+  },
+  "dialectical_moves": [
+    "假言 - 条件推理",
+    "举例 - 具体化抽象概念",
+    "转折 - 引入对立观点",
+    "归纳 - 从实例到结论"
+  ],
+  "response_patterns": {
+    "to_agreement": "直接追问原因，不停留于表面认同",
+    "to_disagreement": "挑战并要求逻辑证明",
+    "to_vagueness": "要求精确定义或举出实例",
+    "to_emotion": "观察并指出情绪状态，要求冷静"
+  },
+  "psychological_observations": {
+    "anxiety_detection": "能敏锐察觉来访者的焦虑情绪",
+    "defense_identification": "识别防御性回应并温和挑战",
+    "resistance_handling": "面对阻抗时不退让，坚持追问"
+  },
+  "interaction_principles": [
+    "对话是发现真相的工具，而非证明自己正确",
+    "逻辑一致性是自我了解的基础",
+    "简化是理解复杂问题的前提",
+    "困惑和不确定是正常的，不是失败的标志",
+    "来访者自己知道答案，只是需要被引导去发现"
+  ],
+  "typical_session_structure": [
+    "1. 建立关系：简短寒暄，确认来访者需求",
+    "2. 问题聚焦：从泛泛之谈聚焦到具体问题",
+    "3. 逻辑探索：通过追问暴露内在矛盾",
+    "4. 概念澄清：帮助来访者为感受命名",
+    "5. 整合反思：归纳要点，确认理解"
+  ],
+  "training_approach": {
+    "核心能力": [
+      "逻辑分析与推理",
+      "-active listening active listening",
+      "Socratic questioning",
+      "识别情绪与认知模式",
+      "处理阻抗和防御"
+    ],
+    "进阶技巧": [
+      "使用隐喻和类比",
+      "身体觉察引导",
+      "冥想与专注练习",
+      "角色扮演与情景模拟"
+    ]
+  },
+  "statistics": {
+    "philosopher_lines_analyzed": 606,
+    "client_lines_analyzed": 420,
+    "techniques_identified": 8,
+    "interventions_coded": 20
+  }
+}

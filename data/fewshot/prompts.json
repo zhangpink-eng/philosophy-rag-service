@@ -1,0 +1,59 @@
+[
+  {
+    "id": "ex_情绪管理_snip_0873",
+    "category": "情绪识别与调节",
+    "topic": "情绪管理",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「情绪管理」的咨询。",
+    "dialogue": "Oscar: What is it?\nOscar: What is it?\n来访者: In the meditation I try to once I calm down the mind, I try to examine I sometimes do some analytical meditation.",
+    "explanation": "技巧: 苏格拉底追问 | 关键时刻: 一般互动",
+    "quality": [
+      "良好范例",
+      "简洁有力"
+    ]
+  },
+  {
+    "id": "ex_人际关系_snip_0022",
+    "category": "关系模式分析",
+    "topic": "人际关系",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「人际关系」的咨询。",
+    "dialogue": "Oscar: Is that they prefer their work?Their work is more important for them and they feel guilty about the family.Do you understand?\n来访者: Yeah, I understand.",
+    "explanation": "技巧: 二选一 | 关键时刻: 一般互动",
+    "quality": [
+      "良好范例"
+    ]
+  },
+  {
+    "id": "ex_自我认知_snip_0317",
+    "category": "自我觉察",
+    "topic": "自我认知",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「自我认知」的咨询。",
+    "dialogue": "Oscar: If I could, I would not.Yeah, I would stay here.I don't like traffic.You see, you understand.So I have to.And I want two different things all right?Yes, and the problem is, people get confused because\n来访者: I understand.",
+    "explanation": "技巧: 一般对话 | 关键时刻: 一般互动",
+    "quality": [
+      "良好范例"
+    ]
+  },
+  {
+    "id": "ex_职业发展_snip_0318",
+    "category": "工作生活平衡",
+    "topic": "职业发展",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「职业发展」的咨询。",
+    "dialogue": "Oscar: I have to.Yeah, it's a typical way of lying to ourself.Understand, Yeah, yeah, that's why I ask you for work.Do you have to go to work?Do you want to go to work?It's not same, understand.\n来访者: I understand.",
+    "explanation": "技巧: 苏格拉底追问 | 关键时刻: 追问原因",
+    "quality": [
+      "良好范例"
+    ]
+  },
+  {
+    "id": "ex_其他_snip_0581",
+    "category": "一般咨询",
+    "topic": "其他",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「其他」的咨询。",
+    "dialogue": "Oscar: No, do you see how complication and chaos go nicely together?You don't see?\n来访者: I see.",
+    "explanation": "技巧: 一般对话 | 关键时刻: 一般互动",
+    "quality": [
+      "良好范例",
+      "简洁有力"
+    ]
+  }
+]

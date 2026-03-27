@@ -1,0 +1,749 @@
+[
+  {
+    "id": "ex_情绪管理_snip_0873",
+    "topic": "情绪管理",
+    "category": "情绪识别与调节",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "What is it?"
+      },
+      {
+        "speaker": "philosopher",
+        "text": "What is it?"
+      },
+      {
+        "speaker": "client",
+        "text": "In the meditation I try to once I calm down the mind, I try to examine I sometimes do some analytical meditation."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "待观察",
+    "quality_tags": [
+      "良好范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "prompt-example",
+      "concise-response"
+    ]
+  },
+  {
+    "id": "ex_情绪管理_snip_0017",
+    "topic": "情绪管理",
+    "category": "情绪识别与调节",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "Okay, don't try to speak more too much.Yeah, okay, I'll stop you.It means Ok, because already you see I speak with you, and the way you speak, I see anxiety, you know anxiety.Yeah, you agree with me, "
+      },
+      {
+        "speaker": "client",
+        "text": "Walk and family."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "待观察",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_情绪管理_snip_0654",
+    "topic": "情绪管理",
+    "category": "情绪识别与调节",
+    "sub_technique": "叫停安抚",
+    "dialogue_turns": [
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yes."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yes, you're calming down."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      },
+      {
+        "speaker": "client",
+        "text": "Yes."
+      }
+    ],
+    "key_moment": "简短确认",
+    "outcome": "来访者认同",
+    "quality_tags": [
+      "一般范例",
+      "有突破",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "concise-response"
+    ]
+  },
+  {
+    "id": "ex_人际关系_snip_0022",
+    "topic": "人际关系",
+    "category": "关系模式分析",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "Is that they prefer their work?Their work is more important for them and they feel guilty about the family.Do you understand?"
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah, I understand."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者理解",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "prompt-example"
+    ]
+  },
+  {
+    "id": "ex_人际关系_snip_0000",
+    "topic": "人际关系",
+    "category": "关系模式分析",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "So Cindy, what's the reason why the main reason why you want to speak with me?"
+      },
+      {
+        "speaker": "client",
+        "text": "First of all, I have some question, one major question for me and also have great recommendation from my friend.He was on your session few years ago."
+      }
+    ],
+    "key_moment": "追问原因",
+    "outcome": "待观察",
+    "quality_tags": [
+      "良好范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "technique-demo"
+    ]
+  },
+  {
+    "id": "ex_人际关系_snip_0005",
+    "topic": "人际关系",
+    "category": "关系模式分析",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "No.But did you meet me or never?"
+      },
+      {
+        "speaker": "client",
+        "text": "No, no Iii know so my friend visit your a few section, maybe two or three."
+      }
+    ],
+    "key_moment": "指出矛盾",
+    "outcome": "待观察",
+    "quality_tags": [
+      "一般范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "concise-response"
+    ]
+  },
+  {
+    "id": "ex_自我认知_snip_0317",
+    "topic": "自我认知",
+    "category": "自我觉察",
+    "sub_technique": "一般对话",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "If I could, I would not.Yeah, I would stay here.I don't like traffic.You see, you understand.So I have to.And I want two different things all right?Yes, and the problem is, people get confused because"
+      },
+      {
+        "speaker": "client",
+        "text": "I understand."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者理解",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "prompt-example"
+    ]
+  },
+  {
+    "id": "ex_自我认知_snip_0288",
+    "topic": "自我认知",
+    "category": "自我觉察",
+    "sub_technique": "一般对话",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "You and I defend yourself with your wife, I understand.But with me, No, you see, yeah, you are you ready to spend all day educating your child?Window.Okay, so you know the answer, you know our city."
+      },
+      {
+        "speaker": "client",
+        "text": "It's sorry for interruption because it's really difficult for me to answer this question, because just to be standard, it's not only one activity, it's it's also we if you talk about just indicating."
+      }
+    ],
+    "key_moment": "指出矛盾",
+    "outcome": "来访者给出理由",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_自我认知_snip_0461",
+    "topic": "自我认知",
+    "category": "自我觉察",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "What is the main issue you would like to discuss?"
+      },
+      {
+        "speaker": "client",
+        "text": "I guess the main issue I was thinking about it as coming here and I guess I arrived at the fact that probably the main issue is that I would like to understand what is important, what is the most, wha"
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者理解",
+    "quality_tags": [
+      "良好范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "concise-response"
+    ]
+  },
+  {
+    "id": "ex_职业发展_snip_0318",
+    "topic": "职业发展",
+    "category": "工作生活平衡",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "I have to.Yeah, it's a typical way of lying to ourself.Understand, Yeah, yeah, that's why I ask you for work.Do you have to go to work?Do you want to go to work?It's not same, understand."
+      },
+      {
+        "speaker": "client",
+        "text": "I understand."
+      }
+    ],
+    "key_moment": "追问原因",
+    "outcome": "来访者理解",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "prompt-example",
+      "technique-demo"
+    ]
+  },
+  {
+    "id": "ex_职业发展_snip_0875",
+    "topic": "职业发展",
+    "category": "工作生活平衡",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "..。How does that work?What's the see?You explain to me?The first meditation I follow.I focus on my breathing.I focus on my body.How do you do this with the I other aspect?"
+      },
+      {
+        "speaker": "client",
+        "text": "I select a subject that I want to get inside on and I try to examine it or feel it or sense it."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "待观察",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_职业发展_snip_0220",
+    "topic": "职业发展",
+    "category": "工作生活平衡",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "If you have not not to worry about money or work or anything, and I say I'll say how old are you now?"
+      },
+      {
+        "speaker": "client",
+        "text": "32."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "待观察",
+    "quality_tags": [
+      "一般范例"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_其他_snip_0581",
+    "topic": "其他",
+    "category": "一般咨询",
+    "sub_technique": "一般对话",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "No, do you see how complication and chaos go nicely together?You don't see?"
+      },
+      {
+        "speaker": "client",
+        "text": "I see."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "待观察",
+    "quality_tags": [
+      "良好范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "prompt-example",
+      "concise-response"
+    ]
+  },
+  {
+    "id": "ex_其他_snip_0033",
+    "topic": "其他",
+    "category": "一般咨询",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "That's because you're anxious.You see.Yes, I tell you, I have never been to Saint Peter's when you say yes, but you cannot say anything.That's me.I have never.Yeah, Ok, why are you so anxious?"
+      },
+      {
+        "speaker": "client",
+        "text": "I have a lot of events."
+      }
+    ],
+    "key_moment": "追问原因; 指出矛盾",
+    "outcome": "待观察",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "technique-demo"
+    ]
+  },
+  {
+    "id": "ex_其他_snip_0287",
+    "topic": "其他",
+    "category": "一般咨询",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "Can we do one thing?Not like you're not rational now.You're just emotional.You're bothered by what we're discovering.Not, you're reacting.You know this?Yeah, why, I know you're a professional.You run "
+      },
+      {
+        "speaker": "client",
+        "text": "It's sorry for interruption because it's really difficult for me to answer this question, because just to be standard, it's not only one activity, it's it's also we if you talk about just indicating."
+      }
+    ],
+    "key_moment": "追问原因; 指出矛盾",
+    "outcome": "来访者给出理由",
+    "quality_tags": [
+      "良好范例"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "technique-demo"
+    ]
+  },
+  {
+    "id": "ex_人生意义_snip_0039",
+    "topic": "人生意义",
+    "category": "生命意义探索",
+    "sub_technique": "苏格拉底追问",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "You're anxious in your life?Okay, so I don't want to hear about today.Why, in general, you think you're anxious?Why?"
+      },
+      {
+        "speaker": "client",
+        "text": "Because I want to get a lot of my work."
+      }
+    ],
+    "key_moment": "追问原因",
+    "outcome": "来访者给出理由",
+    "quality_tags": [
+      "良好范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "technique-demo"
+    ]
+  },
+  {
+    "id": "ex_人生意义_snip_0013",
+    "topic": "人生意义",
+    "category": "生命意义探索",
+    "sub_technique": "一般对话",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "What I want to."
+      },
+      {
+        "speaker": "client",
+        "text": "Understand more clearly in my life, so the major issue is a balance between between between some parts of the life made mainly in work work."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者理解",
+    "quality_tags": [
+      "一般范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example",
+      "concise-response"
+    ]
+  },
+  {
+    "id": "ex_人生意义_snip_0048",
+    "topic": "人生意义",
+    "category": "生命意义探索",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "Yes, somebody who wants a lot is he shaden or no?Just use logic.Logic is very nice.Makes your life easy, you know."
+      },
+      {
+        "speaker": "client",
+        "text": "Because if, if somebody say, it's a lot."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者给出理由",
+    "quality_tags": [
+      "一般范例"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_价值冲突_snip_0739",
+    "topic": "价值冲突",
+    "category": "内在冲突处理",
+    "sub_technique": "一般对话",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "So so the way you use you, it's not, but you.You'll get the video after, right?"
+      },
+      {
+        "speaker": "client",
+        "text": "I'm afraid to forget what I wanted to say since she didn't let me say it.I'm writing it down because it's important for me.It's a realization I had while we're talking."
+      }
+    ],
+    "key_moment": "指出矛盾",
+    "outcome": "来访者给出理由",
+    "quality_tags": [
+      "良好范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_价值冲突_snip_0046",
+    "topic": "价值冲突",
+    "category": "内在冲突处理",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Answer my question.Do you think you're Jadne?Yes or no?No, No, you're not yet all right?Okay, so you just told me I want a lot.Do you remember?"
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "philosopher",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者认同",
+    "quality_tags": [
+      "一般范例"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  },
+  {
+    "id": "ex_价值冲突_snip_0070",
+    "topic": "价值冲突",
+    "category": "内在冲突处理",
+    "sub_technique": "二选一",
+    "dialogue_turns": [
+      {
+        "speaker": "philosopher",
+        "text": "Thank you know to.Your wife and mother, Okay, yes, all right now.Does your wife love you or not?"
+      },
+      {
+        "speaker": "client",
+        "text": "Yeah, yeah, Mm.I hope so."
+      }
+    ],
+    "key_moment": "一般互动",
+    "outcome": "来访者认同",
+    "quality_tags": [
+      "一般范例",
+      "简洁有力"
+    ],
+    "usable_as": [
+      "few-shot-example"
+    ]
+  }
+]

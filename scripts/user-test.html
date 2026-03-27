@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophia - Phase 3 测试</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            color: #a5b4fc;
+            margin: 24px 0 16px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tab-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #6366f1;
+            color: #fff;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(99,102,241,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #6366f1;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button.secondary {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .alert.error {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #f87171;
+        }
+
+        .alert.success {
+            background: rgba(52,211,153,0.1);
+            border: 1px solid rgba(52,211,153,0.3);
+            color: #34d399;
+        }
+
+        .user-info {
+            display: none;
+            background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .user-info.active {
+            display: block;
+        }
+
+        .user-info h3 {
+            color: #a5b4fc;
+            margin-bottom: 12px;
+        }
+
+        .user-info p {
+            margin: 6px 0;
+            font-size: 0.9rem;
+        }
+
+        .user-info .label {
+            color: #888;
+        }
+
+        .session-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .session-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .session-item .info {
+            flex: 1;
+        }
+
+        .session-item .scenario {
+            font-weight: 600;
+            color: #a5b4fc;
+        }
+
+        .session-item .status {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .session-item .status.completed {
+            background: rgba(52,211,153,0.2);
+            color: #34d399;
+        }
+
+        .session-item .status.in_progress {
+            background: rgba(251,191,36,0.2);
+            color: #fbbf24;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .profile-section {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .profile-section h4 {
+            color: #a5b4fc;
+            margin-bottom: 12px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: rgba(99,102,241,0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Philosophia Phase 3 测试</h1>
+
+        <!-- User Info Display -->
+        <div id="userInfo" class="user-info">
+            <h3>当前用户</h3>
+            <p><span class="label">ID:</span> <span id="userId"></span></p>
+            <p><span class="label">Name:</span> <span id="userName"></span></p>
+            <p><span class="label">Email:</span> <span id="userEmail"></span></p>
+            <p><span class="label">Sessions:</span> <span id="userSessions"></span></p>
+            <div class="btn-row">
+                <button onclick="logout()" class="secondary">退出登录</button>
+            </div>
+        </div>
+
+        <!-- Auth Section -->
+        <div class="section" id="authSection">
+            <div class="tab-bar">
+                <button class="tab active" onclick="showTab('login')">登录</button>
+                <button class="tab" onclick="showTab('register')">注册</button>
+            </div>
+
+            <div id="alert"></div>
+
+            <!-- Login Form -->
+            <div id="loginForm">
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button onclick="login()">登录</button>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerForm" class="hidden">
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input type="text" id="regName" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="regPassword" placeholder="••••••••">
+                </div>
+                <button onclick="register()">注册</button>
+            </div>
+        </div>
+
+        <!-- Session Section -->
+        <div class="section hidden" id="sessionSection">
+            <h2>会话管理</h2>
+
+            <div class="form-group">
+                <label>场景</label>
+                <select id="sessionScenario">
+                    <option value="consultation">咨询 (Consultation)</option>
+                    <option value="supervision">督导 (Supervision)</option>
+                    <option value="workshop">工作坊 (Workshop)</option>
+                </select>
+            </div>
+            <button onclick="createSession()">创建新会话</button>
+
+            <h3 style="margin-top: 24px; color: #a5b4fc;">历史会话</h3>
+            <div id="sessionList" class="session-list">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="section hidden" id="chatSection">
+            <h2>会话对话</h2>
+            <p style="color: #888; margin-bottom: 16px;">Session ID: <span id="currentSessionId"></span></p>
+
+            <div class="form-group">
+                <label>输入消息</label>
+                <textarea id="messageInput" placeholder="输入你的问题或想法..."></textarea>
+            </div>
+            <div class="btn-row">
+                <button onclick="sendMessage('user')">发送 (用户)</button>
+                <button onclick="simulateOscar()" class="secondary">模拟 Oscar 回复</button>
+            </div>
+
+            <h3 style="margin-top: 24px; color: #a5b4fc;">对话历史</h3>
+            <div id="dialogueHistory" style="max-height: 300px; overflow-y: auto;">
+                <div class="loading">暂无对话</div>
+            </div>
+
+            <button onclick="endSession()" style="margin-top: 20px; background: rgba(239,68,68,0.6);">结束会话</button>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="section hidden" id="profileSection">
+            <h2>用户画像</h2>
+            <div id="profileContent">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000/api';
+        let token = localStorage.getItem('token');
+        let currentUser = null;
+        let currentSession = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            if (token) {
+                loadCurrentUser();
+            }
+        });
+
+        // Tab switching
+        function showTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'login') {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+            } else {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+            }
+        }
+
+        // Auth functions
+        async function register() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            if (!name || !email || !password) {
+                showAlert('请填写所有字段', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/users/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || '注册失败');
+
+                token = data.access_token;
+                currentUser = data.user;
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+
+                showAlert('注册成功！', 'success');
+                updateUI();
+            } catch (err) {
+                showAlert(err.message, 'error');
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                showAlert('请填写所有字段', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/users/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || '登录失败');
+
+                token = data.access_token;
+                currentUser = data.user;
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+
+                showAlert('登录成功！', 'success');
+                updateUI();
+            } catch (err) {
+                showAlert(err.message, 'error');
+            }
+        }
+
+        function logout() {
+            token = null;
+            currentUser = null;
+            currentSession = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            updateUI();
+            showAlert('已退出登录', 'success');
+        }
+
+        async function loadCurrentUser() {
+            try {
+                const res = await fetch(`${API_BASE}/users/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!res.ok) throw new Error('Token expired');
+
+                currentUser = await res.json();
+                updateUI();
+            } catch (err) {
+                logout();
+            }
+        }
+
+        // Session functions
+        async function createSession() {
+            const scenario = document.getElementById('sessionScenario').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/sessions/start`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ scenario })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || '创建会话失败');
+
+                currentSession = data;
+                showChatSection();
+                showAlert('会话已创建', 'success');
+            } catch (err) {
+                showAlert(err.message, 'error');
+            }
+        }
+
+        async function loadSessions() {
+            try {
+                const res = await fetch(`${API_BASE}/sessions/history?limit=20`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const sessions = await res.json();
+                renderSessions(sessions);
+            } catch (err) {
+                console.error('Failed to load sessions:', err);
+            }
+        }
+
+        function renderSessions(sessions) {
+            const container = document.getElementById('sessionList');
+
+            if (!sessions || sessions.length === 0) {
+                container.innerHTML = '<div style="color: #888; padding: 20px; text-align: center;">暂无会话记录</div>';
+                return;
+            }
+
+            container.innerHTML = sessions.map(s => `
+                <div class="session-item">
+                    <div class="info">
+                        <div class="scenario">${s.scenario}</div>
+                        <div style="font-size: 0.8rem; color: #888; margin-top: 4px;">
+                            ${s.started_at ? new Date(s.started_at).toLocaleString() : '未开始'}
+                        </div>
+                    </div>
+                    <span class="status ${s.status}">${s.status}</span>
+                </div>
+            `).join('');
+        }
+
+        function showChatSection() {
+            document.getElementById('currentSessionId').textContent = currentSession.id;
+            document.getElementById('dialogueHistory').innerHTML = '<div class="loading">开始对话...</div>';
+        }
+
+        async function sendMessage(role) {
+            if (!currentSession) {
+                showAlert('请先创建会话', 'error');
+                return;
+            }
+
+            const content = document.getElementById('messageInput').value;
+            if (!content.trim()) return;
+
+            try {
+                await fetch(`${API_BASE}/sessions/message`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession.id,
+                        role: role,
+                        content: content
+                    })
+                });
+
+                document.getElementById('messageInput').value = '';
+                loadDialogueHistory();
+            } catch (err) {
+                showAlert(err.message, 'error');
+            }
+        }
+
+        async function simulateOscar() {
+            const userMsg = document.getElementById('messageInput').value;
+            if (!userMsg.trim()) {
+                showAlert('请先输入用户消息', 'error');
+                return;
+            }
+
+            // Add user message
+            await sendMessage('user');
+
+            // Simulate Oscar response using RAG
+            try {
+                const res = await fetch(`${API_BASE}/query`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: userMsg })
+                });
+
+                const data = await res.json();
+                const oscarResponse = data.answer;
+
+                // Add Oscar message
+                await fetch(`${API_BASE}/sessions/message`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession.id,
+                        role: 'oscar',
+                        content: oscarResponse
+                    })
+                });
+
+                loadDialogueHistory();
+            } catch (err) {
+                showAlert('Oscar回复失败: ' + err.message, 'error');
+            }
+        }
+
+        async function loadDialogueHistory() {
+            try {
+                const res = await fetch(`${API_BASE}/sessions/${currentSession.id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const session = await res.json();
+                currentSession = session;
+
+                const container = document.getElementById('dialogueHistory');
+                const history = session.dialogue_history || [];
+
+                if (history.length === 0) {
+                    container.innerHTML = '<div class="loading">暂无对话</div>';
+                    return;
+                }
+
+                container.innerHTML = history.map(h => `
+                    <div style="padding: 10px; margin: 8px 0; border-radius: 8px; background: ${h.role === 'user' ? 'rgba(99,102,241,0.1)' : 'rgba(52,211,153,0.1)'};">
+                        <div style="font-weight: 600; color: ${h.role === 'user' ? '#a5b4fc' : '#34d399'}; margin-bottom: 4px;">
+                            ${h.role === 'user' ? '用户' : 'Oscar'}
+                        </div>
+                        <div style="font-size: 0.9rem; line-height: 1.5;">${h.content}</div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error('Failed to load dialogue:', err);
+            }
+        }
+
+        async function endSession() {
+            if (!currentSession) return;
+
+            try {
+                await fetch(`${API_BASE}/sessions/${currentSession.id}/end`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({})
+                });
+
+                currentSession = null;
+                document.getElementById('sessionSection').classList.remove('hidden');
+                document.getElementById('chatSection').classList.add('hidden');
+                loadSessions();
+                showAlert('会话已结束，摘要生成中...', 'success');
+            } catch (err) {
+                showAlert(err.message, 'error');
+            }
+        }
+
+        // Profile functions
+        async function loadProfile() {
+            try {
+                const res = await fetch(`${API_BASE}/users/profile`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const profile = await res.json();
+                renderProfile(profile);
+            } catch (err) {
+                console.error('Failed to load profile:', err);
+            }
+        }
+
+        function renderProfile(profile) {
+            const container = document.getElementById('profileContent');
+
+            const renderTags = (arr) => arr && arr.length > 0
+                ? `<div class="profile-tags">${arr.map(t => `<span class="tag">${typeof t === 'string' ? t : t.insight || JSON.stringify(t)}</span>`).join('')}</div>`
+                : '<div style="color: #888;">暂无数据</div>';
+
+            container.innerHTML = `
+                <div class="profile-section">
+                    <h4>核心主题</h4>
+                    ${renderTags(profile.core_themes)}
+                </div>
+                <div class="profile-section">
+                    <h4>思维盲点</h4>
+                    ${renderTags(profile.blind_spots)}
+                </div>
+                <div class="profile-section">
+                    <h4>回避模式</h4>
+                    ${renderTags(profile.avoidance_patterns)}
+                </div>
+                <div class="profile-section">
+                    <h4>思维优势</h4>
+                    ${renderTags(profile.strengths)}
+                </div>
+                <div class="profile-section">
+                    <h4>成长轨迹</h4>
+                    ${renderTags(profile.growth_timeline)}
+                </div>
+            `;
+        }
+
+        // UI helpers
+        function updateUI() {
+            const loggedIn = !!token;
+
+            document.getElementById('userInfo').classList.toggle('active', loggedIn);
+            document.getElementById('authSection').classList.toggle('hidden', loggedIn);
+            document.getElementById('sessionSection').classList.toggle('hidden', !loggedIn);
+            document.getElementById('profileSection').classList.toggle('hidden', !loggedIn);
+
+            if (loggedIn && currentUser) {
+                document.getElementById('userId').textContent = currentUser.id;
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userSessions').textContent = `${currentUser.total_sessions} (剩余: ${currentUser.remaining_sessions})`;
+
+                loadSessions();
+                loadProfile();
+            }
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            alert.style.display = 'block';
+
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1311 @@
+{
+  "metadata": {
+    "total_skill_uses": 764,
+    "unique_skills": 15,
+    "skill_categories": [
+      "core",
+      "advanced",
+      "specialized"
+    ],
+    "top_skills": [
+      {
+        "skill": "二选一追问",
+        "count": 266
+      },
+      {
+        "skill": "反事实思维",
+        "count": 171
+      },
+      {
+        "skill": "苏格拉底追问",
+        "count": 108
+      },
+      {
+        "skill": "逻辑分析",
+        "count": 91
+      },
+      {
+        "skill": "积极倾听",
+        "count": 38
+      },
+      {
+        "skill": "简化聚焦",
+        "count": 23
+      },
+      {
+        "skill": "接地技术",
+        "count": 13
+      },
+      {
+        "skill": "情绪观察",
+        "count": 10
+      },
+      {
+        "skill": "洞察促进",
+        "count": 10
+      },
+      {
+        "skill": "接受困惑",
+        "count": 10
+      }
+    ]
+  },
+  "skills": {
+    "active_listening": {
+      "id": "active_listening",
+      "name": "积极倾听",
+      "name_en": "Active Listening",
+      "category": "core",
+      "level": 1,
+      "description": "全神贯注地倾听来访者，不打断，理解其话语和情感",
+      "examples": [
+        "认真听客户说完",
+        "保持沉默让客户思考"
+      ],
+      "techniques": [
+        "保持眼神接触",
+        "点头示意",
+        "复述确认"
+      ],
+      "parent_skills": [],
+      "keywords": [
+        "I understand",
+        "I see",
+        "you said",
+        "listen"
+      ],
+      "frequency": 38
+    },
+    "socratic_question": {
+      "id": "socratic_question",
+      "name": "苏格拉底追问",
+      "name_en": "Socratic Questioning",
+      "category": "core",
+      "level": 1,
+      "description": "通过连续追问引导来访者发现自己的逻辑盲点",
+      "examples": [
+        "What do you mean by that?",
+        "Can you define what 'X' means?"
+      ],
+      "techniques": [
+        "是什么的问题",
+        "为什么的问题",
+        "如果...会怎样的问题"
+      ],
+      "parent_skills": [
+        "active_listening"
+      ],
+      "keywords": [
+        "what is",
+        "why",
+        "how",
+        "define",
+        "explain"
+      ],
+      "frequency": 108
+    },
+    "logical_analysis": {
+      "id": "logical_analysis",
+      "name": "逻辑分析",
+      "name_en": "Logical Analysis",
+      "category": "core",
+      "level": 1,
+      "description": "识别和分析来访者话语中的逻辑结构",
+      "examples": [
+        "识别矛盾",
+        "分析推理链条"
+      ],
+      "techniques": [
+        "矛盾识别",
+        "推理验证",
+        "前提分析"
+      ],
+      "parent_skills": [
+        "socratic_question"
+      ],
+      "keywords": [
+        "logic",
+        "reason",
+        "because",
+        "therefore"
+      ],
+      "frequency": 91
+    },
+    "contradiction_pointing": {
+      "id": "contradiction_pointing",
+      "name": "矛盾指出",
+      "name_en": "Contradiction Pointing",
+      "category": "core",
+      "level": 2,
+      "description": "温和但直接地指出来访者的自相矛盾",
+      "examples": [
+        "But you said earlier that...",
+        "So you agree X but also claim Y?"
+      ],
+      "techniques": [
+        "引用原话",
+        "展示矛盾",
+        "邀请澄清"
+      ],
+      "parent_skills": [
+        "logical_analysis",
+        "socratic_question"
+      ],
+      "keywords": [
+        "but you said",
+        "contradiction",
+        "however",
+        "so you agree"
+      ],
+      "frequency": 1
+    },
+    "emotion_observation": {
+      "id": "emotion_observation",
+      "name": "情绪观察",
+      "name_en": "Emotional Observation",
+      "category": "core",
+      "level": 1,
+      "description": "敏锐察觉来访者的情绪状态变化",
+      "examples": [
+        "I see you're anxious",
+        "You seem nervous"
+      ],
+      "techniques": [
+        "直接观察",
+        "询问确认",
+        "镜像反馈"
+      ],
+      "parent_skills": [
+        "active_listening"
+      ],
+      "keywords": [
+        "anxious",
+        "nervous",
+        "calm",
+        "relaxed",
+        "emotional"
+      ],
+      "frequency": 10
+    },
+    "grounding_technique": {
+      "id": "grounding_technique",
+      "name": "接地技术",
+      "name_en": "Grounding Technique",
+      "category": "core",
+      "level": 1,
+      "description": "帮助来访者回到当下，减少焦虑和过度思考",
+      "examples": [
+        "Stop. Breathe.",
+        "Take a breath.",
+        "Calm down."
+      ],
+      "techniques": [
+        "叫停",
+        "呼吸引导",
+        "身体觉察"
+      ],
+      "parent_skills": [
+        "emotion_observation"
+      ],
+      "keywords": [
+        "stop",
+        "breathe",
+        "calm",
+        "slow down",
+        "relax"
+      ],
+      "frequency": 13
+    },
+    "simplification": {
+      "id": "simplification",
+      "name": "简化聚焦",
+      "name_en": "Simplification & Focusing",
+      "category": "core",
+      "level": 1,
+      "description": "将复杂问题分解为简单核心问题",
+      "examples": [
+        "In one word, what is it?",
+        "What's the main issue?"
+      ],
+      "techniques": [
+        "单字提问",
+        "核心提炼",
+        "分层剥离"
+      ],
+      "parent_skills": [
+        "socratic_question"
+      ],
+      "keywords": [
+        "simple",
+        "one word",
+        "main issue",
+        "basically",
+        "core"
+      ],
+      "frequency": 23
+    },
+    "binary_questioning": {
+      "id": "binary_questioning",
+      "name": "二选一追问",
+      "name_en": "Binary Questioning",
+      "category": "core",
+      "level": 2,
+      "description": "通过二选一问题强制明确立场",
+      "examples": [
+        "Is it A or B?",
+        "Yes or no?"
+      ],
+      "techniques": [
+        "强制选择",
+        "对比呈现",
+        "立场明确化"
+      ],
+      "parent_skills": [
+        "simplification",
+        "socratic_question"
+      ],
+      "keywords": [
+        "yes or no",
+        "either",
+        "or",
+        "choose"
+      ],
+      "frequency": 266
+    },
+    "concept_naming": {
+      "id": "concept_naming",
+      "name": "概念命名",
+      "name_en": "Concept Naming",
+      "category": "advanced",
+      "level": 2,
+      "description": "帮助来访者为模糊的感受或状态找到准确的词汇",
+      "examples": [
+        "What do you call this?",
+        "What's the word for that?"
+      ],
+      "techniques": [
+        "引导搜索词汇",
+        "提供选项",
+        "确认理解"
+      ],
+      "parent_skills": [
+        "simplification",
+        "socratic_question"
+      ],
+      "keywords": [
+        "what do you call",
+        "what's the word",
+        "name"
+      ],
+      "frequency": 6
+    },
+    "counterfactual_thinking": {
+      "id": "counterfactual_thinking",
+      "name": "反事实思维",
+      "name_en": "Counterfactual Thinking",
+      "category": "advanced",
+      "level": 2,
+      "description": "引导来访者思考不同的可能性和假设情境",
+      "examples": [
+        "If you could change one thing...",
+        "Suppose X were true..."
+      ],
+      "techniques": [
+        "假设引导",
+        "可能性探索",
+        "情景模拟"
+      ],
+      "parent_skills": [
+        "socratic_question",
+        "imagination"
+      ],
+      "keywords": [
+        "if",
+        "suppose",
+        "imagine",
+        "what if"
+      ],
+      "frequency": 171
+    },
+    "resistance_handling": {
+      "id": "resistance_handling",
+      "name": "阻抗处理",
+      "name_en": "Resistance Handling",
+      "category": "specialized",
+      "level": 3,
+      "description": "识别并优雅处理来访者的防御和阻抗",
+      "examples": [
+        "I don't understand either, let's try again",
+        "Confusion is normal"
+      ],
+      "techniques": [
+        "接纳困惑",
+        "降低防御",
+        "温和坚持"
+      ],
+      "parent_skills": [
+        "emotion_observation",
+        "socratic_question"
+      ],
+      "keywords": [
+        "don't understand",
+        "that's ok",
+        "not sure",
+        "resistance"
+      ],
+      "frequency": 9
+    },
+    "insight_facilitation": {
+      "id": "insight_facilitation",
+      "name": "洞察促进",
+      "name_en": "Insight Facilitation",
+      "category": "specialized",
+      "level": 3,
+      "description": "帮助来访者在对话中获得自我洞察",
+      "examples": [
+        "So what you're saying is...",
+        "What did you discover?"
+      ],
+      "techniques": [
+        "复述归纳",
+        "关键点强调",
+        "连接建立"
+      ],
+      "parent_skills": [
+        "paraphrase",
+        "logical_analysis"
+      ],
+      "keywords": [
+        "so what",
+        "in other words",
+        "you discovered",
+        "realize"
+      ],
+      "frequency": 10
+    },
+    "integration_skills": {
+      "id": "integration_skills",
+      "name": "整合技能",
+      "name_en": "Integration Skills",
+      "category": "specialized",
+      "level": 3,
+      "description": "在咨询结束时整合所学，促进行动承诺",
+      "examples": [
+        "What was most useful?",
+        "What will you take away?"
+      ],
+      "techniques": [
+        "要点总结",
+        "收获确认",
+        "行动规划"
+      ],
+      "parent_skills": [
+        "insight_facilitation",
+        "paraphrase"
+      ],
+      "keywords": [
+        "summarize",
+        "take away",
+        "what's next",
+        "most useful"
+      ],
+      "frequency": 0
+    },
+    "paraphrase": {
+      "id": "paraphrase",
+      "name": "复述确认",
+      "name_en": "Paraphrase",
+      "category": "core",
+      "level": 1,
+      "description": "用自己的话复述来访者的话，确认理解",
+      "examples": [
+        "So what you're saying is...",
+        "Let me make sure I understand..."
+      ],
+      "techniques": [
+        "意思复述",
+        "情感反映",
+        "理解确认"
+      ],
+      "parent_skills": [
+        "active_listening"
+      ],
+      "keywords": [
+        "so what",
+        "in other words",
+        "you mean"
+      ],
+      "frequency": 8
+    },
+    "accepting_confusion": {
+      "id": "accepting_confusion",
+      "name": "接受困惑",
+      "name_en": "Accepting Confusion",
+      "category": "core",
+      "level": 1,
+      "description": "承认理解困难是正常的，鼓励继续探索",
+      "examples": [
+        "You don't understand, and that's okay",
+        "Not knowing is part of process"
+      ],
+      "techniques": [
+        "正常化困惑",
+        "鼓励继续",
+        "降低压力"
+      ],
+      "parent_skills": [
+        "emotion_observation"
+      ],
+      "keywords": [
+        "don't understand",
+        "that's ok",
+        "normal",
+        "not sure"
+      ],
+      "frequency": 10
+    }
+  },
+  "skill_categories": {
+    "core": [
+      {
+        "id": "active_listening",
+        "name": "积极倾听",
+        "name_en": "Active Listening",
+        "category": "core",
+        "level": 1,
+        "description": "全神贯注地倾听来访者，不打断，理解其话语和情感",
+        "examples": [
+          "认真听客户说完",
+          "保持沉默让客户思考"
+        ],
+        "techniques": [
+          "保持眼神接触",
+          "点头示意",
+          "复述确认"
+        ],
+        "parent_skills": [],
+        "keywords": [
+          "I understand",
+          "I see",
+          "you said",
+          "listen"
+        ],
+        "frequency": 38
+      },
+      {
+        "id": "socratic_question",
+        "name": "苏格拉底追问",
+        "name_en": "Socratic Questioning",
+        "category": "core",
+        "level": 1,
+        "description": "通过连续追问引导来访者发现自己的逻辑盲点",
+        "examples": [
+          "What do you mean by that?",
+          "Can you define what 'X' means?"
+        ],
+        "techniques": [
+          "是什么的问题",
+          "为什么的问题",
+          "如果...会怎样的问题"
+        ],
+        "parent_skills": [
+          "active_listening"
+        ],
+        "keywords": [
+          "what is",
+          "why",
+          "how",
+          "define",
+          "explain"
+        ],
+        "frequency": 108
+      },
+      {
+        "id": "logical_analysis",
+        "name": "逻辑分析",
+        "name_en": "Logical Analysis",
+        "category": "core",
+        "level": 1,
+        "description": "识别和分析来访者话语中的逻辑结构",
+        "examples": [
+          "识别矛盾",
+          "分析推理链条"
+        ],
+        "techniques": [
+          "矛盾识别",
+          "推理验证",
+          "前提分析"
+        ],
+        "parent_skills": [
+          "socratic_question"
+        ],
+        "keywords": [
+          "logic",
+          "reason",
+          "because",
+          "therefore"
+        ],
+        "frequency": 91
+      },
+      {
+        "id": "contradiction_pointing",
+        "name": "矛盾指出",
+        "name_en": "Contradiction Pointing",
+        "category": "core",
+        "level": 2,
+        "description": "温和但直接地指出来访者的自相矛盾",
+        "examples": [
+          "But you said earlier that...",
+          "So you agree X but also claim Y?"
+        ],
+        "techniques": [
+          "引用原话",
+          "展示矛盾",
+          "邀请澄清"
+        ],
+        "parent_skills": [
+          "logical_analysis",
+          "socratic_question"
+        ],
+        "keywords": [
+          "but you said",
+          "contradiction",
+          "however",
+          "so you agree"
+        ],
+        "frequency": 1
+      },
+      {
+        "id": "emotion_observation",
+        "name": "情绪观察",
+        "name_en": "Emotional Observation",
+        "category": "core",
+        "level": 1,
+        "description": "敏锐察觉来访者的情绪状态变化",
+        "examples": [
+          "I see you're anxious",
+          "You seem nervous"
+        ],
+        "techniques": [
+          "直接观察",
+          "询问确认",
+          "镜像反馈"
+        ],
+        "parent_skills": [
+          "active_listening"
+        ],
+        "keywords": [
+          "anxious",
+          "nervous",
+          "calm",
+          "relaxed",
+          "emotional"
+        ],
+        "frequency": 10
+      },
+      {
+        "id": "grounding_technique",
+        "name": "接地技术",
+        "name_en": "Grounding Technique",
+        "category": "core",
+        "level": 1,
+        "description": "帮助来访者回到当下，减少焦虑和过度思考",
+        "examples": [
+          "Stop. Breathe.",
+          "Take a breath.",
+          "Calm down."
+        ],
+        "techniques": [
+          "叫停",
+          "呼吸引导",
+          "身体觉察"
+        ],
+        "parent_skills": [
+          "emotion_observation"
+        ],
+        "keywords": [
+          "stop",
+          "breathe",
+          "calm",
+          "slow down",
+          "relax"
+        ],
+        "frequency": 13
+      },
+      {
+        "id": "simplification",
+        "name": "简化聚焦",
+        "name_en": "Simplification & Focusing",
+        "category": "core",
+        "level": 1,
+        "description": "将复杂问题分解为简单核心问题",
+        "examples": [
+          "In one word, what is it?",
+          "What's the main issue?"
+        ],
+        "techniques": [
+          "单字提问",
+          "核心提炼",
+          "分层剥离"
+        ],
+        "parent_skills": [
+          "socratic_question"
+        ],
+        "keywords": [
+          "simple",
+          "one word",
+          "main issue",
+          "basically",
+          "core"
+        ],
+        "frequency": 23
+      },
+      {
+        "id": "binary_questioning",
+        "name": "二选一追问",
+        "name_en": "Binary Questioning",
+        "category": "core",
+        "level": 2,
+        "description": "通过二选一问题强制明确立场",
+        "examples": [
+          "Is it A or B?",
+          "Yes or no?"
+        ],
+        "techniques": [
+          "强制选择",
+          "对比呈现",
+          "立场明确化"
+        ],
+        "parent_skills": [
+          "simplification",
+          "socratic_question"
+        ],
+        "keywords": [
+          "yes or no",
+          "either",
+          "or",
+          "choose"
+        ],
+        "frequency": 266
+      },
+      {
+        "id": "paraphrase",
+        "name": "复述确认",
+        "name_en": "Paraphrase",
+        "category": "core",
+        "level": 1,
+        "description": "用自己的话复述来访者的话，确认理解",
+        "examples": [
+          "So what you're saying is...",
+          "Let me make sure I understand..."
+        ],
+        "techniques": [
+          "意思复述",
+          "情感反映",
+          "理解确认"
+        ],
+        "parent_skills": [
+          "active_listening"
+        ],
+        "keywords": [
+          "so what",
+          "in other words",
+          "you mean"
+        ],
+        "frequency": 8
+      },
+      {
+        "id": "accepting_confusion",
+        "name": "接受困惑",
+        "name_en": "Accepting Confusion",
+        "category": "core",
+        "level": 1,
+        "description": "承认理解困难是正常的，鼓励继续探索",
+        "examples": [
+          "You don't understand, and that's okay",
+          "Not knowing is part of process"
+        ],
+        "techniques": [
+          "正常化困惑",
+          "鼓励继续",
+          "降低压力"
+        ],
+        "parent_skills": [
+          "emotion_observation"
+        ],
+        "keywords": [
+          "don't understand",
+          "that's ok",
+          "normal",
+          "not sure"
+        ],
+        "frequency": 10
+      }
+    ],
+    "advanced": [
+      {
+        "id": "concept_naming",
+        "name": "概念命名",
+        "name_en": "Concept Naming",
+        "category": "advanced",
+        "level": 2,
+        "description": "帮助来访者为模糊的感受或状态找到准确的词汇",
+        "examples": [
+          "What do you call this?",
+          "What's the word for that?"
+        ],
+        "techniques": [
+          "引导搜索词汇",
+          "提供选项",
+          "确认理解"
+        ],
+        "parent_skills": [
+          "simplification",
+          "socratic_question"
+        ],
+        "keywords": [
+          "what do you call",
+          "what's the word",
+          "name"
+        ],
+        "frequency": 6
+      },
+      {
+        "id": "counterfactual_thinking",
+        "name": "反事实思维",
+        "name_en": "Counterfactual Thinking",
+        "category": "advanced",
+        "level": 2,
+        "description": "引导来访者思考不同的可能性和假设情境",
+        "examples": [
+          "If you could change one thing...",
+          "Suppose X were true..."
+        ],
+        "techniques": [
+          "假设引导",
+          "可能性探索",
+          "情景模拟"
+        ],
+        "parent_skills": [
+          "socratic_question",
+          "imagination"
+        ],
+        "keywords": [
+          "if",
+          "suppose",
+          "imagine",
+          "what if"
+        ],
+        "frequency": 171
+      }
+    ],
+    "specialized": [
+      {
+        "id": "resistance_handling",
+        "name": "阻抗处理",
+        "name_en": "Resistance Handling",
+        "category": "specialized",
+        "level": 3,
+        "description": "识别并优雅处理来访者的防御和阻抗",
+        "examples": [
+          "I don't understand either, let's try again",
+          "Confusion is normal"
+        ],
+        "techniques": [
+          "接纳困惑",
+          "降低防御",
+          "温和坚持"
+        ],
+        "parent_skills": [
+          "emotion_observation",
+          "socratic_question"
+        ],
+        "keywords": [
+          "don't understand",
+          "that's ok",
+          "not sure",
+          "resistance"
+        ],
+        "frequency": 9
+      },
+      {
+        "id": "insight_facilitation",
+        "name": "洞察促进",
+        "name_en": "Insight Facilitation",
+        "category": "specialized",
+        "level": 3,
+        "description": "帮助来访者在对话中获得自我洞察",
+        "examples": [
+          "So what you're saying is...",
+          "What did you discover?"
+        ],
+        "techniques": [
+          "复述归纳",
+          "关键点强调",
+          "连接建立"
+        ],
+        "parent_skills": [
+          "paraphrase",
+          "logical_analysis"
+        ],
+        "keywords": [
+          "so what",
+          "in other words",
+          "you discovered",
+          "realize"
+        ],
+        "frequency": 10
+      },
+      {
+        "id": "integration_skills",
+        "name": "整合技能",
+        "name_en": "Integration Skills",
+        "category": "specialized",
+        "level": 3,
+        "description": "在咨询结束时整合所学，促进行动承诺",
+        "examples": [
+          "What was most useful?",
+          "What will you take away?"
+        ],
+        "techniques": [
+          "要点总结",
+          "收获确认",
+          "行动规划"
+        ],
+        "parent_skills": [
+          "insight_facilitation",
+          "paraphrase"
+        ],
+        "keywords": [
+          "summarize",
+          "take away",
+          "what's next",
+          "most useful"
+        ],
+        "frequency": 0
+      }
+    ]
+  },
+  "skill_levels": {
+    "level_1": {
+      "skills": [
+        "积极倾听",
+        "苏格拉底追问",
+        "逻辑分析",
+        "情绪观察",
+        "接地技术",
+        "简化聚焦",
+        "复述确认",
+        "接受困惑"
+      ],
+      "description": "基础技能 - 从事哲学咨询必备的核心能力"
+    },
+    "level_2": {
+      "skills": [
+        "矛盾指出",
+        "二选一追问",
+        "概念命名",
+        "反事实思维"
+      ],
+      "description": "进阶技能 - 需要一定基础后才能掌握"
+    },
+    "level_3": {
+      "skills": [
+        "阻抗处理",
+        "洞察促进",
+        "整合技能"
+      ],
+      "description": "专家技能 - 需要丰富经验才能灵活运用"
+    }
+  },
+  "skill_relations": [
+    {
+      "from_skill": "active_listening",
+      "to_skill": "socratic_question",
+      "relation_type": "prerequisite",
+      "description": "苏格拉底追问需要先掌握积极倾听"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "logical_analysis",
+      "relation_type": "prerequisite",
+      "description": "逻辑分析需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "logical_analysis",
+      "to_skill": "contradiction_pointing",
+      "relation_type": "prerequisite",
+      "description": "矛盾指出需要先掌握逻辑分析"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "contradiction_pointing",
+      "relation_type": "prerequisite",
+      "description": "矛盾指出需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "active_listening",
+      "to_skill": "emotion_observation",
+      "relation_type": "prerequisite",
+      "description": "情绪观察需要先掌握积极倾听"
+    },
+    {
+      "from_skill": "emotion_observation",
+      "to_skill": "grounding_technique",
+      "relation_type": "prerequisite",
+      "description": "接地技术需要先掌握情绪观察"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "simplification",
+      "relation_type": "prerequisite",
+      "description": "简化聚焦需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "simplification",
+      "to_skill": "binary_questioning",
+      "relation_type": "prerequisite",
+      "description": "二选一追问需要先掌握简化聚焦"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "binary_questioning",
+      "relation_type": "prerequisite",
+      "description": "二选一追问需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "simplification",
+      "to_skill": "concept_naming",
+      "relation_type": "prerequisite",
+      "description": "概念命名需要先掌握简化聚焦"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "concept_naming",
+      "relation_type": "prerequisite",
+      "description": "概念命名需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "counterfactual_thinking",
+      "relation_type": "prerequisite",
+      "description": "反事实思维需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "emotion_observation",
+      "to_skill": "resistance_handling",
+      "relation_type": "prerequisite",
+      "description": "阻抗处理需要先掌握情绪观察"
+    },
+    {
+      "from_skill": "socratic_question",
+      "to_skill": "resistance_handling",
+      "relation_type": "prerequisite",
+      "description": "阻抗处理需要先掌握苏格拉底追问"
+    },
+    {
+      "from_skill": "paraphrase",
+      "to_skill": "insight_facilitation",
+      "relation_type": "prerequisite",
+      "description": "洞察促进需要先掌握复述确认"
+    },
+    {
+      "from_skill": "logical_analysis",
+      "to_skill": "insight_facilitation",
+      "relation_type": "prerequisite",
+      "description": "洞察促进需要先掌握逻辑分析"
+    },
+    {
+      "from_skill": "insight_facilitation",
+      "to_skill": "integration_skills",
+      "relation_type": "prerequisite",
+      "description": "整合技能需要先掌握洞察促进"
+    },
+    {
+      "from_skill": "paraphrase",
+      "to_skill": "integration_skills",
+      "relation_type": "prerequisite",
+      "description": "整合技能需要先掌握复述确认"
+    },
+    {
+      "from_skill": "active_listening",
+      "to_skill": "paraphrase",
+      "relation_type": "prerequisite",
+      "description": "复述确认需要先掌握积极倾听"
+    },
+    {
+      "from_skill": "emotion_observation",
+      "to_skill": "accepting_confusion",
+      "relation_type": "prerequisite",
+      "description": "接受困惑需要先掌握情绪观察"
+    },
+    {
+      "from_skill": "binary_questioning",
+      "to_skill": "counterfactual_thinking",
+      "relation_type": "enhances",
+      "description": "二选一追问和反事实思维常配合使用(107次)"
+    },
+    {
+      "from_skill": "binary_questioning",
+      "to_skill": "logical_analysis",
+      "relation_type": "enhances",
+      "description": "二选一追问和逻辑分析常配合使用(64次)"
+    },
+    {
+      "from_skill": "binary_questioning",
+      "to_skill": "socratic_question",
+      "relation_type": "enhances",
+      "description": "二选一追问和苏格拉底追问常配合使用(54次)"
+    },
+    {
+      "from_skill": "counterfactual_thinking",
+      "to_skill": "logical_analysis",
+      "relation_type": "enhances",
+      "description": "反事实思维和逻辑分析常配合使用(47次)"
+    },
+    {
+      "from_skill": "counterfactual_thinking",
+      "to_skill": "socratic_question",
+      "relation_type": "enhances",
+      "description": "反事实思维和苏格拉底追问常配合使用(36次)"
+    },
+    {
+      "from_skill": "logical_analysis",
+      "to_skill": "socratic_question",
+      "relation_type": "enhances",
+      "description": "逻辑分析和苏格拉底追问常配合使用(32次)"
+    },
+    {
+      "from_skill": "active_listening",
+      "to_skill": "binary_questioning",
+      "relation_type": "enhances",
+      "description": "积极倾听和二选一追问常配合使用(18次)"
+    },
+    {
+      "from_skill": "binary_questioning",
+      "to_skill": "simplification",
+      "relation_type": "enhances",
+      "description": "二选一追问和简化聚焦常配合使用(14次)"
+    },
+    {
+      "from_skill": "active_listening",
+      "to_skill": "counterfactual_thinking",
+      "relation_type": "enhances",
+      "description": "积极倾听和反事实思维常配合使用(13次)"
+    },
+    {
+      "from_skill": "active_listening",
+      "to_skill": "socratic_question",
+      "relation_type": "enhances",
+      "description": "积极倾听和苏格拉底追问常配合使用(11次)"
+    }
+  ],
+  "skill_combinations": [
+    {
+      "skills": [
+        "binary_questioning",
+        "counterfactual_thinking"
+      ],
+      "count": 107
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "logical_analysis"
+      ],
+      "count": 64
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "socratic_question"
+      ],
+      "count": 54
+    },
+    {
+      "skills": [
+        "counterfactual_thinking",
+        "logical_analysis"
+      ],
+      "count": 47
+    },
+    {
+      "skills": [
+        "counterfactual_thinking",
+        "socratic_question"
+      ],
+      "count": 36
+    },
+    {
+      "skills": [
+        "logical_analysis",
+        "socratic_question"
+      ],
+      "count": 32
+    },
+    {
+      "skills": [
+        "active_listening",
+        "binary_questioning"
+      ],
+      "count": 18
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "simplification"
+      ],
+      "count": 14
+    },
+    {
+      "skills": [
+        "active_listening",
+        "counterfactual_thinking"
+      ],
+      "count": 13
+    },
+    {
+      "skills": [
+        "active_listening",
+        "socratic_question"
+      ],
+      "count": 11
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "insight_facilitation"
+      ],
+      "count": 9
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "grounding_technique"
+      ],
+      "count": 9
+    },
+    {
+      "skills": [
+        "counterfactual_thinking",
+        "simplification"
+      ],
+      "count": 8
+    },
+    {
+      "skills": [
+        "logical_analysis",
+        "simplification"
+      ],
+      "count": 7
+    },
+    {
+      "skills": [
+        "active_listening",
+        "logical_analysis"
+      ],
+      "count": 7
+    }
+  ],
+  "effectiveness_stats": {
+    "socratic_question": {
+      "breakthrough": 10,
+      "resistance": 1,
+      "neutral": 97
+    },
+    "logical_analysis": {
+      "breakthrough": 4,
+      "resistance": 2,
+      "neutral": 85
+    },
+    "binary_questioning": {
+      "breakthrough": 25,
+      "resistance": 2,
+      "neutral": 239
+    },
+    "grounding_technique": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 12
+    },
+    "active_listening": {
+      "breakthrough": 2,
+      "resistance": 0,
+      "neutral": 36
+    },
+    "emotion_observation": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 9
+    },
+    "counterfactual_thinking": {
+      "breakthrough": 13,
+      "resistance": 3,
+      "neutral": 155
+    },
+    "simplification": {
+      "breakthrough": 3,
+      "resistance": 0,
+      "neutral": 20
+    },
+    "concept_naming": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 5
+    },
+    "insight_facilitation": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 9
+    },
+    "resistance_handling": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 8
+    },
+    "accepting_confusion": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 9
+    },
+    "paraphrase": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 7
+    },
+    "contradiction_pointing": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 0
+    }
+  },
+  "learning_path": [
+    [
+      "active_listening",
+      "emotion_observation",
+      "paraphrase"
+    ],
+    [
+      "socratic_question",
+      "simplification",
+      "accepting_confusion"
+    ],
+    [
+      "logical_analysis",
+      "grounding_technique"
+    ],
+    [
+      "contradiction_pointing",
+      "binary_questioning",
+      "concept_naming"
+    ],
+    [
+      "counterfactual_thinking"
+    ],
+    [
+      "resistance_handling",
+      "insight_facilitation",
+      "integration_skills"
+    ]
+  ]
+}
