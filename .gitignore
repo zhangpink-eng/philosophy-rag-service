@@ -60,3 +60,8 @@ Thumbs.db
 # Node (if any)
 node_modules/
 qdrant
+
+# Frontend build
+frontend/dist/
+frontend/node_modules/
+frontend/.DS_Store
