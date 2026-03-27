@@ -40,11 +40,14 @@ class Session(Base):
 
     id = Column(String, primary_key=True)
     user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    topic = Column(Text, nullable=True)  # Main topic of the session
     scenario = Column(String(50), default="consultation")  # consultation/supervision/workshop
     status = Column(String(50), default="scheduled")  # scheduled/in_progress/completed/cancelled
+    message_count = Column(Integer, default=0)  # Number of messages in session
     scheduled_at = Column(DateTime, nullable=True)
     started_at = Column(DateTime, nullable=True)
     ended_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
     dialogue_history = Column(JSON, default=list)  # [{role, content, timestamp}]
     summary_id = Column(String, nullable=True)
 
@@ -59,9 +62,11 @@ class SessionSummary(Base):
     id = Column(String, primary_key=True)
     session_id = Column(String, ForeignKey("sessions.id"), nullable=True)
     user_id = Column(String, ForeignKey("users.id"), nullable=False)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    topic = Column(Text, nullable=True)
     scenario = Column(String(50))
     duration_minutes = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
     # Content summary
     main_topic = Column(Text, nullable=True)
@@ -77,7 +82,14 @@ class SessionSummary(Base):
 
     # Quality evaluation
     depth_score = Column(Float, default=0.0)  # 0-10
+    contradiction_score = Column(Float, default=0.0)  # 0-10
+    insight_score = Column(Float, default=0.0)  # 0-10
     engagement_score = Column(Float, default=0.0)  # 0-10
+    style_score = Column(Float, default=0.0)  # 0-10
+    overall_score = Column(Float, default=0.0)  # 0-10
+
+    # Dialogue history for reference
+    dialogue_history = Column(JSON, default=list)
 
     # Relationships
     user = relationship("User")
@@ -145,6 +157,66 @@ class Memory(Base):
     last_accessed = Column(DateTime, default=datetime.utcnow)
 
 
+class SafetyLog(Base):
+    """Safety check log model"""
+    __tablename__ = "safety_logs"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    session_id = Column(String, ForeignKey("sessions.id"), nullable=True)
+    user_input = Column(Text, nullable=False)
+    risk_level = Column(String(20), nullable=False)  # LOW/MEDIUM/HIGH/CRISIS
+    message = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class Workshop(Base):
+    """Workshop model"""
+    __tablename__ = "workshops"
+
+    id = Column(String, primary_key=True)
+    topic = Column(Text, nullable=False)
+    host_id = Column(String, ForeignKey("users.id"), nullable=False)
+    status = Column(String(50), default="waiting")  # waiting/active/ended
+    phase = Column(String(50), default="viewpoint")  # viewpoint/discussion/summary
+    created_at = Column(DateTime, default=datetime.utcnow)
+    ended_at = Column(DateTime, nullable=True)
+
+    # Relationships
+    host = relationship("User")
+    participants = relationship("WorkshopParticipant", back_populates="workshop", cascade="all, delete-orphan")
+    viewpoints = relationship("WorkshopViewpoint", back_populates="workshop", cascade="all, delete-orphan")
+
+
+class WorkshopParticipant(Base):
+    """Workshop participant model"""
+    __tablename__ = "workshop_participants"
+
+    id = Column(String, primary_key=True)
+    workshop_id = Column(String, ForeignKey("workshops.id"), nullable=False)
+    participant_id = Column(String, nullable=False)  # External ID (from frontend)
+    name = Column(String(100), nullable=False)
+    viewpoint = Column(Text, nullable=True)
+    joined_at = Column(DateTime, default=datetime.utcnow)
+    is_active = Column(Boolean, default=True)
+
+    # Relationships
+    workshop = relationship("Workshop", back_populates="participants")
+
+
+class WorkshopViewpoint(Base):
+    """Workshop viewpoint model"""
+    __tablename__ = "workshop_viewpoints"
+
+    id = Column(String, primary_key=True)
+    workshop_id = Column(String, ForeignKey("workshops.id"), nullable=False)
+    participant_id = Column(String, ForeignKey("workshop_participants.id"), nullable=False)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    workshop = relationship("Workshop", back_populates="viewpoints")
+
+
 def init_db():
     """Initialize database tables"""
     Base.metadata.create_all(bind=engine)
@@ -157,3 +229,8 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def get_db_direct():
+    """Get database session directly (for non-FastAPI use)"""
+    return SessionLocal()
