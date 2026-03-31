@@ -133,11 +133,11 @@
             </div>
 
             <div class="section" id="roomInfo" style="display:none;">
-                <h2>工作坊信息</h2>
+                <h2>工作坊信息 <span id="participantCount" style="color:#34d399;font-size:0.85rem;margin-left:8px;">(0人)</span></h2>
                 <p><strong>主题：</strong><span id="currentTopic"></span></p>
-                <p><strong>房间ID：</strong><span id="currentRoomId"></span></p>
+                <p><strong>房间ID：</strong><span id="currentRoomId" style="color:#fbbf24;"></span> <button onclick="copyRoomId()" style="padding:2px 8px;font-size:0.7rem;margin-left:4px;">复制</button></p>
                 <p><strong>阶段：</strong><span id="currentPhase" class="badge active"></span></p>
-                <p><strong>你的ID：</strong><span id="myId"></span></p>
+                <p><strong>你的ID：</strong><span id="myId" style="color:#a5b4fc;font-size:0.8rem;"></span></p>
                 <div style="margin-top: 12px;">
                     <button onclick="refreshRoom()">刷新</button>
                     <button onclick="startDiscussion()" class="success">开始讨论</button>
@@ -159,7 +159,7 @@
             </div>
 
             <div class="section" id="participantsSection" style="display:none;">
-                <h2>参与者</h2>
+                <h2>参与者列表 <span id="participantsSectionCount" style="color:#34d399;font-size:0.85rem;"></span></h2>
                 <div id="participantsList" class="participant-list"></div>
             </div>
 
@@ -323,17 +323,38 @@
 
         function renderParticipants(viewpoints) {
             const container = document.getElementById('participantsList');
+            const count = document.getElementById('participantsSectionCount');
+            if (count) count.textContent = `(${viewpoints.length}人)`;
+
             container.innerHTML = viewpoints.map(v => `
                 <div class="participant">
                     <div>
-                        <div class="name">${v.name} ${v.participant_id === myId ? '(你)' : ''}</div>
-                        <div class="viewpoint">${v.viewpoint || '暂无观点'}</div>
+                        <div class="name">${escapeHtml(v.name || '未知')} ${v.participant_id === myId ? '👤 (你)' : ''}</div>
+                        <div class="viewpoint" style="margin-top:4px;padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;font-size:0.85rem;">
+                            ${escapeHtml(v.viewpoint || '（未发表观点）')}
+                        </div>
                     </div>
-                    <span class="badge ${v.participant_id === myId ? 'host' : 'active'}">
+                    <span class="badge ${v.participant_id === myId ? 'host' : 'active'}" style="align-self:flex-start;margin-top:4px;">
                         ${v.participant_id === myId ? '主持人' : '参与者'}
                     </span>
                 </div>
             `).join('');
+
+            // 更新房间信息中的人数
+            const roomCount = document.getElementById('participantCount');
+            if (roomCount) roomCount.textContent = `(${viewpoints.length}人)`;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyRoomId() {
+            const id = document.getElementById('currentRoomId').textContent;
+            navigator.clipboard.writeText(id).then(() => alert('房间ID已复制'));
         }
 
         async function submitViewpoint() {
