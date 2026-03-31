@@ -200,7 +200,7 @@ def dialogue(request: dict):
         # 把历史注入 user_prompt 前面
         user_prompt = f"## 对话历史\n{dialogue_context}{memory_section}\n\n## 当前输入\n{q or '(Oscar, please respond)'}"
     else:
-        user_prompt = "Hi"
+        user_prompt = "你好"
 
     try:
         oscar_response = asyncio.run(
@@ -255,19 +255,29 @@ def _infer_phase(turns: list) -> str:
 
 
 def _detect_user_language(turns: list, current_query: str = None) -> str:
-    """检测用户语言：扫描历史用户消息 + 当前query，中文多则中文，默认中文"""
-    all_text = []
-    for t in turns:
-        if t.get("speaker") == "user":
-            all_text.append(t.get("message", ""))
+    """
+    检测用户语言：优先看当前query，其次看历史。
+    - 当前query有中文 → 中文
+    - 无当前query时，历史消息中文占比>20% → 中文
+    - 默认中文
+    """
+    # 优先检测当前query
     if current_query:
-        all_text.append(current_query)
-    if not all_text:
-        return "chinese"  # 默认中文
-    combined = " ".join(all_text)
-    chinese_chars = sum(1 for c in combined if '\u4e00' <= c <= '\u9fff')
-    total = len(combined)
-    return "chinese" if total > 0 and chinese_chars / total > 0.3 else "english"
+        chinese_chars = sum(1 for c in current_query if '\u4e00' <= c <= '\u9fff')
+        if chinese_chars > 0:
+            return "chinese"
+        return "english"
+
+    # 无当前query，检测历史
+    if turns:
+        user_texts = [t.get("message", "") for t in turns if t.get("speaker") == "user"]
+        combined = " ".join(user_texts)
+        chinese_chars = sum(1 for c in combined if '\u4e00' <= c <= '\u9fff')
+        total = len(combined)
+        if total > 0 and chinese_chars / total > 0.2:
+            return "chinese"
+
+    return "chinese"  # 默认中文
 
 class QueryRequest(BaseModel):
     query: str
