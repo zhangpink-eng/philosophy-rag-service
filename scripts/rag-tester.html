@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG 检索测试</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 24px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        h1 { font-size: 22px; font-weight: 600; color: #1a1a1a; margin-bottom: 20px; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: 500;
+            color: #333;
+        }
+        .card-body { padding: 20px; }
+        .search-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: #4a90d9; }
+        .btn {
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #4a90d9;
+            color: white;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #3a7fc9; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+        .result-item {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .result-item:last-child { border-bottom: none; }
+        .result-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .rank {
+            background: #4a90d9;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .source {
+            font-size: 13px;
+            font-weight: 500;
+            color: #4a90d9;
+        }
+        .chunk {
+            font-size: 12px;
+            color: #999;
+        }
+        .scores {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+        .score {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+        .score-rrf { background: #fff3e0; color: #e65100; }
+        .score-dense { background: #e8f5e9; color: #2e7d32; }
+        .score-sparse { background: #e3f2fd; color: #1565c0; }
+        .text-block { margin-top: 10px; }
+        .text-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .text-zh { font-size: 14px; color: #222; line-height: 1.7; }
+        .text-en { font-size: 13px; color: #555; line-height: 1.6; font-style: italic; }
+        .loading {
+            text-align: center;
+            padding: 48px;
+            color: #999;
+            font-size: 14px;
+        }
+        .empty {
+            text-align: center;
+            padding: 60px 24px;
+            color: #999;
+        }
+        .empty-icon { font-size: 42px; margin-bottom: 12px; }
+        mark {
+            background: #fff59d;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .compare-section {
+            margin-top: 24px;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+        .compare-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .compare-title::before { content: '↔'; }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        .sub-card {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .sub-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG 检索质量测试</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <input
+                    type="text"
+                    class="search-input"
+                    id="queryInput"
+                    placeholder="输入检索关键词或问题..."
+                    onkeypress="if(event.key==='Enter') search()"
+                >
+                <div style="margin-top: 16px; display: flex; gap: 12px; align-items: center;">
+                    <button class="btn" id="searchBtn" onclick="search()">🔍 检索</button>
+                    <span style="font-size: 13px; color: #999;">支持中英文检索</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">检索结果</div>
+            <div id="results">
+                <div class="empty">
+                    <div class="empty-icon">🔍</div>
+                    <div>输入问题开始检索测试</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'http://localhost:8000';
+
+        async function search() {
+            const q = document.getElementById('queryInput').value.trim();
+            if (!q) return;
+
+            const btn = document.getElementById('searchBtn');
+            btn.disabled = true;
+            btn.textContent = '检索中...';
+            document.getElementById('results').innerHTML = '<div class="loading">正在检索，请稍候...</div>';
+
+            try {
+                // 调用 compare 端点获取重排前后对比
+                const res = await fetch(`${API}/api/retrieve/compare`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: q })
+                });
+
+                if (!res.ok) throw new Error('请求失败');
+
+                const data = await res.json();
+                renderResults(data, q);
+            } catch (err) {
+                document.getElementById('results').innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">❌</div>
+                        <div>检索出错: ${err.message}</div>
+                    </div>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔍 检索';
+            }
+        }
+
+        function renderResults(data, query) {
+            const before = data.before_rerank || [];
+            const after = data.after_rerank || [];
+
+            if (before.length === 0) {
+                document.getElementById('results').innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">📭</div>
+                        <div>没有找到相关结果</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `<div class="compare-section">
+                <div class="compare-title">重排前后对比</div>
+                <div class="grid-2">
+                    <div class="sub-card">
+                        <div class="sub-title">重排前 (RRF融合)</div>
+                        ${before.map((r, i) => renderItem(r, i, query, false)).join('')}
+                    </div>
+                    <div class="sub-card">
+                        <div class="sub-title">重排后 (Cohere重排)</div>
+                        ${after.map((r, i) => renderItem(r, i, query, true)).join('')}
+                    </div>
+                </div>
+            </div>`;
+
+            document.getElementById('results').innerHTML = html;
+        }
+
+        function renderItem(r, idx, query, isReranked) {
+            const score = isReranked ? r.rerank_score : r.score;
+            const rankChange = getRankChange(r, idx);
+
+            return `
+                <div class="result-item" style="padding: 12px; margin-bottom: 12px; background: white; border-radius: 8px;">
+                    <div class="result-meta">
+                        <span class="rank">${idx + 1}</span>
+                        <span class="source">${r.source || 'Unknown'}</span>
+                        <span class="chunk">#${r.chunk_index || '-'}</span>
+                        ${rankChange}
+                        <div class="scores">
+                            <span class="score score-rrf">${(score || 0).toFixed(4)}</span>
+                        </div>
+                    </div>
+                    <div class="text-block">
+                        ${r.text_zh ? `
+                            <div class="text-label">中文</div>
+                            <div class="text-zh">${highlight(r.text_zh, query)}</div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getRankChange(r, newIdx) {
+            if (!r.original_rank || r.original_rank === -1) return '';
+            const change = r.original_rank - (newIdx + 1);
+            if (change === 0) return '';
+            const symbol = change > 0 ? '↑' : '↓';
+            const color = change > 0 ? '#2e7d32' : '#c62828';
+            return `<span style="font-size: 11px; color: ${color}; font-weight: 600;">${symbol}${Math.abs(change)}</span>`;
+        }
+
+        function highlight(text, query) {
+            if (!query) return escape(text);
+            const kws = query.split(/\s+/).filter(w => w.length > 1);
+            let result = escape(text);
+            kws.forEach(kw => {
+                const re = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                result = result.replace(re, m => `<mark>${m}</mark>`);
+            });
+            return result;
+        }
+
+        function escape(t) {
+            const d = document.createElement('div');
+            d.textContent = t;
+            return d.innerHTML;
+        }
+    </script>
+</body>
+</html>

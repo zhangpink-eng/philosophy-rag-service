@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "total_skill_uses": 764,
+    "total_skill_uses": 3401,
     "unique_skills": 15,
     "skill_categories": [
       "core",
@@ -10,43 +10,43 @@
     "top_skills": [
       {
         "skill": "二选一追问",
-        "count": 266
+        "count": 1298
       },
       {
         "skill": "反事实思维",
-        "count": 171
+        "count": 663
       },
       {
         "skill": "苏格拉底追问",
-        "count": 108
+        "count": 577
       },
       {
         "skill": "逻辑分析",
-        "count": 91
+        "count": 354
       },
       {
         "skill": "积极倾听",
-        "count": 38
-      },
-      {
-        "skill": "简化聚焦",
-        "count": 23
+        "count": 100
       },
       {
         "skill": "接地技术",
-        "count": 13
+        "count": 79
       },
       {
-        "skill": "情绪观察",
-        "count": 10
+        "skill": "概念命名",
+        "count": 61
       },
       {
         "skill": "洞察促进",
-        "count": 10
+        "count": 50
+      },
+      {
+        "skill": "复述确认",
+        "count": 47
       },
       {
         "skill": "接受困惑",
-        "count": 10
+        "count": 45
       }
     ]
   },
@@ -74,7 +74,7 @@
         "you said",
         "listen"
       ],
-      "frequency": 38
+      "frequency": 100
     },
     "socratic_question": {
       "id": "socratic_question",
@@ -102,7 +102,7 @@
         "define",
         "explain"
       ],
-      "frequency": 108
+      "frequency": 577
     },
     "logical_analysis": {
       "id": "logical_analysis",
@@ -129,7 +129,7 @@
         "because",
         "therefore"
       ],
-      "frequency": 91
+      "frequency": 354
     },
     "contradiction_pointing": {
       "id": "contradiction_pointing",
@@ -157,7 +157,7 @@
         "however",
         "so you agree"
       ],
-      "frequency": 1
+      "frequency": 9
     },
     "emotion_observation": {
       "id": "emotion_observation",
@@ -185,7 +185,7 @@
         "relaxed",
         "emotional"
       ],
-      "frequency": 10
+      "frequency": 42
     },
     "grounding_technique": {
       "id": "grounding_technique",
@@ -214,7 +214,7 @@
         "slow down",
         "relax"
       ],
-      "frequency": 13
+      "frequency": 79
     },
     "simplification": {
       "id": "simplification",
@@ -242,7 +242,7 @@
         "basically",
         "core"
       ],
-      "frequency": 23
+      "frequency": 42
     },
     "binary_questioning": {
       "id": "binary_questioning",
@@ -270,7 +270,7 @@
         "or",
         "choose"
       ],
-      "frequency": 266
+      "frequency": 1298
     },
     "concept_naming": {
       "id": "concept_naming",
@@ -297,7 +297,7 @@
         "what's the word",
         "name"
       ],
-      "frequency": 6
+      "frequency": 61
     },
     "counterfactual_thinking": {
       "id": "counterfactual_thinking",
@@ -325,7 +325,7 @@
         "imagine",
         "what if"
       ],
-      "frequency": 171
+      "frequency": 663
     },
     "resistance_handling": {
       "id": "resistance_handling",
@@ -353,7 +353,7 @@
         "not sure",
         "resistance"
       ],
-      "frequency": 9
+      "frequency": 34
     },
     "insight_facilitation": {
       "id": "insight_facilitation",
@@ -381,7 +381,7 @@
         "you discovered",
         "realize"
       ],
-      "frequency": 10
+      "frequency": 50
     },
     "integration_skills": {
       "id": "integration_skills",
@@ -435,7 +435,7 @@
         "in other words",
         "you mean"
       ],
-      "frequency": 8
+      "frequency": 47
     },
     "accepting_confusion": {
       "id": "accepting_confusion",
@@ -462,7 +462,7 @@
         "normal",
         "not sure"
       ],
-      "frequency": 10
+      "frequency": 45
     }
   },
   "skill_categories": {
@@ -490,7 +490,7 @@
           "you said",
           "listen"
         ],
-        "frequency": 38
+        "frequency": 100
       },
       {
         "id": "socratic_question",
@@ -518,7 +518,7 @@
           "define",
           "explain"
         ],
-        "frequency": 108
+        "frequency": 577
       },
       {
         "id": "logical_analysis",
@@ -545,7 +545,7 @@
           "because",
           "therefore"
         ],
-        "frequency": 91
+        "frequency": 354
       },
       {
         "id": "contradiction_pointing",
@@ -573,7 +573,7 @@
           "however",
           "so you agree"
         ],
-        "frequency": 1
+        "frequency": 9
       },
       {
         "id": "emotion_observation",
@@ -601,7 +601,7 @@
           "relaxed",
           "emotional"
         ],
-        "frequency": 10
+        "frequency": 42
       },
       {
         "id": "grounding_technique",
@@ -630,7 +630,7 @@
           "slow down",
           "relax"
         ],
-        "frequency": 13
+        "frequency": 79
       },
       {
         "id": "simplification",
@@ -658,7 +658,7 @@
           "basically",
           "core"
         ],
-        "frequency": 23
+        "frequency": 42
       },
       {
         "id": "binary_questioning",
@@ -686,7 +686,7 @@
           "or",
           "choose"
         ],
-        "frequency": 266
+        "frequency": 1298
       },
       {
         "id": "paraphrase",
@@ -712,7 +712,7 @@
           "in other words",
           "you mean"
         ],
-        "frequency": 8
+        "frequency": 47
       },
       {
         "id": "accepting_confusion",
@@ -739,7 +739,7 @@
           "normal",
           "not sure"
         ],
-        "frequency": 10
+        "frequency": 45
       }
     ],
     "advanced": [
@@ -768,7 +768,7 @@
           "what's the word",
           "name"
         ],
-        "frequency": 6
+        "frequency": 61
       },
       {
         "id": "counterfactual_thinking",
@@ -796,7 +796,7 @@
           "imagine",
           "what if"
         ],
-        "frequency": 171
+        "frequency": 663
       }
     ],
     "specialized": [
@@ -826,7 +826,7 @@
           "not sure",
           "resistance"
         ],
-        "frequency": 9
+        "frequency": 34
       },
       {
         "id": "insight_facilitation",
@@ -854,7 +854,7 @@
           "you discovered",
           "realize"
         ],
-        "frequency": 10
+        "frequency": 50
       },
       {
         "id": "integration_skills",
@@ -1043,61 +1043,61 @@
       "from_skill": "binary_questioning",
       "to_skill": "counterfactual_thinking",
       "relation_type": "enhances",
-      "description": "二选一追问和反事实思维常配合使用(107次)"
-    },
-    {
-      "from_skill": "binary_questioning",
-      "to_skill": "logical_analysis",
-      "relation_type": "enhances",
-      "description": "二选一追问和逻辑分析常配合使用(64次)"
+      "description": "二选一追问和反事实思维常配合使用(310次)"
     },
     {
       "from_skill": "binary_questioning",
       "to_skill": "socratic_question",
       "relation_type": "enhances",
-      "description": "二选一追问和苏格拉底追问常配合使用(54次)"
+      "description": "二选一追问和苏格拉底追问常配合使用(255次)"
     },
     {
-      "from_skill": "counterfactual_thinking",
+      "from_skill": "binary_questioning",
       "to_skill": "logical_analysis",
       "relation_type": "enhances",
-      "description": "反事实思维和逻辑分析常配合使用(47次)"
+      "description": "二选一追问和逻辑分析常配合使用(192次)"
     },
     {
       "from_skill": "counterfactual_thinking",
       "to_skill": "socratic_question",
       "relation_type": "enhances",
-      "description": "反事实思维和苏格拉底追问常配合使用(36次)"
+      "description": "反事实思维和苏格拉底追问常配合使用(131次)"
+    },
+    {
+      "from_skill": "counterfactual_thinking",
+      "to_skill": "logical_analysis",
+      "relation_type": "enhances",
+      "description": "反事实思维和逻辑分析常配合使用(102次)"
     },
     {
       "from_skill": "logical_analysis",
       "to_skill": "socratic_question",
       "relation_type": "enhances",
-      "description": "逻辑分析和苏格拉底追问常配合使用(32次)"
+      "description": "逻辑分析和苏格拉底追问常配合使用(84次)"
     },
     {
       "from_skill": "active_listening",
       "to_skill": "binary_questioning",
       "relation_type": "enhances",
-      "description": "积极倾听和二选一追问常配合使用(18次)"
+      "description": "积极倾听和二选一追问常配合使用(39次)"
     },
     {
       "from_skill": "binary_questioning",
-      "to_skill": "simplification",
+      "to_skill": "grounding_technique",
       "relation_type": "enhances",
-      "description": "二选一追问和简化聚焦常配合使用(14次)"
+      "description": "二选一追问和接地技术常配合使用(36次)"
     },
     {
-      "from_skill": "active_listening",
-      "to_skill": "counterfactual_thinking",
+      "from_skill": "binary_questioning",
+      "to_skill": "paraphrase",
       "relation_type": "enhances",
-      "description": "积极倾听和反事实思维常配合使用(13次)"
+      "description": "二选一追问和复述确认常配合使用(28次)"
     },
     {
-      "from_skill": "active_listening",
-      "to_skill": "socratic_question",
+      "from_skill": "binary_questioning",
+      "to_skill": "insight_facilitation",
       "relation_type": "enhances",
-      "description": "积极倾听和苏格拉底追问常配合使用(11次)"
+      "description": "二选一追问和洞察促进常配合使用(27次)"
     }
   ],
   "skill_combinations": [
@@ -1106,177 +1106,177 @@
         "binary_questioning",
         "counterfactual_thinking"
       ],
-      "count": 107
-    },
-    {
-      "skills": [
-        "binary_questioning",
-        "logical_analysis"
-      ],
-      "count": 64
+      "count": 310
     },
     {
       "skills": [
         "binary_questioning",
         "socratic_question"
       ],
-      "count": 54
+      "count": 255
     },
     {
       "skills": [
-        "counterfactual_thinking",
+        "binary_questioning",
         "logical_analysis"
       ],
-      "count": 47
+      "count": 192
     },
     {
       "skills": [
         "counterfactual_thinking",
         "socratic_question"
       ],
-      "count": 36
+      "count": 131
+    },
+    {
+      "skills": [
+        "counterfactual_thinking",
+        "logical_analysis"
+      ],
+      "count": 102
     },
     {
       "skills": [
         "logical_analysis",
         "socratic_question"
       ],
-      "count": 32
+      "count": 84
     },
     {
       "skills": [
         "active_listening",
         "binary_questioning"
       ],
-      "count": 18
-    },
-    {
-      "skills": [
-        "binary_questioning",
-        "simplification"
-      ],
-      "count": 14
-    },
-    {
-      "skills": [
-        "active_listening",
-        "counterfactual_thinking"
-      ],
-      "count": 13
-    },
-    {
-      "skills": [
-        "active_listening",
-        "socratic_question"
-      ],
-      "count": 11
-    },
-    {
-      "skills": [
-        "binary_questioning",
-        "insight_facilitation"
-      ],
-      "count": 9
+      "count": 39
     },
     {
       "skills": [
         "binary_questioning",
         "grounding_technique"
       ],
-      "count": 9
+      "count": 36
     },
     {
       "skills": [
-        "counterfactual_thinking",
-        "simplification"
+        "binary_questioning",
+        "paraphrase"
       ],
-      "count": 8
+      "count": 28
     },
     {
       "skills": [
-        "logical_analysis",
-        "simplification"
+        "binary_questioning",
+        "insight_facilitation"
       ],
-      "count": 7
+      "count": 27
     },
     {
       "skills": [
         "active_listening",
-        "logical_analysis"
+        "counterfactual_thinking"
       ],
-      "count": 7
+      "count": 24
+    },
+    {
+      "skills": [
+        "accepting_confusion",
+        "binary_questioning"
+      ],
+      "count": 23
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "emotion_observation"
+      ],
+      "count": 23
+    },
+    {
+      "skills": [
+        "binary_questioning",
+        "concept_naming"
+      ],
+      "count": 20
+    },
+    {
+      "skills": [
+        "active_listening",
+        "socratic_question"
+      ],
+      "count": 20
     }
   ],
   "effectiveness_stats": {
     "socratic_question": {
       "breakthrough": 10,
       "resistance": 1,
-      "neutral": 97
-    },
-    "logical_analysis": {
-      "breakthrough": 4,
-      "resistance": 2,
-      "neutral": 85
+      "neutral": 566
     },
     "binary_questioning": {
       "breakthrough": 25,
       "resistance": 2,
-      "neutral": 239
-    },
-    "grounding_technique": {
-      "breakthrough": 1,
-      "resistance": 0,
-      "neutral": 12
-    },
-    "active_listening": {
-      "breakthrough": 2,
-      "resistance": 0,
-      "neutral": 36
-    },
-    "emotion_observation": {
-      "breakthrough": 1,
-      "resistance": 0,
-      "neutral": 9
-    },
-    "counterfactual_thinking": {
-      "breakthrough": 13,
-      "resistance": 3,
-      "neutral": 155
-    },
-    "simplification": {
-      "breakthrough": 3,
-      "resistance": 0,
-      "neutral": 20
-    },
-    "concept_naming": {
-      "breakthrough": 1,
-      "resistance": 0,
-      "neutral": 5
-    },
-    "insight_facilitation": {
-      "breakthrough": 1,
-      "resistance": 0,
-      "neutral": 9
-    },
-    "resistance_handling": {
-      "breakthrough": 1,
-      "resistance": 0,
-      "neutral": 8
+      "neutral": 1271
     },
     "accepting_confusion": {
       "breakthrough": 1,
       "resistance": 0,
-      "neutral": 9
+      "neutral": 44
+    },
+    "counterfactual_thinking": {
+      "breakthrough": 13,
+      "resistance": 3,
+      "neutral": 647
+    },
+    "insight_facilitation": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 49
     },
     "paraphrase": {
       "breakthrough": 1,
       "resistance": 0,
-      "neutral": 7
+      "neutral": 46
+    },
+    "grounding_technique": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 78
+    },
+    "logical_analysis": {
+      "breakthrough": 4,
+      "resistance": 2,
+      "neutral": 348
+    },
+    "emotion_observation": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 41
+    },
+    "active_listening": {
+      "breakthrough": 2,
+      "resistance": 0,
+      "neutral": 98
+    },
+    "simplification": {
+      "breakthrough": 3,
+      "resistance": 0,
+      "neutral": 39
+    },
+    "resistance_handling": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 33
+    },
+    "concept_naming": {
+      "breakthrough": 1,
+      "resistance": 0,
+      "neutral": 60
     },
     "contradiction_pointing": {
       "breakthrough": 1,
       "resistance": 0,
-      "neutral": 0
+      "neutral": 8
     }
   },
   "learning_path": [

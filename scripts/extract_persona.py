@@ -41,7 +41,7 @@ class OscarPersonaExtractor:
     """从对话中提取Oscar的人格画像"""
 
     def __init__(self, data_dir: str = None):
-        self.data_dir = Path(data_dir or "data/raw")
+        self.data_dir = Path(data_dir or "/Users/pink/Desktop/哲学咨询/奥斯卡/文本/咨询")
         self.philosopher_lines: List[str] = []
         self.client_lines: List[str] = []
         self.technique_counts: Dict[str, int] = Counter()

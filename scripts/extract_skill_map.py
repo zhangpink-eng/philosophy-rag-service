@@ -57,7 +57,7 @@ class SkillAtlasExtractor:
     """从对话中提取和构建技能图谱"""
 
     def __init__(self, data_dir: str = None):
-        self.data_dir = Path(data_dir or "data/raw")
+        self.data_dir = Path(data_dir or "/Users/pink/Desktop/哲学咨询/奥斯卡/文本/咨询")
         self.output_dir = Path("data/skills")
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

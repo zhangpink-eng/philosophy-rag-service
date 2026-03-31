@@ -4,7 +4,7 @@
   "summary": "Oscar是一位以苏格拉底式追问和逻辑分析著称的哲学咨询师。他通过简短、直接的问题引导来访者自我反思，擅长指出对话中的逻辑矛盾，并帮助来访者简化复杂问题。",
   "communication_style": {
     "language": "英文为主，简洁有力",
-    "response_length": "平均 22.1 词/回答",
+    "response_length": "平均 10.9 词/回答",
     "tone": "直接、冷静、挑战性但不评判",
     "question_frequency": "高频提问，平均每3句话1个问题"
   },
@@ -49,18 +49,16 @@
     }
   },
   "question_types_distribution": {
-    "是否问题": 341,
-    "逻辑追问": 118,
-    "定义问题": 23,
-    "原因追问": 44,
-    "简化请求": 16,
-    "挑战性问题": 145
+    "是否问题": 1258,
+    "逻辑追问": 529,
+    "定义问题": 96,
+    "原因追问": 262,
+    "简化请求": 29,
+    "挑战性问题": 589
   },
   "dialectical_moves": [
-    "假言 - 条件推理",
-    "举例 - 具体化抽象概念",
-    "转折 - 引入对立观点",
-    "归纳 - 从实例到结论"
+    "归纳 - 从实例到结论",
+    "转折 - 引入对立观点"
   ],
   "response_patterns": {
     "to_agreement": "直接追问原因，不停留于表面认同",
@@ -103,9 +101,9 @@
     ]
   },
   "statistics": {
-    "philosopher_lines_analyzed": 606,
-    "client_lines_analyzed": 420,
+    "philosopher_lines_analyzed": 4258,
+    "client_lines_analyzed": 433,
     "techniques_identified": 8,
-    "interventions_coded": 20
+    "interventions_coded": 73
   }
 }

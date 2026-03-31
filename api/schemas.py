@@ -150,6 +150,7 @@ class IndexRequest(BaseModel):
     recreate: bool = Field(False, description="Recreate collection before indexing (full rebuild)")
     incremental: bool = Field(True, description="Only index new/modified files")
     data_dir: Optional[str] = Field(None, description="Custom data directory path")
+    files: Optional[List[str]] = Field(None, description="Specific files to index (default: all files)")
 
 
 class IndexResponse(BaseModel):
@@ -160,6 +161,25 @@ class IndexResponse(BaseModel):
     skipped: int = 0
     new: int = 0
     message: str
+
+
+class PreprocessRequest(BaseModel):
+    """Request schema for text preprocessing."""
+    text: str = Field(..., description="Text content to preprocess")
+    file_name: Optional[str] = Field(None, description="Optional file name for context")
+
+
+class PreprocessResponse(BaseModel):
+    """Response schema for preprocessing result."""
+    language: str
+    is_bilingual: bool
+    text_zh: str
+    text_en: str
+    stats: Dict[str, Any]
+    chunks_zh: int = 0
+    chunks_en: int = 0
+    final_chunks: int
+    message: str = ""
 
 
 class HealthResponse(BaseModel):

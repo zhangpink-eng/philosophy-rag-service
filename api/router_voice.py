@@ -3,6 +3,7 @@ import base64
 import json
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, UploadFile, File, HTTPException
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 from typing import Optional
 
 from core.voice_handler import voice_handler, VoiceSession

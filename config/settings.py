@@ -19,6 +19,11 @@ DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 DEEPSEEK_MODEL = "deepseek-chat"
 
+# MiniMax API configuration
+MINIMAX_API_KEY = os.getenv("MINIMAX_API_KEY", "")
+MINIMAX_BASE_URL = "https://api.minimax.chat/v1"
+MINIMAX_MODEL = "MiniMax-M2.7-highspeed"
+
 # Model paths
 BGE_M3_MODEL_PATH = str(MODELS_DIR / "bge-m3")
 RERANKER_MODEL_PATH = str(MODELS_DIR / "bge-reranker-v2-m3")
@@ -35,8 +40,9 @@ RERANK_TOP_K = 5
 TRANSLATION_CACHE_DIR = DATA_DIR / "translation_cache"
 TRANSLATION_CACHE_DIR.mkdir(exist_ok=True)
 
-# Raw data directory
-RAW_DATA_DIR = DATA_DIR / "raw"
+# Raw data directory - Oscar 语料目录
+# 包含咨询、督导、工作坊记录及文章
+RAW_DATA_DIR = Path("/Users/caiyuanjie/Desktop/哲学咨询/奥斯卡/文本")
 
 # Vector dimensions
 DENSE_DIMENSION = 1024

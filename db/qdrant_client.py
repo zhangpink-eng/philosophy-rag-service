@@ -10,11 +10,15 @@ from qdrant_client.models import (
     SparseVector,
     SparseVectorParams,
     SparseIndexParams,
-    NamedSparseVector
+    NamedSparseVector,
+    AliasOperations,
+    CreateAliasOperation,
+    DeleteAliasOperation
 )
 from qdrant_client import QdrantClient
 from qdrant_client.http.exceptions import UnexpectedResponse
 from config import settings
+import time
 
 
 class QdrantClientWrapper:
@@ -125,10 +129,12 @@ class QdrantClientWrapper:
         top_k: int = 20
     ) -> List[Dict[str, Any]]:
         """Search using dense vectors only."""
-        results = self.client.search(
+        results = self.client.query_points(
             collection_name=self.collection_name,
-            query_vector=("dense", vector),
-            limit=top_k
+            query=vector,
+            using="dense",
+            limit=top_k,
+            with_payload=True
         )
 
         return [
@@ -140,7 +146,7 @@ class QdrantClientWrapper:
                 "source": hit.payload.get("source", ""),
                 "chunk_index": hit.payload.get("chunk_index", 0)
             }
-            for hit in results
+            for hit in results.points
         ]
 
     def search_sparse(
@@ -156,16 +162,12 @@ class QdrantClientWrapper:
         indices = list(sparse_vector.keys())
         values = list(sparse_vector.values())
 
-        # Use NamedSparseVector for sparse search
-        query_vector = NamedSparseVector(
-            name="sparse",
-            vector=SparseVector(indices=indices, values=values)
-        )
-
-        results = self.client.search(
+        results = self.client.query_points(
             collection_name=self.collection_name,
-            query_vector=query_vector,
-            limit=top_k
+            query=SparseVector(indices=indices, values=values),
+            using="sparse",
+            limit=top_k,
+            with_payload=True
         )
 
         return [
@@ -177,7 +179,7 @@ class QdrantClientWrapper:
                 "source": hit.payload.get("source", ""),
                 "chunk_index": hit.payload.get("chunk_index", 0)
             }
-            for hit in results
+            for hit in results.points
         ]
 
     def search_hybrid(
@@ -269,3 +271,263 @@ class QdrantClientWrapper:
             return True
         except Exception:
             return False
+
+    def create_versioned_collection(
+        self,
+        dense_dim: int = None,
+        version_suffix: str = None
+    ) -> str:
+        """
+        Create a new versioned collection for zero-downtime rebuild.
+
+        Args:
+            dense_dim: Dense vector dimension
+            version_suffix: Optional version suffix (defaults to timestamp)
+
+        Returns:
+            The new collection name
+        """
+        dense_dim = dense_dim or settings.DENSE_DIMENSION
+        version_suffix = version_suffix or str(int(time.time()))
+
+        new_collection_name = f"{self.collection_name}_v{version_suffix}"
+
+        # Check if already exists and delete
+        try:
+            self.client.get_collection(new_collection_name)
+            self.client.delete_collection(new_collection_name)
+        except (UnexpectedResponse, Exception):
+            pass
+
+        # Create new collection
+        self.client.create_collection(
+            collection_name=new_collection_name,
+            vectors_config={
+                "dense": VectorParams(
+                    size=dense_dim,
+                    distance=Distance.COSINE
+                )
+            },
+            sparse_vectors_config={
+                "sparse": SparseVectorParams(
+                    index=SparseIndexParams(
+                        on_disk=False
+                    )
+                )
+            }
+        )
+
+        return new_collection_name
+
+    def switch_collection_alias(
+        self,
+        new_collection_name: str,
+        alias_name: str = None
+    ) -> bool:
+        """
+        Atomically switch alias to point to a different collection.
+
+        Args:
+            new_collection_name: The collection to point the alias at
+            alias_name: The alias name (defaults to collection_name)
+
+        Returns:
+            True if successful
+        """
+        alias_name = alias_name or self.collection_name
+
+        try:
+            # Delete existing alias if any
+            try:
+                self.client.delete_collection_alias(alias_name)
+            except Exception:
+                pass
+
+            # Create new alias
+            self.client.update_collection_aliases(
+                actions=[
+                    CreateAliasOperation(
+                        alias_name=alias_name,
+                        collection_name=new_collection_name
+                    )
+                ]
+            )
+            return True
+        except Exception as e:
+            print(f"Failed to switch alias: {e}")
+            return False
+
+    def list_collection_versions(self) -> List[str]:
+        """List all collections that are versions of the main collection."""
+        try:
+            collections = self.client.get_collections().collections
+            return [
+                c.name for c in collections
+                if c.name.startswith(f"{self.collection_name}_v")
+            ]
+        except Exception:
+            return []
+
+    def delete_collection_by_name(self, collection_name: str) -> bool:
+        """Delete a specific collection by name."""
+        try:
+            self.client.delete_collection(collection_name)
+            return True
+        except Exception as e:
+            print(f"Failed to delete collection {collection_name}: {e}")
+            return False
+
+    def cleanup_old_versions(self, keep_latest: int = 2) -> List[str]:
+        """
+        Delete old versioned collections, keeping the specified number of recent ones.
+
+        Args:
+            keep_latest: Number of recent versions to keep
+
+        Returns:
+            List of deleted collection names
+        """
+        versions = self.list_collection_versions()
+        if len(versions) <= keep_latest:
+            return []
+
+        # Sort by version (timestamp), keep the newest ones
+        versions_sorted = sorted(versions, reverse=True)
+        to_delete = versions_sorted[keep_latest:]
+
+        deleted = []
+        for v in to_delete:
+            if self.delete_collection_by_name(v):
+                deleted.append(v)
+
+        return deleted
+
+    def set_active_collection(self, collection_name: str) -> None:
+        """Set the active collection name for queries."""
+        self.collection_name = collection_name
+
+    def get_adjacent_chunks(
+        self,
+        source: str,
+        chunk_index: int,
+        window: int = 2
+    ) -> List[Dict[str, Any]]:
+        """
+        Get adjacent chunks from the same file around the given chunk_index.
+        Used to expand context for LLM consumption.
+
+        Args:
+            source: Source file name
+            chunk_index: Center chunk index
+            window: Number of adjacent chunks to fetch on each side
+
+        Returns:
+            List of adjacent chunks (sorted by chunk_index)
+        """
+        from qdrant_client.models import Filter, FieldCondition, MatchValue, Range
+
+        # Calculate range
+        min_idx = max(0, chunk_index - window)
+        max_idx = chunk_index + window
+
+        try:
+            results, _ = self.client.scroll(
+                collection_name=self.collection_name,
+                scroll_filter=Filter(
+                    must=[
+                        FieldCondition(
+                            key="source",
+                            match=MatchValue(value=source)
+                        ),
+                        FieldCondition(
+                            key="chunk_index",
+                            range=Range(gte=min_idx, lte=max_idx)
+                        )
+                    ]
+                ),
+                with_payload=True,
+                limit=window * 2 + 1
+            )
+
+            chunks = []
+            for hit in results:
+                chunks.append({
+                    "id": hit.id,
+                    "chunk_index": hit.payload.get("chunk_index", 0),
+                    "text_en": hit.payload.get("text_en", ""),
+                    "text_zh": hit.payload.get("text_zh", ""),
+                    "source": hit.payload.get("source", "")
+                })
+
+            # Sort by chunk_index
+            chunks.sort(key=lambda x: x["chunk_index"])
+            return chunks
+
+        except Exception as e:
+            print(f"Error fetching adjacent chunks: {e}")
+            return []
+
+    def expand_chunks_with_context(
+        self,
+        chunks: List[Dict[str, Any]],
+        window: int = 2
+    ) -> List[Dict[str, Any]]:
+        """
+        Expand a list of retrieved chunks by fetching adjacent chunks.
+        Merges text from same file to provide richer context.
+
+        Args:
+            chunks: List of chunks from search
+            window: Number of adjacent chunks per side to fetch
+
+        Returns:
+            Expanded chunks with merged text from adjacent chunks
+        """
+        if not chunks:
+            return []
+
+        # Group by source to avoid duplicate fetches
+        source_groups: Dict[str, List[int]] = {}
+        for chunk in chunks:
+            source = chunk.get("source", "")
+            idx = chunk.get("chunk_index", 0)
+            if source not in source_groups:
+                source_groups[source] = []
+            source_groups[source].append(idx)
+
+        # Fetch adjacent chunks for each source
+        expanded = []
+        for source, indices in source_groups.items():
+            # Get all chunks in range
+            min_idx = min(indices)
+            max_idx = max(indices)
+
+            all_chunks_in_range = self.get_adjacent_chunks(
+                source, (min_idx + max_idx) // 2, window=max_idx - min_idx + window
+            )
+
+            # Merge text_zh and text_en
+            merged_zh = []
+            merged_en = []
+            for c in all_chunks_in_range:
+                zh = c.get("text_zh", "").strip()
+                en = c.get("text_en", "").strip()
+                if zh:
+                    merged_zh.append(zh)
+                if en:
+                    merged_en.append(en)
+
+            # Use the first chunk as representative for scores
+            representative = chunks[next(i for i, x in enumerate(chunks) if x.get("source") == source)]
+
+            expanded.append({
+                "source": source,
+                "text_zh": "\n\n".join(merged_zh),
+                "text_en": "\n\n".join(merged_en),
+                "chunk_indices": [c["chunk_index"] for c in all_chunks_in_range],
+                "score": representative.get("rerank_score", representative.get("score", 0))
+            })
+
+        # Re-sort by score
+        expanded.sort(key=lambda x: x["score"], reverse=True)
+        return expanded

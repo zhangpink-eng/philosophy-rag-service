@@ -2,7 +2,7 @@
 
 ## 概览
 
-- **总技能使用次数**: 764
+- **总技能使用次数**: 3401
 - **技能总数**: 15
 - **技能类别**: core, advanced, specialized
 
@@ -10,16 +10,16 @@
 
 | 技能 | 使用次数 |
 |-----|----------|
-| 二选一追问 | 266 |
-| 反事实思维 | 171 |
-| 苏格拉底追问 | 108 |
-| 逻辑分析 | 91 |
-| 积极倾听 | 38 |
-| 简化聚焦 | 23 |
-| 接地技术 | 13 |
-| 情绪观察 | 10 |
-| 洞察促进 | 10 |
-| 接受困惑 | 10 |
+| 二选一追问 | 1298 |
+| 反事实思维 | 663 |
+| 苏格拉底追问 | 577 |
+| 逻辑分析 | 354 |
+| 积极倾听 | 100 |
+| 接地技术 | 79 |
+| 概念命名 | 61 |
+| 洞察促进 | 50 |
+| 复述确认 | 47 |
+| 接受困惑 | 45 |
 
 ## 技能层级
 
@@ -71,31 +71,31 @@
 | prerequisite | paraphrase | integration_skills | 整合技能需要先掌握复述确认 |
 | prerequisite | active_listening | paraphrase | 复述确认需要先掌握积极倾听 |
 | prerequisite | emotion_observation | accepting_confusion | 接受困惑需要先掌握情绪观察 |
-| enhances | binary_questioning | counterfactual_thinking | 二选一追问和反事实思维常配合使用(107次) |
-| enhances | binary_questioning | logical_analysis | 二选一追问和逻辑分析常配合使用(64次) |
-| enhances | binary_questioning | socratic_question | 二选一追问和苏格拉底追问常配合使用(54次) |
-| enhances | counterfactual_thinking | logical_analysis | 反事实思维和逻辑分析常配合使用(47次) |
-| enhances | counterfactual_thinking | socratic_question | 反事实思维和苏格拉底追问常配合使用(36次) |
-| enhances | logical_analysis | socratic_question | 逻辑分析和苏格拉底追问常配合使用(32次) |
-| enhances | active_listening | binary_questioning | 积极倾听和二选一追问常配合使用(18次) |
-| enhances | binary_questioning | simplification | 二选一追问和简化聚焦常配合使用(14次) |
-| enhances | active_listening | counterfactual_thinking | 积极倾听和反事实思维常配合使用(13次) |
-| enhances | active_listening | socratic_question | 积极倾听和苏格拉底追问常配合使用(11次) |
+| enhances | binary_questioning | counterfactual_thinking | 二选一追问和反事实思维常配合使用(310次) |
+| enhances | binary_questioning | socratic_question | 二选一追问和苏格拉底追问常配合使用(255次) |
+| enhances | binary_questioning | logical_analysis | 二选一追问和逻辑分析常配合使用(192次) |
+| enhances | counterfactual_thinking | socratic_question | 反事实思维和苏格拉底追问常配合使用(131次) |
+| enhances | counterfactual_thinking | logical_analysis | 反事实思维和逻辑分析常配合使用(102次) |
+| enhances | logical_analysis | socratic_question | 逻辑分析和苏格拉底追问常配合使用(84次) |
+| enhances | active_listening | binary_questioning | 积极倾听和二选一追问常配合使用(39次) |
+| enhances | binary_questioning | grounding_technique | 二选一追问和接地技术常配合使用(36次) |
+| enhances | binary_questioning | paraphrase | 二选一追问和复述确认常配合使用(28次) |
+| enhances | binary_questioning | insight_facilitation | 二选一追问和洞察促进常配合使用(27次) |
 
 ## 常见技能组合
 
 | 组合 | 使用次数 |
 |-----|----------|
-| binary_questioning + counterfactual_thinking | 107 |
-| binary_questioning + logical_analysis | 64 |
-| binary_questioning + socratic_question | 54 |
-| counterfactual_thinking + logical_analysis | 47 |
-| counterfactual_thinking + socratic_question | 36 |
-| logical_analysis + socratic_question | 32 |
-| active_listening + binary_questioning | 18 |
-| binary_questioning + simplification | 14 |
-| active_listening + counterfactual_thinking | 13 |
-| active_listening + socratic_question | 11 |
+| binary_questioning + counterfactual_thinking | 310 |
+| binary_questioning + socratic_question | 255 |
+| binary_questioning + logical_analysis | 192 |
+| counterfactual_thinking + socratic_question | 131 |
+| counterfactual_thinking + logical_analysis | 102 |
+| logical_analysis + socratic_question | 84 |
+| active_listening + binary_questioning | 39 |
+| binary_questioning + grounding_technique | 36 |
+| binary_questioning + paraphrase | 28 |
+| binary_questioning + insight_facilitation | 27 |
 
 ## 推荐学习路径
 
@@ -110,17 +110,17 @@
 
 | 技能 | 突破 | 抗拒 | 中性 |
 |-----|------|------|------|
-| 苏格拉底追问 | 10 | 1 | 97 |
-| 逻辑分析 | 4 | 2 | 85 |
-| 二选一追问 | 25 | 2 | 239 |
-| 接地技术 | 1 | 0 | 12 |
-| 积极倾听 | 2 | 0 | 36 |
-| 情绪观察 | 1 | 0 | 9 |
-| 反事实思维 | 13 | 3 | 155 |
-| 简化聚焦 | 3 | 0 | 20 |
-| 概念命名 | 1 | 0 | 5 |
-| 洞察促进 | 1 | 0 | 9 |
-| 阻抗处理 | 1 | 0 | 8 |
-| 接受困惑 | 1 | 0 | 9 |
-| 复述确认 | 1 | 0 | 7 |
-| 矛盾指出 | 1 | 0 | 0 |
+| 苏格拉底追问 | 10 | 1 | 566 |
+| 二选一追问 | 25 | 2 | 1271 |
+| 接受困惑 | 1 | 0 | 44 |
+| 反事实思维 | 13 | 3 | 647 |
+| 洞察促进 | 1 | 0 | 49 |
+| 复述确认 | 1 | 0 | 46 |
+| 接地技术 | 1 | 0 | 78 |
+| 逻辑分析 | 4 | 2 | 348 |
+| 情绪观察 | 1 | 0 | 41 |
+| 积极倾听 | 2 | 0 | 98 |
+| 简化聚焦 | 3 | 0 | 39 |
+| 阻抗处理 | 1 | 0 | 33 |
+| 概念命名 | 1 | 0 | 60 |
+| 矛盾指出 | 1 | 0 | 8 |

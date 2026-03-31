@@ -42,6 +42,9 @@ models/
 # Data - Qdrant storage (don't commit)
 storage/
 qdrant/
+
+# Translation cache (auto-generated, large files)
+data/translation_cache/
 qdrant-macos-x86_64.tar.gz
 qdrant.tar.gz
 *.db

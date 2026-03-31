@@ -26,6 +26,7 @@ class PromptConfig:
     tone: str = "direct"  # direct, gentle, formal
     response_length: str = "short"  # short, medium, long
     language: str = "bilingual"  # chinese, english, bilingual
+    scenario: str = "consultation"  # consultation, supervision, workshop
 
 
 @dataclass
@@ -34,11 +35,12 @@ class ConsultationContext:
     user_id: str
     session_id: str
     current_topic: Optional[str] = None
-    consultation_phase: str = "exploration"
+    consultation_phase: str = "problem_exploration"
     user_emotional_state: Optional[str] = None
     techniques_used: List[str] = field(default_factory=list)
     key_insights: List[str] = field(default_factory=list)
     previous_turns: List[Dict] = field(default_factory=list)
+    scenario: str = "consultation"  # consultation, supervision, workshop
 
 
 class PromptBuilder:
@@ -56,6 +58,10 @@ class PromptBuilder:
         self.skill_atlas = self._load_json(skill_atlas_path)
         self.fewshot_examples = self._load_json(fewshot_examples_path)
         self.prompt_templates = self._load_templates()
+
+        # 延迟导入避免循环依赖
+        from data.prompts.scenario_templates import ScenarioTemplates
+        self.scenario_templates = ScenarioTemplates()
 
     def _load_json(self, path: str) -> Dict:
         """加载JSON文件"""
@@ -274,32 +280,117 @@ The consultation is coming to an end. Guide the client through a brief reflectio
         """
         config = config or PromptConfig()
 
-        # 构建系统Prompt
-        system_prompt = self.build_system_prompt(config)
+        # 获取对应场景的模板
+        phase = context.consultation_phase or "problem_exploration"
+        scenario = context.scenario or config.scenario or "consultation"
 
-        # 构建用户Prompt
+        template = self.scenario_templates.get_template(phase)
+        if not template:
+            # Fallback to base prompt
+            return self.build_system_prompt(config), query
+
+        # 构建系统Prompt: 场景化角色 + Persona + Skills
+        system_parts = []
+
+        # 1. 场景化角色前缀
+        system_parts.append(self._get_scenario_prefix(scenario))
+
+        # 2. Persona 部分（从模板获取）
+        if config.persona_enabled and self.persona:
+            persona_part = self._build_persona_section(config)
+            system_parts.append(persona_part)
+
+        # 3. Skills 部分
+        if config.skills_enabled and self.skill_atlas:
+            skills_part = self._build_skills_section(config)
+            system_parts.append(skills_part)
+
+        system_prompt = "\n\n".join(system_parts)
+
+        # 构建用户Prompt: 模板 + RAG + 对话历史
         user_parts = []
 
-        # 咨询上下文
-        context_part = self._build_consultation_context(context)
-        user_parts.append(context_part)
+        # 1. 模板渲染（注入 query 和 context）
+        template_vars = {
+            "client_message": query,
+            "topic": context.current_topic or "unspecified topic",
+            "emotional_signs": context.user_emotional_state or "unknown",
+            "anxiety_level": context.user_emotional_state or "unknown",
+            "dialogue_history": self._format_dialogue_history(context.previous_turns),
+            "previous_message": context.previous_turns[-1]["message"] if context.previous_turns else "",
+            "pattern": "",
+            "signs": "",
+            "resistance_type": "",
+            "key_moments": ", ".join(context.key_insights[-3:]) or "none yet",
+            "turn_count": len(context.previous_turns) // 2,
+        }
+        rendered = self.scenario_templates.render_template(phase, template_vars)
+        if rendered:
+            user_parts.append(rendered["user"])
+        else:
+            # Fallback
+            user_parts.append(f"## Client's Message\n{query}")
 
-        # RAG上下文（如果提供）
+        # 2. RAG 上下文
         if retrieved_docs:
             rag_part = self._build_rag_context(retrieved_docs)
             user_parts.append(rag_part)
 
-        # 当前对话
-        dialogue_part = self._build_dialogue_section(context)
-        user_parts.append(dialogue_part)
-
-        # 指导
-        guidance = self._build_guidance(context)
-        user_parts.append(guidance)
+        # 3. Few-shot 示例
+        if config.fewshot_enabled and template.examples:
+            examples_part = self._build_examples_section(template.examples)
+            user_parts.append(examples_part)
 
         user_prompt = "\n\n".join(user_parts)
 
         return system_prompt, user_prompt
+
+    def _get_scenario_prefix(self, scenario: str) -> str:
+        """获取场景化角色前缀"""
+        prefixes = {
+            "consultation": """You are Oscar, a philosophical consultant specializing in Socratic dialogue and philosophical practice.
+
+Your role is to guide clients through self-reflection using logical questioning, not to give advice or solutions.
+
+SCENARIO: One-on-one philosophical consultation with a client.""",
+
+            "supervision": """You are Oscar, a senior philosophical consultant supervising other practitioners.
+
+Your role is to help coaches/supervisees reflect on their practice, identify blind spots, and improve their technique.
+
+SCENARIO: Clinical supervision of a philosophical practice coach.""",
+
+            "workshop": """You are Oscar, an experienced workshop facilitator leading group philosophical exploration.
+
+Your role is to guide group discussions, manage dynamics, ensure participation, and help the group discover insights together.
+
+SCENARIO: Group workshop facilitation with multiple participants."""
+        }
+        return prefixes.get(scenario, prefixes["consultation"])
+
+    def _format_dialogue_history(self, turns: List[Dict]) -> str:
+        """格式化对话历史"""
+        if not turns:
+            return "(beginning of conversation)"
+        lines = []
+        for t in turns[-6:]:
+            speaker = "Oscar" if t.get("speaker", "").lower() in ["oscar", "philosopher"] else "Client"
+            lines.append(f"**{speaker}**: {t.get('message', '')[:100]}")
+        return "\n".join(lines)
+
+    def _build_examples_section(self, examples: List[Dict]) -> str:
+        """构建 few-shot 示例部分"""
+        if not examples:
+            return ""
+        parts = ["## Example Dialogues\n"]
+        for ex in examples[:2]:
+            if isinstance(ex, dict):
+                client = ex.get("client", ex.get("text", ""))
+                oscar = ex.get("oscar", ex.get("response", ""))
+                parts.append(f"**Client**: {client}\n**Oscar**: {oscar}\n")
+            elif isinstance(ex, str):
+                parts.append(f"- {ex}\n")
+        return "\n".join(parts)
 
     def _build_consultation_context(self, context: ConsultationContext) -> str:
         """构建咨询上下文"""

@@ -1,6 +1,18 @@
 [
   {
-    "id": "ex_情绪管理_snip_0873",
+    "id": "ex_价值冲突_snip_2092",
+    "category": "内在冲突处理",
+    "topic": "价值冲突",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「价值冲突」的咨询。",
+    "dialogue": "Oscar: All right, good.So for next time, think what you would like to talk about.（那下次我们讨论之前，你可以先提前想一想，你想跟我聊什么好吗？）\n来访者: 说话人03那就是我们说的放一面镜子在的面前。",
+    "explanation": "技巧: 二选一 | 关键时刻: 一般互动",
+    "quality": [
+      "良好范例",
+      "简洁有力"
+    ]
+  },
+  {
+    "id": "ex_情绪管理_snip_2511",
     "category": "情绪识别与调节",
     "topic": "情绪管理",
     "instruction": "你是一位哲学咨询师。来访者的问题是关于「情绪管理」的咨询。",
@@ -12,7 +24,19 @@
     ]
   },
   {
-    "id": "ex_人际关系_snip_0022",
+    "id": "ex_其他_snip_2219",
+    "category": "一般咨询",
+    "topic": "其他",
+    "instruction": "你是一位哲学咨询师。来访者的问题是关于「其他」的咨询。",
+    "dialogue": "Oscar: No, do you see how complication and chaos go nicely together?You don't see?\n来访者: I see.",
+    "explanation": "技巧: 一般对话 | 关键时刻: 一般互动",
+    "quality": [
+      "良好范例",
+      "简洁有力"
+    ]
+  },
+  {
+    "id": "ex_人际关系_snip_2917",
     "category": "关系模式分析",
     "topic": "人际关系",
     "instruction": "你是一位哲学咨询师。来访者的问题是关于「人际关系」的咨询。",
@@ -23,7 +47,7 @@
     ]
   },
   {
-    "id": "ex_自我认知_snip_0317",
+    "id": "ex_自我认知_snip_3212",
     "category": "自我觉察",
     "topic": "自我认知",
     "instruction": "你是一位哲学咨询师。来访者的问题是关于「自我认知」的咨询。",
@@ -34,7 +58,7 @@
     ]
   },
   {
-    "id": "ex_职业发展_snip_0318",
+    "id": "ex_职业发展_snip_3213",
     "category": "工作生活平衡",
     "topic": "职业发展",
     "instruction": "你是一位哲学咨询师。来访者的问题是关于「职业发展」的咨询。",
@@ -42,18 +66,6 @@
     "explanation": "技巧: 苏格拉底追问 | 关键时刻: 追问原因",
     "quality": [
       "良好范例"
-    ]
-  },
-  {
-    "id": "ex_其他_snip_0581",
-    "category": "一般咨询",
-    "topic": "其他",
-    "instruction": "你是一位哲学咨询师。来访者的问题是关于「其他」的咨询。",
-    "dialogue": "Oscar: No, do you see how complication and chaos go nicely together?You don't see?\n来访者: I see.",
-    "explanation": "技巧: 一般对话 | 关键时刻: 一般互动",
-    "quality": [
-      "良好范例",
-      "简洁有力"
     ]
   }
 ]

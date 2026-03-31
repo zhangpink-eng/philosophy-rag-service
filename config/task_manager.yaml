@@ -1,0 +1,71 @@
+# 任务管理器配置
+# 版本: 1.0
+
+# 全局配置
+global:
+  # 任务管理器数据目录
+  base_dir: "~/.task-manager"
+
+  # 检查点保存间隔（处理多少个项目后保存一次）
+  checkpoint_interval: 10
+
+  # 检查点文件保留数量（每个阶段）
+  max_checkpoints_per_stage: 3
+
+  # 日志级别
+  log_level: "INFO"
+
+# 项目配置
+projects:
+  rag-service:
+    # 默认数据目录
+    data_dir: "data/raw"
+
+    # 任务配置
+    tasks:
+      indexing:
+        # 是否启用断点续传
+        resume_enabled: true
+
+        # 失败重试次数
+        max_retries: 3
+
+        # 增量模式（跳过已处理文件）
+        incremental: true
+
+      batch_preprocess:
+        resume_enabled: true
+        max_retries: 3
+        incremental: true
+
+# 任务阶段定义
+stages:
+  indexing:
+    - name: "load"
+      description: "加载文件"
+    - name: "preprocess"
+      description: "预处理"
+    - name: "translate"
+      description: "翻译"
+    - name: "chunk"
+      description: "分块"
+    - name: "embed"
+      description: "向量化"
+    - name: "index"
+      description: "索引"
+
+  batch_preprocess:
+    - name: "load"
+      description: "加载文件"
+    - name: "clean"
+      description: "清洗"
+    - name: "detect_lang"
+      description: "语言检测"
+    - name: "separate"
+      description: "中英文分离"
+    - name: "dedup"
+      description: "去重"
+    - name: "translate"
+      description: "翻译"
+    - name: "chunk"
+      description: "分块"

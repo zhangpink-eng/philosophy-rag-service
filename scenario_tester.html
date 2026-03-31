@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oscar 场景 Prompt 测试</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #e94560;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .panel {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #0f3460;
+        }
+        .panel-title {
+            color: #e94560;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #0f3460;
+        }
+        .control-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+        select, input, textarea {
+            width: 100%;
+            background: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #e0e0e0;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .scenario-btn {
+            padding: 10px 8px;
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .scenario-btn:hover { border-color: #e94560; color: #e0e0e0; }
+        .scenario-btn.active {
+            border-color: #e94560;
+            background: #e94560;
+            color: white;
+        }
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .phase-btn {
+            padding: 6px 4px;
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            background: #1a1a2e;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.7rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .phase-btn:hover { border-color: #0f9; color: #e0e0e0; }
+        .phase-btn.active {
+            border-color: #0f9;
+            background: #0f9;
+            color: #1a1a2e;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #e94560;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        .btn-primary:hover { background: #d63850; }
+        .btn-primary:disabled { background: #555; cursor: not-allowed; }
+        .btn-compare {
+            width: 100%;
+            padding: 10px;
+            background: #0f3460;
+            border: 1px solid #e94560;
+            border-radius: 8px;
+            color: #e94560;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-compare:hover { background: #1a2a50; }
+
+        /* 结果区域 */
+        .response-area {
+            margin-top: 16px;
+        }
+        .response-block {
+            background: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .response-scenario {
+            color: #e94560;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .response-phase {
+            color: #0f9;
+            font-size: 0.75rem;
+        }
+        .response-meta {
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .response-text {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .loading {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+        .error {
+            color: #ff6b6b;
+            padding: 10px;
+            border: 1px solid #ff6b6b;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* Prompt 预览 */
+        .prompt-preview {
+            background: #0d0d1a;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: #888;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        .prompt-preview.visible { display: block; }
+        .prompt-label {
+            color: #e94560;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        .prompt-content {
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        /* 对比模式 */
+        .compare-mode {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #0f3460;
+        }
+        .compare-hint {
+            color: #666;
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 8px;
+        }
+
+        /* 单列布局 */
+        .single-col {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Oscar 场景 Prompt 测试</h1>
+    <p class="subtitle">测试三种场景（consultation/supervision/workshop）× 多种对话阶段的 Prompt 差异</p>
+
+    <div class="main-layout">
+        <!-- 左侧：控制面板 -->
+        <div class="panel">
+            <div class="panel-title">场景 &amp; 阶段选择</div>
+
+            <div class="control-group">
+                <label>选择场景</label>
+                <div class="scenario-grid">
+                    <button class="scenario-btn active" data-scenario="consultation">咨询<br><small>consultation</small></button>
+                    <button class="scenario-btn" data-scenario="supervision">督导<br><small>supervision</small></button>
+                    <button class="scenario-btn" data-scenario="workshop">工作坊<br><small>workshop</small></button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>选择对话阶段</label>
+                <div class="phase-grid">
+                    <button class="phase-btn" data-phase="greeting">开场</button>
+                    <button class="phase-btn active" data-phase="problem_exploration">问题探索</button>
+                    <button class="phase-btn" data-phase="focusing">聚焦</button>
+                    <button class="phase-btn" data-phase="logical_exploration">逻辑探索</button>
+                    <button class="phase-btn" data-phase="emotion_observation">情绪观察</button>
+                    <button class="phase-btn" data-phase="grounding">叫停安抚</button>
+                    <button class="phase-btn" data-phase="concept_naming">概念命名</button>
+                    <button class="phase-btn" data-phase="counterfactual">反事实</button>
+                    <button class="phase-btn" data-phase="accepting_confusion">接受困惑</button>
+                    <button class="phase-btn" data-phase="insight_facilitation">洞察促进</button>
+                    <button class="phase-btn" data-phase="integration">整合反思</button>
+                    <button class="phase-btn" data-phase="closing">结束评估</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>输入问题</label>
+                <textarea id="queryInput" rows="3" placeholder="例如：什么是哲学实践？">什么是哲学实践？</textarea>
+            </div>
+
+            <button class="btn-primary" id="sendBtn" onclick="sendRequest()">发送测试</button>
+            <button class="btn-compare" id="compareBtn" onclick="compareAllScenarios()">对比三种场景</button>
+
+            <div class="compare-hint">对比模式：同一问题 × 三种场景，同一阶段</div>
+
+            <div class="prompt-preview" id="promptPreview">
+                <div class="prompt-label">System Prompt:</div>
+                <div class="prompt-content" id="systemPromptContent"></div>
+                <div class="prompt-label" style="margin-top:10px">User Prompt:</div>
+                <div class="prompt-content" id="userPromptContent"></div>
+            </div>
+        </div>
+
+        <!-- 右侧：结果展示 -->
+        <div class="panel">
+            <div class="panel-title">LLM 响应</div>
+            <div id="responseContainer">
+                <div class="loading">选择场景和阶段，输入问题后点击发送</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = 'consultation';
+        let currentPhase = 'problem_exploration';
+        let lastSystemPrompt = '';
+        let lastUserPrompt = '';
+
+        // 场景按钮
+        document.querySelectorAll('.scenario-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentScenario = btn.dataset.scenario;
+            });
+        });
+
+        // 阶段按钮
+        document.querySelectorAll('.phase-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentPhase = btn.dataset.phase;
+            });
+        });
+
+        function getQuery() {
+            return document.getElementById('queryInput').value.trim();
+        }
+
+        function renderResponse(scenario, phase, response, meta) {
+            const scenarioLabels = {
+                'consultation': '一对一咨询',
+                'supervision': '临床督导',
+                'workshop': '工作坊引导'
+            };
+            const phaseLabels = {
+                'greeting': '开场',
+                'problem_exploration': '问题探索',
+                'focusing': '聚焦',
+                'logical_exploration': '逻辑探索',
+                'emotion_observation': '情绪观察',
+                'grounding': '叫停安抚',
+                'concept_naming': '概念命名',
+                'counterfactual': '反事实',
+                'accepting_confusion': '接受困惑',
+                'insight_facilitation': '洞察促进',
+                'integration': '整合反思',
+                'closing': '结束评估'
+            };
+            return `
+                <div class="response-block">
+                    <div class="response-header">
+                        <span class="response-scenario">${scenarioLabels[scenario] || scenario}</span>
+                        <span class="response-phase">${phaseLabels[phase] || phase}</span>
+                    </div>
+                    ${meta ? `<div class="response-meta">sys:${meta.sys_len} chars | user:${meta.user_len} chars</div>` : ''}
+                    <div class="response-text">${response || '<i>无响应</i>'}</div>
+                </div>
+            `;
+        }
+
+        function renderError(msg) {
+            return `<div class="error">错误: ${msg}</div>`;
+        }
+
+        async function sendRequest(scenario, phase, isCompare = false) {
+            const s = scenario || currentScenario;
+            const p = phase || currentPhase;
+            const query = getQuery();
+            if (!query) {
+                document.getElementById('responseContainer').innerHTML = renderError('请输入问题');
+                return;
+            }
+
+            if (!isCompare) {
+                document.getElementById('responseContainer').innerHTML = '<div class="loading">生成中...</div>';
+            }
+
+            try {
+                const resp = await fetch('/api/compare', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: query,
+                        use_llm: true,
+                        scenario: s,
+                        phase: p
+                    })
+                });
+                const data = await resp.json();
+                return data;
+            } catch (e) {
+                return { error: String(e) };
+            }
+        }
+
+        async function sendRequest() {
+            const result = await sendRequest();
+            if (result.error) {
+                document.getElementById('responseContainer').innerHTML = renderError(result.error);
+            } else {
+                document.getElementById('responseContainer').innerHTML =
+                    renderResponse(result.scenario, result.phase, result.llm_response, null);
+            }
+        }
+
+        async function compareAllScenarios() {
+            const query = getQuery();
+            if (!query) {
+                document.getElementById('responseContainer').innerHTML = renderError('请输入问题');
+                return;
+            }
+
+            document.getElementById('responseContainer').innerHTML = '<div class="loading">三种场景对比生成中...</div>';
+            document.getElementById('compareBtn').disabled = true;
+
+            const scenarios = ['consultation', 'supervision', 'workshop'];
+            let html = '';
+
+            for (const s of scenarios) {
+                const result = await sendRequest(s, currentPhase, true);
+                if (result.error) {
+                    html += renderError(result.error);
+                } else {
+                    html += renderResponse(s, currentPhase, result.llm_response, {
+                        sys_len: result.system_prompt_length,
+                        user_len: result.user_prompt_length
+                    });
+                }
+                // 避免请求过快
+                await new Promise(r => setTimeout(r, 300));
+            }
+
+            document.getElementById('responseContainer').innerHTML = html;
+            document.getElementById('compareBtn').disabled = false;
+        }
+    </script>
+</body>
+</html>

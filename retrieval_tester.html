@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>检索 + 生成测试</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+        h1 { color: #333; margin-bottom: 8px; }
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 30px; }
+        .test-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section-title {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title .badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .badge.top20 { background: #fef3c7; color: #92400e; }
+        .badge.top5 { background: #dcfce7; color: #166534; }
+        .badge.llm { background: #dbeafe; color: #1e40af; }
+        .query-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+        .query-input:focus { outline: none; border-color: #3b82f6; }
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
+        .btn-secondary { background: #e5e5e5; color: #333; }
+        .btn-secondary:hover { background: #d5d5d5; }
+        .quick-tests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .quick-tests .btn { font-size: 13px; padding: 6px 12px; }
+        .results { margin-top: 24px; }
+        .result-item {
+            padding: 16px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        .result-item:hover { border-color: #3b82f6; }
+        .result-item .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .result-item .source {
+            font-size: 12px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .result-item .scores {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .result-item .score-item { display: flex; flex-direction: column; align-items: flex-end; }
+        .result-item .score-label { font-size: 10px; color: #999; }
+        .result-item .score-value { font-weight: 600; }
+        .result-item .score-value.rrf { color: #3b82f6; }
+        .result-item .score-value.dense { color: #22c55e; }
+        .result-item .score-value.sparse { color: #f59e0b; }
+        .result-item .rank {
+            width: 24px;
+            height: 24px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .result-item .text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #333;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .result-item .lang-tag {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+        .lang-tag.zh { background: #dcfce7; color: #166534; }
+        .lang-tag.en { background: #dbeafe; color: #1e40af; }
+        .lang-tag.mix { background: #fef3c7; color: #92400e; }
+        .rank-change {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+        .rank-change.up { background: #dcfce7; color: #166534; }
+        .rank-change.down { background: #fef2f2; color: #dc2626; }
+        .rank-change.same { background: #f5f5f5; color: #666; }
+        .loading {
+            text-align: center;
+            padding: 60px 40px;
+            color: #666;
+        }
+        .spinner {
+            width: 32px; height: 32px;
+            border: 3px solid #e5e5e5;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        .llm-response {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .llm-response .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 12px;
+               .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+        .comparison-col h3 {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        .comparison-col h3.top20 { border-color: #f59e0b; }
+        .comparison-col h3.top5 { border-color: #22c55e; }
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            color: #999;
+        }
+        .api-status {
+            display: flex;
+            gap: 24px;
+            font-size: 13px;
+        }
+        .api-status .item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .api-status .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+        }
+        .api-status .dot.green { background: #22c55e; }
+        .api-status .dot.red { background: #ef4444; }
+        .llm-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .llm-toggle input { width: 16px; height: 16px; }
+    </style>
+</head>
+<body>
+    <h1>检索 + 生成测试</h1>
+    <p class="subtitle">流程: BGE-M3 embed → Hybrid Search (TOP20) → Reranker (TOP5) → LLM 生成</p>
+
+    <div class="test-section">
+        <div class="section-title">
+            API 状态
+        </div>
+        <div class="api-status" id="apiStatus">
+            <div class="item"><span class="dot red"></span> 检查中...</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="section-title">
+            检索与生成
+        </div>
+        <div class="quick-tests">
+            <button class="btn btn-secondary" onclick="runCompare('什么是哲学实践')">哲学实践</button>
+            <button class="btn btn-secondary" onclick="runCompare('what is philosophical practice')">philosophical practice</button>
+            <button class="btn btn-secondary" onclick="runCompare('什么是自由')">自由</button>
+            <button class="btn btn-secondary" onclick="runCompare('苏格拉底式追问')">苏格拉底式追问</button>
+            <button class="btn btn-secondary" onclick="runCompare('愤怒')">愤怒</button>
+            <button class="btn btn-secondary" onclick="runCompare('思考的勇气比正确答案更重要')">思考的勇气</button>
+        </div>
+        <input type="text" id="queryInput" class="query-input" placeholder="输入问题..." onkeypress="if(event.key==='Enter')runCompare()">
+        <div class="controls">
+            <button class="btn btn-primary" id="searchBtn" onclick="runCompare()">检索 + 生成</button>
+            <label class="llm-toggle">
+                <input type="checkbox" id="useLlm" checked>
+                调用 LLM 生成
+            </label>
+        </div>
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        let isLoading = false;
+
+        async function checkAPI() {
+            const statusEl = document.getElementById('apiStatus');
+            try {
+                const resp = await fetch('http://localhost:6333/collections/philosophy_documents');
+                const data = await resp.json();
+                if (data.result) {
+                    const info = data.result;
+                    statusEl.innerHTML = `
+                        <div class="item"><span class="dot green"></span> Qdrant: ${info.points_count} points</div>
+                        <div class="item"><span class="dot green"></span> Backend: localhost:8000</div>
+                    `;
+                }
+            } catch (e) {
+                statusEl.innerHTML = `
+                    <div class="item"><span class="dot red"></span> Qdrant: 未连接</div>
+                    <div class="item"><span class="dot red"></span> Backend: 未连接</div>
+                `;
+            }
+        }
+
+        async function runCompare(query) {
+            if (!query) {
+                query = document.getElementById('queryInput').value.trim();
+            }
+            if (!query) return;
+
+            const useLlm = document.getElementById('useLlm').checked;
+            const resultsEl = document.getElementById('results');
+            const btn = document.getElementById('searchBtn');
+
+            if (isLoading) return;
+            isLoading = true;
+            btn.disabled = true;
+
+            resultsEl.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>检索中...</div>
+                    <div style="font-size: 12px; color: #999; margin-top: 8px;">
+                        BGE-M3 Embed → Hybrid Search → Reranker ${useLlm ? '→ LLM 生成' : ''}
+                    </div>
+                </div>
+            `;
+
+            try {
+                const resp = await fetch('http://localhost:8000/api/compare', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query, use_llm: useLlm })
+                });
+
+                if (!resp.ok) {
+                    throw new Error(`API Error: ${resp.status}`);
+                }
+
+                const data = await resp.json();
+                displayComparison(data);
+
+            } catch (e) {
+                resultsEl.innerHTML = `<div class="error">错误: ${e.message}</div>`;
+            } finally {
+                isLoading = false;
+                btn.disabled = false;
+            }
+        }
+
+        function displayComparison(data) {
+            const resultsEl = document.getElementById('results');
+
+            // Before Rerank (TOP10)
+            let beforeHtml = '<div class="comparison-col"><h3 class="top20">重排前 (TOP10)</h3>';
+            data.before_rerank.slice(0, 10).forEach((item, i) => {
+                const text = item.text_zh || item.text_en || '';
+                const lang = item.text_zh && item.text_en ? 'mix' : (item.text_zh ? 'zh' : 'en');
+
+                beforeHtml += `
+                    <div class="result-item">
+                        <div class="meta">
+                            <span class="source" title="${item.source}">${item.source}</span>
+                            <div class="scores">
+                                <div class="score-item">
+                                    <span class="score-label">RRF</span>
+                                    <span class="score-value rrf">${item.score.toFixed(4)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text"><span class="lang-tag ${lang}">${lang.toUpperCase()}</span> ${escapeHtml(text)}</div>
+                    </div>
+                `;
+            });
+            beforeHtml += '</div>';
+
+            // After Rerank (TOP5)
+            let afterHtml = '<div class="comparison-col"><h3 class="top5">重排后 (TOP5)</h3>';
+            data.after_rerank.forEach((item, i) => {
+                const text = item.text_zh || item.text_en || '';
+                const lang = item.text_zh && item.text_en ? 'mix' : (item.text_zh ? 'zh' : 'en');
+
+                // Find original rank in before_rerank
+                let origRank = '-';
+                const origIdx = data.before_rerank.findIndex(r => {
+                    const rText = r.text_zh || r.text_en || '';
+                    return r.source === item.source && rText === text;
+                });
+                if (origIdx >= 0) origRank = origIdx + 1;
+
+                let rankChange = '';
+                if (origRank !== '-' && origRank !== i + 1) {
+                    const diff = origRank - (i + 1);
+                    if (diff > 0) rankChange = `<span class="rank-change up">↑ ${diff}</span>`;
+                    else if (diff < 0) rankChange = `<span class="rank-change down">↓ ${Math.abs(diff)}</span>`;
+                }
+
+                afterHtml += `
+                    <div class="result-item">
+                        <div class="meta">
+                            <span class="source" title="${item.source}">${item.source}</span>
+                            ${rankChange}
+                            <div class="scores">
+                                <div class="score-item">
+                                    <span class="score-label">Rerank</span>
+                                    <span class="score-value rrf">${item.score.toFixed(4)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text"><span class="rank">${i + 1}</span><span class="lang-tag ${lang}">${lang.toUpperCase()}</span> ${escapeHtml(text)}</div>
+                    </div>
+                `;
+            });
+            afterHtml += '</div>';
+
+            // LLM Response
+            let llmHtml = '';
+            if (data.llm_response) {
+                llmHtml = `
+                    <div class="llm-response">
+                        <div class="label">✦ LLM 生成结果</div>
+                        <div style="white-space: pre-wrap;">${data.llm_response.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+            }
+
+            resultsEl.innerHTML = `
+                <div style="margin-bottom: 16px;">
+                    <strong>问题:</strong> ${escapeHtml(data.query)}
+                </div>
+                <div class="comparison-grid">
+                    ${beforeHtml}
+                    ${afterHtml}
+                </div>
+                ${llmHtml}
+            `;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML.replace(/\n/g, '<br>');
+        }
+
+        // Init
+        checkAPI();
+    </script>
+</body>
+</html>

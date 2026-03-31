@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>索引管理 - Philosophia RAG</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --ink-cyan: #2C3E50;
+            --dark-gold: #B8860B;
+            --bg-warm: #FAFAF8;
+            --bg-card: #F2F1EF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B7280;
+            --border: #E5E4E2;
+            --danger: #C0392B;
+            --success: #27AE60;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-warm);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--ink-cyan);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .file-list {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+
+        .file-item:last-child { border-bottom: none; }
+        .file-item:hover { background: var(--bg-card); }
+
+        .file-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            accent-color: var(--ink-cyan);
+        }
+
+        .file-item .file-name {
+            flex: 1;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-item .file-type {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 12px;
+            white-space: nowrap;
+        }
+
+        .file-type.consult { background: #E8F4FD; color: #1976D2; }
+        .file-type.supervise { background: #E8F5E9; color: #388E3C; }
+        .file-type.workshop { background: #F3E5F5; color: #7B1FA2; }
+        .file-type.article { background: #FFF3E0; color: #E65100; }
+
+        .file-item .file-status {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 12px;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .file-status.pending { background: #F3F4F6; color: #6B7280; }
+        .file-status.processing { background: #FEF3C7; color: #D97706; }
+        .file-status.completed { background: #D1FAE5; color: #059669; }
+        .file-status.error { background: #FEE2E2; color: #DC2626; }
+        .file-status.skipped { background: #E5E7EB; color: #9CA3AF; }
+
+        .file-item .file-stage {
+            font-size: 10px;
+            color: var(--text-secondary);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .file-item.processing {
+            background: #FFFBEB;
+        }
+
+        .file-item .file-size {
+            font-size: 11px;
+            color: var(--text-secondary);
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .file-item .file-chunks {
+            font-size: 11px;
+            color: var(--text-secondary);
+            min-width: 60px;
+            text-align: right;
+            margin-left: 8px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--ink-cyan);
+            color: white;
+        }
+
+        .btn-primary:hover { background: #1A252F; }
+        .btn-primary:disabled { background: #95A5A6; cursor: not-allowed; }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { background: var(--border); }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover { background: #A93226; }
+
+        /* Progress */
+        .progress-section {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ink-cyan), var(--dark-gold));
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .current-file {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            padding: 10px 14px;
+            background: #FEF9E7;
+            border-radius: 6px;
+            border-left: 3px solid var(--dark-gold);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .current-file.running {
+            background: #FEF9E7;
+            border-left-color: var(--dark-gold);
+        }
+
+        .current-file.idle {
+            background: var(--bg-card);
+            border-left-color: var(--border);
+        }
+
+        /* Log */
+        .log-container {
+            background: #1A1B1E;
+            color: #E0E0E0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .log-time { color: #6B7280; }
+        .log-info { color: #60A5FA; }
+        .log-success { color: #34D399; }
+        .log-warning { color: #FBBF24; }
+        .log-error { color: #F87171; }
+
+        /* Status indicator */
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-dot.idle { background: #9CA3AF; }
+        .status-dot.running { background: #27AE60; animation: pulse 1.5s infinite; }
+        .status-dot.error { background: #E74C3C; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Select all */
+        .select-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .select-actions button {
+            background: none;
+            border: none;
+            color: var(--ink-cyan);
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        .select-actions button:hover { color: var(--dark-gold); }
+
+        /* API status */
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            background: var(--ink-cyan);
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.error { background: var(--danger); }
+
+        /* Time estimate */
+        .time-estimate {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Header row */
+        .file-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>索引管理</h1>
+        <p class="subtitle">Philosophia RAG 语料索引管理器</p>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalFiles">-</div>
+                <div class="stat-label">总文件数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="selectedFiles">0</div>
+                <div class="stat-label">已选择</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="manifestFiles">-</div>
+                <div class="stat-label">已有索引</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="completedFiles">0</div>
+                <div class="stat-label">本次新增</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalChunks">-</div>
+                <div class="stat-label">预估Chunks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="indexedPoints">-</div>
+                <div class="stat-label">已索引 Points</div>
+            </div>
+        </div>
+
+        <!-- Indexing Status -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">
+                    <span class="status-dot idle" id="statusDot"></span>
+                    <span id="statusText">空闲</span>
+                </span>
+                <div class="api-status">
+                    <span>API:</span>
+                    <span class="status-dot idle" id="apiStatus"></span>
+                    <span id="apiStatusText">检查中...</span>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-stats">
+                    <span id="progressText">0 / 0 文件 (0%)</span>
+                    <span id="elapsedTime">已用时: 0m 0s</span>
+                </div>
+                <div class="time-estimate" id="timeEstimate"></div>
+            </div>
+
+            <div class="current-file idle" id="currentFile">
+                等待开始...
+            </div>
+        </div>
+
+        <!-- File List -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">语料文件</span>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="btnStart" disabled>开始索引</button>
+                    <button class="btn btn-secondary" id="btnRefresh">刷新列表</button>
+                </div>
+            </div>
+
+            <div class="select-actions">
+                <button onclick="selectAll()">全选</button>
+                <button onclick="selectNone()">取消全选</button>
+                <button onclick="selectByType('consult')">仅咨询</button>
+                <button onclick="selectByType('supervise')">仅督导</button>
+                <button onclick="selectByType('workshop')">仅工作坊</button>
+                <button onclick="selectByType('article')">仅文章</button>
+            </div>
+
+            <div class="file-list" id="fileList">
+                <div class="file-header">
+                    <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()" style="margin-right: 12px; width: 16px; height: 16px;">
+                    <span style="flex: 1;">文件名</span>
+                    <span style="width: 60px; text-align: center;">类型</span>
+                    <span style="width: 70px; text-align: center;">状态</span>
+                    <span style="width: 70px; text-align: right;">大小</span>
+                    <span style="width: 60px; text-align: right;">Chunks</span>
+                </div>
+                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                    加载中...
+                </div>
+            </div>
+        </div>
+
+        <!-- Log -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">处理日志</span>
+                <button class="btn btn-secondary" onclick="clearLog()">清空</button>
+            </div>
+            <div class="log-container" id="logContainer">
+                <div class="log-line"><span class="log-time">[--:--:--]</span> <span class="log-info">等待操作...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // State
+        let files = [];
+        let selectedFiles = new Set();
+        let isIndexing = false;
+        let pollInterval = null;
+
+        // API Base
+        const API_BASE = 'http://localhost:8000';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFiles();
+            checkApiStatus();
+            startPolling();
+        });
+
+        // Load file list
+        async function loadFiles() {
+            try {
+                const response = await fetch(`${API_BASE}/api/files`);
+                if (!response.ok) throw new Error('API not available');
+
+                const data = await response.json();
+                files = data.files || [];
+                selectedFiles.clear();
+
+                renderFileList();
+                updateStats();
+                addLog('success', `加载了 ${files.length} 个文件`);
+            } catch (e) {
+                addLog('error', `加载文件列表失败: ${e.message}`);
+            }
+        }
+
+        // Render file list
+        function renderFileList() {
+            const container = document.getElementById('fileList');
+
+            if (files.length === 0) {
+                container.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                        暂无可索引的文件
+                    </div>
+                `;
+                return;
+            }
+
+            // Build header
+            let html = `
+                <div class="file-header">
+                    <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()" style="margin-right: 12px; width: 16px; height: 16px;">
+                    <span style="flex: 1;">文件名</span>
+                    <span style="width: 55px; text-align: center;">类型</span>
+                    <span style="width: 90px; text-align: center;">状态</span>
+                    <span style="width: 80px; text-align: right;">处理阶段</span>
+                    <span style="width: 65px; text-align: right;">大小</span>
+                    <span style="width: 50px; text-align: right;">Chunks</span>
+                </div>
+            `;
+
+            html += files.map((file, index) => {
+                const isSelected = selectedFiles.has(index);
+                const typeClass = getFileType(file.name);
+                const typeLabel = getFileTypeLabel(file.name);
+
+                return `
+                    <div class="file-item" data-index="${index}" id="file-item-${index}">
+                        <input type="checkbox"
+                            ${isSelected ? 'checked' : ''}
+                            onchange="toggleFile(${index})"
+                            id="file-${index}"
+                            style="margin-right: 12px;">
+                        <label for="file-${index}" class="file-name" title="${escapeHtml(file.name)}">${escapeHtml(file.name)}</label>
+                        <span class="file-type ${typeClass}" style="width: 55px; text-align: center; font-size: 10px;">${typeLabel}</span>
+                        <span class="file-status pending" id="status-${index}" style="width: 90px; text-align: center; font-size: 11px;">未启动</span>
+                        <span class="file-stage" id="stage-${index}" style="width: 80px; text-align: right; font-size: 10px;">-</span>
+                        <span class="file-size" style="width: 65px; text-align: right; font-size: 11px;">${formatSize(file.size || 0)}</span>
+                        <span class="file-chunks" id="chunks-${index}" style="width: 50px; text-align: right; font-size: 11px;">-</span>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
+        function getFileType(name) {
+            if (name.includes('Consultation') || name.includes('consultation')) return 'consult';
+            if (name.includes('Coach') || name.includes('督导')) return 'supervise';
+            if (name.includes('workshop') || name.includes('Workshop') || name.includes('工作坊')) return 'workshop';
+            return 'article';
+        }
+
+        function getFileTypeLabel(name) {
+            const type = getFileType(name);
+            const labels = { consult: '咨询', supervise: '督导', workshop: '工作坊', article: '文章' };
+            return labels[type];
+        }
+
+        function formatSize(bytes) {
+            if (!bytes) return '-';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // Selection
+        function toggleSelectAll() {
+            const checkbox = document.getElementById('selectAllCheckbox');
+            if (checkbox.checked) {
+                selectAll();
+            } else {
+                selectNone();
+            }
+        }
+
+        function toggleFile(index) {
+            if (selectedFiles.has(index)) {
+                selectedFiles.delete(index);
+            } else {
+                selectedFiles.add(index);
+            }
+            updateStats();
+            updateStartButton();
+        }
+
+        function selectAll() {
+            files.forEach((_, i) => selectedFiles.add(i));
+            renderFileList();
+            updateStats();
+            updateStartButton();
+        }
+
+        function selectNone() {
+            selectedFiles.clear();
+            renderFileList();
+            updateStats();
+            updateStartButton();
+        }
+
+        function selectByType(type) {
+            files.forEach((file, i) => {
+                if (getFileType(file.name) === type) {
+                    selectedFiles.add(i);
+                }
+            });
+            renderFileList();
+            updateStats();
+            updateStartButton();
+        }
+
+        // Stats
+        function updateStats() {
+            document.getElementById('totalFiles').textContent = files.length;
+            document.getElementById('selectedFiles').textContent = selectedFiles.size;
+
+            let totalSize = 0;
+            selectedFiles.forEach(i => totalSize += files[i].size || 0);
+            const estimatedChunks = Math.round(totalSize / 500);
+            document.getElementById('totalChunks').textContent = estimatedChunks > 0 ? estimatedChunks : '-';
+        }
+
+        function updateStartButton() {
+            const btn = document.getElementById('btnStart');
+            btn.disabled = selectedFiles.size === 0 || isIndexing;
+            btn.textContent = isIndexing ? '索引中...' : '开始索引';
+        }
+
+        // Polling
+        function startPolling() {
+            if (pollInterval) clearInterval(pollInterval);
+            pollInterval = setInterval(pollProgress, 2000);
+            pollProgress(); // Initial call
+        }
+
+        async function pollProgress() {
+            try {
+                const response = await fetch(`${API_BASE}/api/index/progress`);
+                if (!response.ok) return;
+
+                const data = await response.json();
+                updateProgressUI(data);
+
+                // Update file statuses
+                if (data.files) {
+                    Object.entries(data.files).forEach(([fileName, info]) => {
+                        const index = files.findIndex(f => f.name === fileName);
+                        if (index >= 0) {
+                            updateFileStatus(index, info.status, info.chunks, info.stage);
+                        }
+                    });
+                }
+
+                // Update completed files count
+                const manifestCount = data.manifest_count || 0;
+                const completedThisRun = (data.completed_files || 0) - manifestCount;
+                document.getElementById('manifestFiles').textContent = manifestCount;
+                document.getElementById('completedFiles').textContent = completedThisRun;
+                document.getElementById('indexedPoints').textContent = data.points_count || '-';
+
+                // Update indexing state
+                isIndexing = data.is_running;
+                updateIndexingStatus(data.is_running);
+            } catch (e) {
+                // Ignore polling errors
+            }
+        }
+
+        function updateProgressUI(data) {
+            const manifestCount = data.manifest_count || 0;
+            const completedThisRun = (data.completed_files || 0) - manifestCount;
+            const totalToProcess = (data.total_files || 0) - manifestCount;
+            const percent = totalToProcess > 0 ? (completedThisRun / totalToProcess * 100) : 0;
+
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent =
+                `本次进度: ${completedThisRun} / ${totalToProcess} 文件 (${percent.toFixed(1)}%)`;
+
+            // Elapsed time
+            const elapsed = data.elapsed_seconds || 0;
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = Math.floor(elapsed % 60);
+            document.getElementById('elapsedTime').textContent = `已用时: ${minutes}m ${seconds}s`;
+
+            // Current file
+            const currentFileEl = document.getElementById('currentFile');
+            if (data.current_file) {
+                currentFileEl.textContent = `正在处理: ${data.current_file}`;
+                currentFileEl.className = 'current-file running';
+            } else if (data.is_running) {
+                currentFileEl.textContent = '正在处理...';
+                currentFileEl.className = 'current-file running';
+            } else if (percent >= 100) {
+                currentFileEl.textContent = '全部完成！';
+                currentFileEl.className = 'current-file idle';
+            } else {
+                currentFileEl.textContent = '等待开始...';
+                currentFileEl.className = 'current-file idle';
+            }
+
+            // Time estimate
+            if (data.is_running && data.elapsed_seconds > 10 && completedThisRun > 0) {
+                const avgTimePerFile = data.elapsed_seconds / completedThisRun;
+                const remainingFiles = totalToProcess - completedThisRun;
+                const remainingSeconds = avgTimePerFile * remainingFiles;
+                const remainingMinutes = Math.ceil(remainingSeconds / 60);
+                document.getElementById('timeEstimate').textContent =
+                    `预计剩余: 约 ${remainingMinutes} 分钟`;
+            } else {
+                document.getElementById('timeEstimate').textContent = '';
+            }
+        }
+
+        function updateFileStatus(index, status, chunks, stage) {
+            const statusEl = document.getElementById(`status-${index}`);
+            const chunksEl = document.getElementById(`chunks-${index}`);
+            const stageEl = document.getElementById(`stage-${index}`);
+            const fileItemEl = document.getElementById(`file-item-${index}`);
+            if (!statusEl) return;
+
+            const statusMap = {
+                'pending': ['未启动', 'pending'],
+                'processing': ['进行中', 'processing'],
+                'completed': ['已完成', 'completed'],
+                'error': ['错误', 'error'],
+                'skipped': ['跳过', 'skipped']
+            };
+
+            const [label, className] = statusMap[status] || [status, 'pending'];
+            statusEl.textContent = label;
+            statusEl.className = `file-status ${className}`;
+
+            // Update stage
+            if (stageEl) {
+                stageEl.textContent = stage || '-';
+            }
+
+            // Highlight processing files
+            if (fileItemEl) {
+                if (status === 'processing') {
+                    fileItemEl.classList.add('processing');
+                } else {
+                    fileItemEl.classList.remove('processing');
+                }
+            }
+
+            if (chunks && chunks > 0) {
+                chunksEl.textContent = chunks;
+            }
+        }
+
+        function updateIndexingStatus(running) {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+
+            if (running) {
+                dot.className = 'status-dot running';
+                text.textContent = '索引中...';
+            } else {
+                dot.className = 'status-dot idle';
+                text.textContent = '空闲';
+            }
+            updateStartButton();
+        }
+
+        // API Status
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/`);
+                if (response.ok) {
+                    document.getElementById('apiStatus').className = 'status-dot idle';
+                    document.getElementById('apiStatusText').textContent = '已连接';
+                }
+            } catch (e) {
+                document.getElementById('apiStatus').className = 'status-dot error';
+                document.getElementById('apiStatusText').textContent = '未连接';
+            }
+        }
+
+        // Logging
+        function addLog(type, message) {
+            const container = document.getElementById('logContainer');
+            const time = new Date().toLocaleTimeString('zh-CN');
+            const typeClass = `log-${type}`;
+
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            line.innerHTML = `<span class="log-time">[${time}]</span> <span class="${typeClass}">${escapeHtml(message)}</span>`;
+            container.appendChild(line);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('logContainer').innerHTML =
+                '<div class="log-line"><span class="log-time">[--:--:--]</span> <span class="log-info">日志已清空</span></div>';
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Toast
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show' + (isError ? ' error' : '');
+            setTimeout(() => toast.className = 'toast', 3000);
+        }
+
+        // Event Listeners
+        document.getElementById('btnStart').addEventListener('click', () => {
+            addLog('info', '请通过命令行启动索引任务');
+            showToast('请使用命令行启动索引: python scripts/index_documents.py');
+        });
+
+        document.getElementById('btnRefresh').addEventListener('click', () => {
+            loadFiles();
+            checkApiStatus();
+            pollProgress();
+        });
+
+        // Poll API status every 30s
+        setInterval(checkApiStatus, 30000);
+    </script>
+</body>
+</html>

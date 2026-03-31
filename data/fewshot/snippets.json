@@ -1,6 +1,23 @@
 [
   {
-    "id": "snip_0873",
+    "id": "snip_2092",
+    "topic": "价值冲突",
+    "technique": "二选一",
+    "philosopher_line": "All right, good.So for next time, think what you would like to talk about.（那下次我们讨论之前，你可以先提前想一想，你想跟我聊什么好吗？）",
+    "client_line": "说话人03那就是我们说的放一面镜子在的面前。",
+    "context_before": "nt to tell me something else.（跟我说点什么其他的吗？） You want to discuss with me another time.（你还想下次再跟我继续讨论吗？）",
+    "context_after": "说话人03那就是我们说的放一面镜子在的面前。 So, Pavel, what was the main issue that you wanted to discuss?Is it okay?",
+    "quality_score": 0.7999999999999999,
+    "keywords": [
+      "right",
+      "good",
+      "next",
+      "time",
+      "think"
+    ]
+  },
+  {
+    "id": "snip_2511",
     "topic": "情绪管理",
     "technique": "苏格拉底追问",
     "philosopher_line": "What is it?",
@@ -17,7 +34,23 @@
     ]
   },
   {
-    "id": "snip_0022",
+    "id": "snip_2219",
+    "topic": "其他",
+    "technique": "一般对话",
+    "philosopher_line": "No, do you see how complication and chaos go nicely together?You don't see?",
+    "client_line": "I see.",
+    "context_before": "Yes, and that can be that's very connected to chaos. You know.",
+    "context_after": "That's. Yeah, but again, you see if if I do all these things with you, we're gonna be debating every",
+    "quality_score": 0.75,
+    "keywords": [
+      "complication",
+      "chaos",
+      "nicely",
+      "together"
+    ]
+  },
+  {
+    "id": "snip_2917",
     "topic": "人际关系",
     "technique": "二选一",
     "philosopher_line": "Is that they prefer their work?Their work is more important for them and they feel guilty about the family.Do you understand?",
@@ -34,7 +67,7 @@
     ]
   },
   {
-    "id": "snip_0317",
+    "id": "snip_3212",
     "topic": "自我认知",
     "technique": "一般对话",
     "philosopher_line": "If I could, I would not.Yeah, I would stay here.I don't like traffic.You see, you understand.So I have to.And I want two different things all right?Yes, and the problem is, people get confused because do not admit they don't like this.I have to.I have to.",
@@ -51,7 +84,7 @@
     ]
   },
   {
-    "id": "snip_0318",
+    "id": "snip_3213",
     "topic": "职业发展",
     "technique": "苏格拉底追问",
     "philosopher_line": "I have to.Yeah, it's a typical way of lying to ourself.Understand, Yeah, yeah, that's why I ask you for work.Do you have to go to work?Do you want to go to work?It's not same, understand.",
@@ -68,125 +101,24 @@
     ]
   },
   {
-    "id": "snip_0581",
-    "topic": "其他",
+    "id": "snip_2093",
+    "topic": "价值冲突",
     "technique": "一般对话",
-    "philosopher_line": "No, do you see how complication and chaos go nicely together?You don't see?",
-    "client_line": "I see.",
-    "context_before": "Yes, and that can be that's very connected to chaos. You know.",
-    "context_after": "That's. Yeah, but again, you see if if I do all these things with you, we're gonna be debating every",
-    "quality_score": 0.75,
-    "keywords": [
-      "complication",
-      "chaos",
-      "nicely",
-      "together"
-    ]
-  },
-  {
-    "id": "snip_0000",
-    "topic": "人际关系",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "So Cindy, what's the reason why the main reason why you want to speak with me?",
-    "client_line": "First of all, I have some question, one major question for me and also have great recommendation from my friend.He was on your session few years ago.",
-    "context_before": "",
-    "context_after": "You never met me before. You have a friend.",
+    "philosopher_line": "All right OK thank you very much 谢谢 and bye bye！（跟你再见拜拜！你去玩你的蜡。）",
+    "client_line": "说话人03那就是我们说的放一面镜子在的面前。",
+    "context_before": "ght, good.So for next time, think what you would like to talk about.（那下次我们讨论之前，你可以先提前想一想，你想跟我聊什么好吗？）",
+    "context_after": "So, Pavel, what was the main issue that you wanted to discuss?Is it okay? I don't know the answer to",
     "quality_score": 0.7,
     "keywords": [
-      "reason",
-      "have",
-      "question",
-      "cindy",
-      "what"
+      "right",
+      "thank",
+      "very",
+      "much",
+      "跟你再见拜拜"
     ]
   },
   {
-    "id": "snip_0017",
-    "topic": "情绪管理",
-    "technique": "二选一",
-    "philosopher_line": "Okay, don't try to speak more too much.Yeah, okay, I'll stop you.It means Ok, because already you see I speak with you, and the way you speak, I see anxiety, you know anxiety.Yeah, you agree with me, you're anxious.Ok, yeah, so calm down, don't speak more than necessary.",
-    "client_line": "Walk and family.",
-    "context_before": "Okay, fine, okay, when I stop you to stop. Yeah.",
-    "context_after": "Walk and family. Work and family?Ok, yes, now you know when people tell me that I know what is their",
-    "quality_score": 0.7,
-    "keywords": [
-      "speak",
-      "yeah",
-      "okay",
-      "more",
-      "with"
-    ]
-  },
-  {
-    "id": "snip_0033",
-    "topic": "其他",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "That's because you're anxious.You see.Yes, I tell you, I have never been to Saint Peter's when you say yes, but you cannot say anything.That's me.I have never.Yeah, Ok, why are you so anxious?",
-    "client_line": "I have a lot of events.",
-    "context_before": "No, I. Yeah, okay.Sorry I move.",
-    "context_after": "Nobody don't know.Today, lot of no, no, Ok, no, no. And so.",
-    "quality_score": 0.7,
-    "keywords": [
-      "have",
-      "that",
-      "anxious",
-      "never",
-      "because"
-    ]
-  },
-  {
-    "id": "snip_0039",
-    "topic": "人生意义",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "You're anxious in your life?Okay, so I don't want to hear about today.Why, in general, you think you're anxious?Why?",
-    "client_line": "Because I want to get a lot of my work.",
-    "context_before": "It's not today.You're not anxious today. Yeah.",
-    "context_after": "Okay, fine, what do you call this?Somebody who wants to get a lot of something?What do you call this",
-    "quality_score": 0.7,
-    "keywords": [
-      "anxious",
-      "want",
-      "your",
-      "life",
-      "okay"
-    ]
-  },
-  {
-    "id": "snip_0287",
-    "topic": "其他",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "Can we do one thing?Not like you're not rational now.You're just emotional.You're bothered by what we're discovering.Not, you're reacting.You know this?Yeah, why, I know you're a professional.You run this, but still why we're having a discussion.",
-    "client_line": "It's sorry for interruption because it's really difficult for me to answer this question, because just to be standard, it's not only one activity, it's it's also we if you talk about just indicating.",
-    "context_before": "s not an activity.If that was the case, everybody would be busy.What do you do? Do no this activity.",
-    "context_after": "It's sorry for interruption because it's really difficult for me to answer this question, because ju",
-    "quality_score": 0.7,
-    "keywords": [
-      "just",
-      "this",
-      "know",
-      "because",
-      "thing"
-    ]
-  },
-  {
-    "id": "snip_0288",
-    "topic": "自我认知",
-    "technique": "一般对话",
-    "philosopher_line": "You and I defend yourself with your wife, I understand.But with me, No, you see, yeah, you are you ready to spend all day educating your child?Window.Okay, so you know the answer, you know our city.",
-    "client_line": "It's sorry for interruption because it's really difficult for me to answer this question, because just to be standard, it's not only one activity, it's it's also we if you talk about just indicating.",
-    "context_before": " this?Yeah, why, I know you're a professional.You run this, but still why we're having a discussion.",
-    "context_after": "It's also. Son, it's one thing to be with his wife.It's another thing.",
-    "quality_score": 0.7,
-    "keywords": [
-      "with",
-      "your",
-      "know",
-      "answer",
-      "because"
-    ]
-  },
-  {
-    "id": "snip_0461",
+    "id": "snip_2099",
     "topic": "自我认知",
     "technique": "苏格拉底追问",
     "philosopher_line": "What is the main issue you would like to discuss?",
@@ -203,7 +135,7 @@
     ]
   },
   {
-    "id": "snip_0739",
+    "id": "snip_2377",
     "topic": "价值冲突",
     "technique": "一般对话",
     "philosopher_line": "So so the way you use you, it's not, but you.You'll get the video after, right?",
@@ -220,7 +152,7 @@
     ]
   },
   {
-    "id": "snip_0875",
+    "id": "snip_2513",
     "topic": "职业发展",
     "technique": "二选一",
     "philosopher_line": "..。How does that work?What's the see?You explain to me?The first meditation I follow.I focus on my breathing.I focus on my body.How do you do this with the I other aspect?",
@@ -237,7 +169,7 @@
     ]
   },
   {
-    "id": "snip_0890",
+    "id": "snip_2528",
     "topic": "其他",
     "technique": "二选一",
     "philosopher_line": "Because it is hard and insightful.Okay, and what's I'm gonna ask you of both words.What was the hardest thing for you with this exercise?To control my.Need to dominate?Okay, fine and you said insights, which is the main insight you got from this exercise.",
@@ -254,7 +186,7 @@
     ]
   },
   {
-    "id": "snip_0902",
+    "id": "snip_2540",
     "topic": "其他",
     "technique": "二选一",
     "philosopher_line": "Yeah, but to find out, Ok, so you you went above your own desire to to resist?Yes, Ok, good, Ok, so we're gonna stop here.Do you want to add something else or ask something?Or we're good?I would like to ask.Yeah, you could ask me.",
@@ -271,577 +203,640 @@
     ]
   },
   {
-    "id": "snip_0005",
+    "id": "snip_2894",
     "topic": "人际关系",
     "technique": "二选一",
-    "philosopher_line": "No.But did you meet me or never?",
-    "client_line": "No, no Iii know so my friend visit your a few section, maybe two or three.",
-    "context_before": "You have a friend. I have thought about you.",
-    "context_after": "Okay, okay. Maybe seven years ago they was impressed, he was impressed and he advised me that.",
-    "quality_score": 0.6,
+    "philosopher_line": "Good, all right.Do you want to add something?That's something that's something No, no, Ok, all right.Victoria.",
+    "client_line": "First of all, I have some question, one major question for me and also have great recommendation from my friend.He was on your session few years ago.",
+    "context_before": "u have a job, then with your husband for her to discuss with them. This specific problem?Yeah, yeah.",
+    "context_after": "First of all, I have some question, one major question for me and also have great recommendation fro",
+    "quality_score": 0.7,
     "keywords": [
-      "meet",
-      "never",
-      "know",
-      "friend",
-      "visit"
-    ]
-  },
-  {
-    "id": "snip_0013",
-    "topic": "人生意义",
-    "technique": "一般对话",
-    "philosopher_line": "What I want to.",
-    "client_line": "Understand more clearly in my life, so the major issue is a balance between between between some parts of the life made mainly in work work.",
-    "context_before": "That's fine.That's clear. Ok, and about reason what I want to.",
-    "context_after": "Okay, fine, okay, when I stop you to stop. Yeah.",
-    "quality_score": 0.6,
-    "keywords": [
-      "between",
-      "life",
-      "work",
-      "what",
-      "want"
-    ]
-  },
-  {
-    "id": "snip_0018",
-    "topic": "人际关系",
-    "technique": "一般对话",
-    "philosopher_line": "Okay, and I started Okay, so you want a balance, not people.When they want balance, they want down between two things in general.Maybe two things.What are the main two things you want?Balance?",
-    "client_line": "Walk and family.",
-    "context_before": "ety.Yeah, you agree with me, you're anxious.Ok, yeah, so calm down, don't speak more than necessary.",
-    "context_after": "Work and family?Ok, yes, now you know when people tell me that I know what is their preference.I kno",
-    "quality_score": 0.6,
-    "keywords": [
-      "want",
-      "balance",
-      "things",
-      "okay",
-      "they"
-    ]
-  },
-  {
-    "id": "snip_0020",
-    "topic": "人际关系",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "Work and family?Ok, yes, now you know when people tell me that I know what is their preference.I know you know what I know, what you don't guess.",
-    "client_line": "And we're doing it.",
-    "context_before": "o things in general.Maybe two things.What are the main two things you want?Balance? Walk and family.",
-    "context_after": "Is that they prefer their work?Their work is more important for them and they feel guilty about the ",
-    "quality_score": 0.6,
-    "keywords": [
-      "know",
-      "what",
-      "work",
-      "family",
-      "when"
-    ]
-  },
-  {
-    "id": "snip_0024",
-    "topic": "其他",
-    "technique": "一般对话",
-    "philosopher_line": "Yes.Is this your case?",
-    "client_line": "You got that?",
-    "context_before": "more important for them and they feel guilty about the family.Do you understand? Yeah, I understand.",
-    "context_after": "Yes, show me. Yes.",
-    "quality_score": 0.6,
-    "keywords": [
-      "this",
-      "your",
-      "case",
-      "that"
-    ]
-  },
-  {
-    "id": "snip_0037",
-    "topic": "其他",
-    "technique": "一般对话",
-    "philosopher_line": "It's not today.You're not anxious today.",
-    "client_line": "Yeah.",
-    "context_before": "Nobody don't know.Today, lot of no, no, Ok, no, no. And so.",
-    "context_after": "You're anxious in your life?Okay, so I don't want to hear about today.Why, in general, you think you",
-    "quality_score": 0.6,
-    "keywords": [
-      "today",
-      "anxious",
-      "yeah"
-    ]
-  },
-  {
-    "id": "snip_0041",
-    "topic": "其他",
-    "technique": "简化问题",
-    "philosopher_line": "Okay, fine, what do you call this?Somebody who wants to get a lot of something?What do you call this one word?",
-    "client_line": "Yeah, yeah, petrol.",
-    "context_before": "r about today.Why, in general, you think you're anxious?Why? Because I want to get a lot of my work.",
-    "context_after": "No, you're not happy.If you want to love, you're not happy.You're not happy.It's called Jean.Yeah.Ar",
-    "quality_score": 0.6,
-    "keywords": [
-      "what",
-      "call",
-      "this",
-      "yeah",
-      "okay"
-    ]
-  },
-  {
-    "id": "snip_0043",
-    "topic": "其他",
-    "technique": "一般对话",
-    "philosopher_line": "No, you're not happy.If you want to love, you're not happy.You're not happy.It's called Jean.Yeah.Are you Janet?Yes, no.",
-    "client_line": "You think that that I'm shy shy?",
-    "context_before": "his?Somebody who wants to get a lot of something?What do you call this one word? Yeah, yeah, petrol.",
-    "context_after": "You think that that I'm shy shy? Answer my question.Do you think you're Jadne?Yes or no?No, No, you'",
-    "quality_score": 0.6,
-    "keywords": [
-      "happy",
-      "that",
-      "want",
-      "love",
-      "called"
-    ]
-  },
-  {
-    "id": "snip_0046",
-    "topic": "价值冲突",
-    "technique": "二选一",
-    "philosopher_line": "Answer my question.Do you think you're Jadne?Yes or no?No, No, you're not yet all right?Okay, so you just told me I want a lot.Do you remember?",
-    "client_line": "Yeah.",
-    "context_before": "More years more, no, just just just just just. You think that that I'm shy shy?",
-    "context_after": "Yes, somebody who wants a lot is he shaden or no?Just use logic.Logic is very nice.Makes your life e",
-    "quality_score": 0.6,
-    "keywords": [
-      "answer",
-      "question",
-      "think",
-      "jadne",
-      "right"
-    ]
-  },
-  {
-    "id": "snip_0048",
-    "topic": "人生意义",
-    "technique": "二选一",
-    "philosopher_line": "Yes, somebody who wants a lot is he shaden or no?Just use logic.Logic is very nice.Makes your life easy, you know.",
-    "client_line": "Because if, if somebody say, it's a lot.",
-    "context_before": "or no?No, No, you're not yet all right?Okay, so you just told me I want a lot.Do you remember? Yeah.",
-    "context_after": "Yes. If you want to look across the island.",
-    "quality_score": 0.6,
-    "keywords": [
-      "somebody",
-      "logic",
-      "wants",
-      "shaden",
-      "just"
-    ]
-  },
-  {
-    "id": "snip_0052",
-    "topic": "其他",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "Yeah, why do you try to protest?",
-    "client_line": "Maybe because I don't know the limit what is enough, and that is a lot.",
-    "context_before": "Yes. If you want to look across the island.",
-    "context_after": "Yeah, well, somebody who doesn't know the limit just listen to the expression.I don't know the limit",
-    "quality_score": 0.6,
-    "keywords": [
-      "yeah",
-      "protest",
-      "maybe",
-      "because",
-      "know"
-    ]
-  },
-  {
-    "id": "snip_0054",
-    "topic": "其他",
-    "technique": "一般对话",
-    "philosopher_line": "Yeah, well, somebody who doesn't know the limit just listen to the expression.I don't know the limit, is it just never enough?",
-    "client_line": "Yes, No.",
-    "context_before": ", why do you try to protest? Maybe because I don't know the limit what is enough, and that is a lot.",
-    "context_after": "Yes, it's simple.You're not.Yeah, it's precisely all the people who are not judged have no problem w",
-    "quality_score": 0.6,
-    "keywords": [
-      "know",
-      "limit",
-      "just",
-      "yeah",
-      "well"
-    ]
-  },
-  {
-    "id": "snip_0057",
-    "topic": "人生意义",
-    "technique": "简化问题",
-    "philosopher_line": "Give me one thing for you in your life.You want a lot more than anything else.One thing.We always say maybe I know you want many things, but what's the main thing you want?",
-    "client_line": "Don't know you want so much and that's the proof.",
-    "context_before": " people say, where is the limit?That means they want a lot.Yes, Ok, and what is it you want so much?",
-    "context_after": "Don't know you want so much and that's the proof. Very orchid, general.Because when ask you what you",
-    "quality_score": 0.6,
-    "keywords": [
-      "want",
-      "thing",
-      "know",
-      "give",
-      "your"
-    ]
-  },
-  {
-    "id": "snip_0061",
-    "topic": "人生意义",
-    "technique": "二选一",
-    "philosopher_line": "They want to be famous.Yes, they want to be loved.They want to be useful.Yes, you know they want to be to have a lot of worth worth, you know, worth?Yeah, a lot of value.Which one you want more than anything else.",
-    "client_line": "I feel want to be loved。",
-    "context_before": "n life.Okay, yes, simple.They want to be rich.They want to live a long time.You know, don't not die.",
-    "context_after": "You wanna be loved?Yes, okay, you wanna be loved.Yes, okay.You want to be loved by specific person o",
-    "quality_score": 0.6,
-    "keywords": [
-      "want",
-      "they",
-      "worth",
-      "loved",
-      "know"
-    ]
-  },
-  {
-    "id": "snip_0063",
-    "topic": "其他",
-    "technique": "二选一",
-    "philosopher_line": "You wanna be loved?Yes, okay, you wanna be loved.Yes, okay.You want to be loved by specific person or by everybody.",
-    "client_line": "Mainly for from specific person.",
-    "context_before": "now, worth?Yeah, a lot of value.Which one you want more than anything else. I feel want to be loved。",
-    "context_after": "Ok, how many people are those specific people?How many? First of all, my wife.",
-    "quality_score": 0.6,
-    "keywords": [
-      "loved",
-      "wanna",
-      "okay",
-      "specific",
-      "person"
-    ]
-  },
-  {
-    "id": "snip_0065",
-    "topic": "其他",
-    "technique": "一般对话",
-    "philosopher_line": "Ok, how many people are those specific people?How many?",
-    "client_line": "First of all, my wife.",
-    "context_before": ".Yes, okay.You want to be loved by specific person or by everybody. Mainly for from specific person.",
-    "context_after": "No, no, I, I don't want to know.First of all, how many two people. Were these two people?",
-    "quality_score": 0.6,
-    "keywords": [
-      "many",
-      "people",
-      "those",
-      "specific",
-      "first"
-    ]
-  },
-  {
-    "id": "snip_0068",
-    "topic": "人生意义",
-    "technique": "一般对话",
-    "philosopher_line": "Were these two people?",
-    "client_line": "To me, the women in my life, my wife and my mother.",
-    "context_before": "First of all, my wife. No, no, I, I don't want to know.First of all, how many two people.",
-    "context_after": "Thank you know to.Your wife and mother, Okay, yes, all right now.Does your wife love you or not? Yea",
-    "quality_score": 0.6,
-    "keywords": [
-      "were",
-      "these",
-      "people",
-      "women",
-      "life"
-    ]
-  },
-  {
-    "id": "snip_0070",
-    "topic": "价值冲突",
-    "technique": "二选一",
-    "philosopher_line": "Thank you know to.Your wife and mother, Okay, yes, all right now.Does your wife love you or not?",
-    "client_line": "Yeah, yeah, Mm.I hope so.",
-    "context_before": "Were these two people? To me, the women in my life, my wife and my mother.",
-    "context_after": "No, no, no hope.You see that's in church, you know, church.Then you go, please, God, I hope I go to ",
-    "quality_score": 0.6,
-    "keywords": [
-      "your",
-      "wife",
-      "yeah",
-      "thank",
-      "know"
-    ]
-  },
-  {
-    "id": "snip_0072",
-    "topic": "价值冲突",
-    "technique": "二选一",
-    "philosopher_line": "No, no, no hope.You see that's in church, you know, church.Then you go, please, God, I hope I go to Paradise.That's change.Ok here, no.Do you think your wife loves you or not?",
-    "client_line": "You think you should go.",
-    "context_before": " wife and mother, Okay, yes, all right now.Does your wife love you or not? Yeah, yeah, Mm.I hope so.",
-    "context_after": "You think you should go. What do you want?You see?It doesn't make sense.What you're telling me.You r",
-    "quality_score": 0.6,
-    "keywords": [
-      "hope",
-      "that",
-      "church",
-      "think",
-      "know"
-    ]
-  },
-  {
-    "id": "snip_0073",
-    "topic": "价值冲突",
-    "technique": "一般对话",
-    "philosopher_line": "Yes, do you think your mother loves you?",
-    "client_line": "You think you should go.",
-    "context_before": "ase, God, I hope I go to Paradise.That's change.Ok here, no.Do you think your wife loves you or not?",
-    "context_after": "What do you want?You see?It doesn't make sense.What you're telling me.You realize that what you look",
-    "quality_score": 0.6,
-    "keywords": [
-      "think",
-      "your",
-      "mother",
-      "loves",
-      "should"
-    ]
-  },
-  {
-    "id": "snip_0075",
-    "topic": "其他",
-    "technique": "一般对话",
-    "philosopher_line": "What do you want?You see?It doesn't make sense.What you're telling me.You realize that what you look at me, look at me.What you tell me makes no sense.",
-    "client_line": "Good.",
-    "context_before": "Yes, do you think your mother loves you? You think you should go.",
-    "context_after": "It's like, say, I want a house.You have a house.Yes to.I don't see what you want.You see what is it ",
-    "quality_score": 0.6,
-    "keywords": [
-      "what",
-      "sense",
-      "look",
-      "want",
-      "doesn"
-    ]
-  },
-  {
-    "id": "snip_0077",
-    "topic": "其他",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "It's like, say, I want a house.You have a house.Yes to.I don't see what you want.You see what is it that you don't have a new one?I give you a list.Remember.",
-    "client_line": "Yeah.",
-    "context_before": "e telling me.You realize that what you look at me, look at me.What you tell me makes no sense. Good.",
-    "context_after": "I want to do it internally.I want to be rich, I want to be famous, I want to be recognized. However,",
-    "quality_score": 0.6,
-    "keywords": [
-      "want",
-      "house",
-      "have",
-      "what",
-      "like"
-    ]
-  },
-  {
-    "id": "snip_0081",
-    "topic": "其他",
-    "technique": "二选一",
-    "philosopher_line": "You want to be rich?Fine, that's more clear.Are you rich or not?No?Okay, now that makes sense.You see you want to be rich, Yes, okay, and so that confirms the fact you're Jadne.It's the best definition of Jadne.If someone wants to be rich, yes, makes sense.",
-    "client_line": "Reasons make.",
-    "context_before": "ly.I want to be rich, I want to be famous, I want to be recognized. However, so I won't be reaching.",
-    "context_after": "How come it took so long for you to know that you should know right away why you don't see?Yeah, yea",
-    "quality_score": 0.6,
-    "keywords": [
-      "rich",
-      "that",
-      "want",
-      "okay",
-      "makes"
-    ]
-  },
-  {
-    "id": "snip_0083",
-    "topic": "自我认知",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "How come it took so long for you to know that you should know right away why you don't see?Yeah, yeah, why you don't see right away.",
-    "client_line": "I don't clearly understand.",
-    "context_before": "Jadne.It's the best definition of Jadne.If someone wants to be rich, yes, makes sense. Reasons make.",
-    "context_after": "Okay, I trust you, since you want to be rich when I said you are sharp, Why was it?Why didn't you te",
-    "quality_score": 0.6,
-    "keywords": [
-      "know",
-      "right",
-      "away",
-      "yeah",
-      "come"
-    ]
-  },
-  {
-    "id": "snip_0085",
-    "topic": "自我认知",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "Okay, I trust you, since you want to be rich when I said you are sharp, Why was it?Why didn't you tell me?Why was it so hard to recognize why you didn't tell me yourself?",
-    "client_line": "I don't know.",
-    "context_before": "w right away why you don't see?Yeah, yeah, why you don't see right away. I don't clearly understand.",
-    "context_after": "Okay, you see it.But that's important because that means you don't see yourself, you're yelling to y",
-    "quality_score": 0.6,
-    "keywords": [
-      "didn",
-      "tell",
-      "okay",
-      "trust",
-      "since"
-    ]
-  },
-  {
-    "id": "snip_0089",
-    "topic": "其他",
-    "technique": "二选一",
-    "philosopher_line": "You surprise, Yes, that's common now.Generally, when we don't want to see something.Yes is because it's a problem for us.You know when something is visible?Yes, you know.For example, me, I'm I'm I'm I'm getting old.Ok now.If I don't want to see I'm getting old, it means it bothers me.",
-    "client_line": "Yeah, yeah.",
-    "context_before": " yourself, you're yelling to yourself, you surprise, or you know that's the case. No, I'm surprised.",
-    "context_after": "Yeah, I'm really understand. Yeah.",
-    "quality_score": 0.6,
-    "keywords": [
-      "when",
-      "want",
       "something",
-      "know",
-      "getting"
+      "right",
+      "that",
+      "have",
+      "question"
     ]
   },
   {
-    "id": "snip_0093",
-    "topic": "自我认知",
+    "id": "snip_2895",
+    "topic": "人际关系",
     "technique": "苏格拉底追问",
-    "philosopher_line": "I'm fat.If I cannot say I'm fat, it means it's bothering me because it's obvious.Understand, Yes, so why is it?Is it the problem for you to recognize the fact you're challenged?You don't know.",
-    "client_line": "for this moment I do not know。",
-    "context_before": "Yeah, I'm really understand. Yeah.",
-    "context_after": "No, not this moment. I don't know.",
-    "quality_score": 0.6,
+    "philosopher_line": "So Cindy, what's the reason why the main reason why you want to speak with me?",
+    "client_line": "First of all, I have some question, one major question for me and also have great recommendation from my friend.He was on your session few years ago.",
+    "context_before": "right.Do you want to add something?That's something that's something No, no, Ok, all right.Victoria.",
+    "context_after": "You never met me before. You have a friend.",
+    "quality_score": 0.7,
     "keywords": [
-      "know",
-      "cannot",
-      "means",
-      "bothering",
+      "reason",
+      "have",
+      "question",
+      "cindy",
+      "what"
+    ]
+  },
+  {
+    "id": "snip_2912",
+    "topic": "情绪管理",
+    "technique": "二选一",
+    "philosopher_line": "Okay, don't try to speak more too much.Yeah, okay, I'll stop you.It means Ok, because already you see I speak with you, and the way you speak, I see anxiety, you know anxiety.Yeah, you agree with me, you're anxious.Ok, yeah, so calm down, don't speak more than necessary.",
+    "client_line": "Walk and family.",
+    "context_before": "Okay, fine, okay, when I stop you to stop. Yeah.",
+    "context_after": "Walk and family. Work and family?Ok, yes, now you know when people tell me that I know what is their",
+    "quality_score": 0.7,
+    "keywords": [
+      "speak",
+      "yeah",
+      "okay",
+      "more",
+      "with"
+    ]
+  },
+  {
+    "id": "snip_2928",
+    "topic": "其他",
+    "technique": "苏格拉底追问",
+    "philosopher_line": "That's because you're anxious.You see.Yes, I tell you, I have never been to Saint Peter's when you say yes, but you cannot say anything.That's me.I have never.Yeah, Ok, why are you so anxious?",
+    "client_line": "I have a lot of events.",
+    "context_before": "No, I. Yeah, okay.Sorry I move.",
+    "context_after": "Nobody don't know.Today, lot of no, no, Ok, no, no. And so.",
+    "quality_score": 0.7,
+    "keywords": [
+      "have",
+      "that",
+      "anxious",
+      "never",
       "because"
     ]
   },
   {
-    "id": "snip_0097",
-    "topic": "其他",
-    "technique": "二选一",
-    "philosopher_line": "Okay, in general, in general, the word behind we may say say which which in general does the word jognet, Is it the problem for you?",
-    "client_line": "I don't know.",
-    "context_before": "No, not this moment. I don't know.",
-    "context_after": "That word is the problem.Well, okay in in in your environment when you say somebody this person is j",
-    "quality_score": 0.6,
+    "id": "snip_2934",
+    "topic": "人生意义",
+    "technique": "苏格拉底追问",
+    "philosopher_line": "You're anxious in your life?Okay, so I don't want to hear about today.Why, in general, you think you're anxious?Why?",
+    "client_line": "Because I want to get a lot of my work.",
+    "context_before": "It's not today.You're not anxious today. Yeah.",
+    "context_after": "Okay, fine, what do you call this?Somebody who wants to get a lot of something?What do you call this",
+    "quality_score": 0.7,
     "keywords": [
-      "general",
-      "word",
-      "which",
-      "okay",
-      "behind"
+      "anxious",
+      "want",
+      "your",
+      "life",
+      "okay"
     ]
   },
   {
-    "id": "snip_0100",
+    "id": "snip_3182",
+    "topic": "其他",
+    "technique": "苏格拉底追问",
+    "philosopher_line": "Can we do one thing?Not like you're not rational now.You're just emotional.You're bothered by what we're discovering.Not, you're reacting.You know this?Yeah, why, I know you're a professional.You run this, but still why we're having a discussion.",
+    "client_line": "It's sorry for interruption because it's really difficult for me to answer this question, because just to be standard, it's not only one activity, it's it's also we if you talk about just indicating.",
+    "context_before": "s not an activity.If that was the case, everybody would be busy.What do you do? Do no this activity.",
+    "context_after": "It's sorry for interruption because it's really difficult for me to answer this question, because ju",
+    "quality_score": 0.7,
+    "keywords": [
+      "just",
+      "this",
+      "know",
+      "because",
+      "thing"
+    ]
+  },
+  {
+    "id": "snip_3183",
+    "topic": "自我认知",
+    "technique": "一般对话",
+    "philosopher_line": "You and I defend yourself with your wife, I understand.But with me, No, you see, yeah, you are you ready to spend all day educating your child?Window.Okay, so you know the answer, you know our city.",
+    "client_line": "It's sorry for interruption because it's really difficult for me to answer this question, because just to be standard, it's not only one activity, it's it's also we if you talk about just indicating.",
+    "context_before": " this?Yeah, why, I know you're a professional.You run this, but still why we're having a discussion.",
+    "context_after": "It's also. Son, it's one thing to be with his wife.It's another thing.",
+    "quality_score": 0.7,
+    "keywords": [
+      "with",
+      "your",
+      "know",
+      "answer",
+      "because"
+    ]
+  },
+  {
+    "id": "snip_1703",
     "topic": "其他",
     "technique": "一般对话",
-    "philosopher_line": "What did they say?",
-    "client_line": "Mm.I think it's negative.",
-    "context_before": "your environment when you say somebody this person is jognet.People say that's good but not so good.",
-    "context_after": "Exactly yeah, and why is it negative? Because if somebody to shut me, he.This takes some soup from a",
+    "philosopher_line": "Logical? No.",
+    "client_line": "说话人08今天你跟我第一个跟我之前他们是共享一个鬼魂的。",
+    "context_before": "She thinks she's ugly. Otherwise, no need for makeup.",
+    "context_after": "说话人08今天你跟我第一个跟我之前他们是共享一个鬼魂的。 The ghost of stupidity.",
+    "quality_score": 0.6,
+    "keywords": [
+      "logical",
+      "说话人08今天你跟我第一个跟我之前他们是共享一个鬼魂的"
+    ]
+  },
+  {
+    "id": "snip_2095",
+    "topic": "其他",
+    "technique": "一般对话",
+    "philosopher_line": "So, Pavel, what was the main issue that you wanted to discuss?Is it okay?",
+    "client_line": "I don't know the answer to this question.",
+    "context_before": "All right OK thank you very much 谢谢 and bye bye！（跟你再见拜拜！你去玩你的蜡。） 说话人03那就是我们说的放一面镜子在的面前。",
+    "context_after": "Ok, just just try to answer me because every time you want to add something or create conditions it ",
+    "quality_score": 0.6,
+    "keywords": [
+      "pavel",
+      "what",
+      "main",
+      "issue",
+      "that"
+    ]
+  },
+  {
+    "id": "snip_2098",
+    "topic": "自我认知",
+    "technique": "一般对话",
+    "philosopher_line": "Try to answer me unless it's not possible to answer me.",
+    "client_line": "I guess the main issue I was thinking about it as coming here and I guess I arrived at the fact that probably the main issue is that I would like to understand what is important, what is the most, what are the most important things for me.",
+    "context_before": "o answer me because every time you want to add something or create conditions it complicates things.",
+    "context_after": "I guess the main issue I was thinking about it as coming here and I guess I arrived at the fact that",
     "quality_score": 0.6,
     "keywords": [
       "what",
-      "they",
-      "think",
-      "negative"
+      "answer",
+      "guess",
+      "main",
+      "issue"
     ]
   },
   {
-    "id": "snip_0102",
-    "topic": "其他",
-    "technique": "苏格拉底追问",
-    "philosopher_line": "Exactly yeah, and why is it negative?",
-    "client_line": "Because if somebody to shut me, he.This takes some soup from another.",
-    "context_before": "What did they say? Mm.I think it's negative.",
-    "context_after": "Yeah, Ok, take something from another.Yeah, do you have a name for this?You take something from anot",
+    "id": "snip_2108",
+    "topic": "人生意义",
+    "technique": "二选一",
+    "philosopher_line": "You see, I'm sure in life.You talk, you say everything you want here.It's an exercise.You really have to work on your mind.So you gave me two things and all I did is ask you to choose and woo.You want to start explaining.Do you remember the two things you said?",
+    "client_line": "Sure.",
+    "context_before": " no, no.Now you're going away.You want to explain you give. You don't want to hear stories you want.",
+    "context_after": "Just pick one of the two. What are the most important things for you?",
     "quality_score": 0.6,
     "keywords": [
-      "exactly",
+      "sure",
+      "want",
+      "things",
+      "life",
+      "talk"
+    ]
+  },
+  {
+    "id": "snip_2115",
+    "topic": "价值冲突",
+    "technique": "二选一",
+    "philosopher_line": "Okay, right?So because we're not very ambitious, so we take it peacefully if there are number of important things, which is going to go straight to the most important one thing, which is one thing which is the most important, it's a good.",
+    "client_line": "Sorry, see you before.",
+    "context_before": "Ok, so basically you want to understand what are the most important things for you. Correct.",
+    "context_after": "You know, just just stay with me.Just tell them if it's okay with. Clarify the question.",
+    "quality_score": 0.6,
+    "keywords": [
+      "important",
+      "which",
+      "most",
+      "thing",
+      "okay"
+    ]
+  },
+  {
+    "id": "snip_2125",
+    "topic": "职业发展",
+    "technique": "二选一",
+    "philosopher_line": "Yeah, and the whole point in our work is to learn people not to react, but to think is that good?",
+    "client_line": "Yes.",
+    "context_before": "to just not be reacting.If you react, you don't think it's like you know when you hit the need move?",
+    "context_after": "Yes. Give me one thing.Recognition, recognition?Yeah, that's a popular one.Now, when you think about",
+    "quality_score": 0.6,
+    "keywords": [
       "yeah",
-      "negative",
-      "because",
+      "whole",
+      "point",
+      "work",
+      "learn"
+    ]
+  },
+  {
+    "id": "snip_2126",
+    "topic": "价值冲突",
+    "technique": "二选一",
+    "philosopher_line": "All right, So I ask you, what do you think is the most important thing for you?Can you answer this question or it's too hard right now?Too hard, Okay, well, do you know something, anything, which you consider important for you?",
+    "client_line": "Yes.",
+    "context_before": "e? Yeah, and the whole point in our work is to learn people not to react, but to think is that good?",
+    "context_after": "Give me one thing.Recognition, recognition?Yeah, that's a popular one.Now, when you think about reco",
+    "quality_score": 0.6,
+    "keywords": [
+      "right",
+      "important",
+      "hard",
+      "what",
+      "think"
+    ]
+  },
+  {
+    "id": "snip_2128",
+    "topic": "其他",
+    "technique": "二选一",
+    "philosopher_line": "Give me one thing.Recognition, recognition?Yeah, that's a popular one.Now, when you think about recognition, is there something you could think of and you say, well, this is still more important recognition or no, You cannot think of something more important.",
+    "client_line": "I think I can.",
+    "context_before": "ow?Too hard, Okay, well, do you know something, anything, which you consider important for you? Yes.",
+    "context_after": "What is it?Ok, peace, peace, peace, peace, Ok, so let's make a test. Peace, piece of mind, Peace, pi",
+    "quality_score": 0.6,
+    "keywords": [
+      "recognition",
+      "think",
+      "something",
+      "more",
+      "important"
+    ]
+  },
+  {
+    "id": "snip_2130",
+    "topic": "其他",
+    "technique": "苏格拉底追问",
+    "philosopher_line": "What is it?Ok, peace, peace, peace, peace, Ok, so let's make a test.",
+    "client_line": "Peace, piece of mind, Peace, piece of mind.",
+    "context_before": "still more important recognition or no, You cannot think of something more important. I think I can.",
+    "context_after": "See, I use a little life test.Suppose you have a life where you have peace of mind?Yeah, but not rec",
+    "quality_score": 0.6,
+    "keywords": [
+      "peace",
+      "piece",
+      "mind",
+      "what",
+      "make"
+    ]
+  },
+  {
+    "id": "snip_2132",
+    "topic": "人生意义",
+    "technique": "二选一",
+    "philosopher_line": "See, I use a little life test.Suppose you have a life where you have peace of mind?Yeah, but not recognize nobody thinks about this great or anything.Yeah, in another life where people say this bubble is really great, you know a lot of people recognize you, but you live in chaos.Which one would you?",
+    "client_line": "Can I ask a clarifying question.",
+    "context_before": "k, peace, peace, peace, peace, Ok, so let's make a test. Peace, piece of mind, Peace, piece of mind.",
+    "context_after": "Can I ask a clarifying question. Depends if it's really clarifying what you see, that's a good quest",
+    "quality_score": 0.6,
+    "keywords": [
+      "life",
+      "have",
+      "where",
+      "yeah",
+      "recognize"
+    ]
+  },
+  {
+    "id": "snip_2133",
+    "topic": "人生意义",
+    "technique": "一般对话",
+    "philosopher_line": "Which life would you prefer?",
+    "client_line": "Can I ask a clarifying question.",
+    "context_before": " is really great, you know a lot of people recognize you, but you live in chaos.Which one would you?",
+    "context_after": "Depends if it's really clarifying what you see, that's a good question is it is it a language proble",
+    "quality_score": 0.6,
+    "keywords": [
+      "which",
+      "life",
+      "would",
+      "prefer",
+      "clarifying"
+    ]
+  },
+  {
+    "id": "snip_2135",
+    "topic": "其他",
+    "technique": "二选一",
+    "philosopher_line": "Depends if it's really clarifying what you see, that's a good question is it is it a language problem or not?It's.",
+    "client_line": "List.",
+    "context_before": "Which life would you prefer? Can I ask a clarifying question.",
+    "context_after": "Okay, let's translate that I'm going to propose to you two lives. One life where you are recognized ",
+    "quality_score": 0.6,
+    "keywords": [
+      "depends",
+      "really",
+      "clarifying",
+      "what",
+      "that"
+    ]
+  },
+  {
+    "id": "snip_2144",
+    "topic": "人生意义",
+    "technique": "一般对话",
+    "philosopher_line": "Which life do you prefer?",
+    "client_line": "I don't see any of the twelve characters that I described.The cats, the lion, the monkey.",
+    "context_before": "People don't recognize you. But you have peace of mind.",
+    "context_after": "Ok, but you see, look what not.Just look what you did you say?I don't see it as two alternatives I d",
+    "quality_score": 0.6,
+    "keywords": [
+      "which",
+      "life",
+      "prefer",
+      "twelve",
+      "characters"
+    ]
+  },
+  {
+    "id": "snip_2146",
+    "topic": "价值冲突",
+    "technique": "一般对话",
+    "philosopher_line": "Ok, but you see, look what not.Just look what you did you say?I don't see it as two alternatives I described, right?You said that.But did I tell you these were two alternatives you described?",
+    "client_line": "That was my first idea.",
+    "context_before": "ou prefer? I don't see any of the twelve characters that I described.The cats, the lion, the monkey.",
+    "context_after": "Or no?No, no.Do you speak like this all the time in this chaotic way? Problem?",
+    "quality_score": 0.6,
+    "keywords": [
+      "look",
+      "what",
+      "alternatives",
+      "described",
+      "that"
+    ]
+  },
+  {
+    "id": "snip_2148",
+    "topic": "其他",
+    "technique": "二选一",
+    "philosopher_line": "Or no?No, no.Do you speak like this all the time in this chaotic way?",
+    "client_line": "Problem?",
+    "context_before": "?You said that.But did I tell you these were two alternatives you described? That was my first idea.",
+    "context_after": "What do you mean?Probably?How old are you 4646?So you lived with yourself 46 years?I imagine you obs",
+    "quality_score": 0.6,
+    "keywords": [
+      "this",
+      "speak",
+      "like",
+      "time",
+      "chaotic"
+    ]
+  },
+  {
+    "id": "snip_2150",
+    "topic": "自我认知",
+    "technique": "二选一",
+    "philosopher_line": "What do you mean?Probably?How old are you 4646?So you lived with yourself 46 years?I imagine you observe yourself.You must be a little bit conscious.Do you have this chaotic way of dialogue?Or no?",
+    "client_line": "I cannot answer this question.",
+    "context_before": "Or no?No, no.Do you speak like this all the time in this chaotic way? Problem?",
+    "context_after": "You cannot. Ok.",
+    "quality_score": 0.6,
+    "keywords": [
+      "yourself",
+      "this",
+      "what",
+      "mean",
+      "probably"
+    ]
+  },
+  {
+    "id": "snip_2154",
+    "topic": "其他",
+    "technique": "二选一",
+    "philosopher_line": "Now, is it that you cannot or is that you don't want?",
+    "client_line": "I, I don't agree with your assessment.",
+    "context_before": "You cannot. Ok.",
+    "context_after": "No, you see, if I ask you boo boo or baba, would you answer me? Like me.",
+    "quality_score": 0.6,
+    "keywords": [
+      "that",
+      "cannot",
+      "want",
+      "agree",
+      "with"
+    ]
+  },
+  {
+    "id": "snip_2156",
+    "topic": "其他",
+    "technique": "二选一",
+    "philosopher_line": "No, you see, if I ask you boo boo or baba, would you answer me?",
+    "client_line": "Like me.",
+    "context_before": "Now, is it that you cannot or is that you don't want? I, I don't agree with your assessment.",
+    "context_after": "Exactly, but then you're not playing the game you see. Now what's in there?",
+    "quality_score": 0.6,
+    "keywords": [
+      "baba",
+      "would",
+      "answer",
+      "like"
+    ]
+  },
+  {
+    "id": "snip_2161",
+    "topic": "价值冲突",
+    "technique": "二选一",
+    "philosopher_line": "You're just gonna talk and talk, talk, talk and talk, talk, talk.Finally, that's what you want.I'll do it.And while you talk, I'll do something else.And I always have things to write out right?So you just wanna talk or you wanna do the exercise.",
+    "client_line": "I want to do the exercise.",
+    "context_before": "sk you a question and you look, if you just wanna talk, you know what I'm gonna do.I'm gonna listen.",
+    "context_after": "Good if you do the exercise that means you have to be with me and whatever crazy thing I do.Whatever",
+    "quality_score": 0.6,
+    "keywords": [
+      "talk",
+      "just",
+      "want",
+      "wanna",
+      "exercise"
+    ]
+  },
+  {
+    "id": "snip_2167",
+    "topic": "自我认知",
+    "technique": "苏格拉底追问",
+    "philosopher_line": "Why do you resist?",
+    "client_line": "I didn't understand the words.",
+    "context_before": "But so far you resist, you know this. Yes.",
+    "context_after": "No, you didn't understand the rule because you told me you don't agree, for example, and you underst",
+    "quality_score": 0.6,
+    "keywords": [
+      "resist",
+      "didn",
+      "understand",
+      "words"
+    ]
+  },
+  {
+    "id": "snip_2176",
+    "topic": "其他",
+    "technique": "二选一",
+    "philosopher_line": "Yeah, so do you want to do what you usually do or do you want to do something else?",
+    "client_line": "Yes.",
+    "context_before": "But yes. Because I usually we.",
+    "context_after": "Yes. So that means you're a man of habits.",
+    "quality_score": 0.6,
+    "keywords": [
+      "want",
+      "yeah",
+      "what",
+      "usually",
+      "something"
+    ]
+  },
+  {
+    "id": "snip_2182",
+    "topic": "价值冲突",
+    "technique": "二选一",
+    "philosopher_line": "Actually, what I want to know is if you hire people or that's not what you don't do.So when you hire somebody, do you want rather someone that can be flexible and and enter the company with all this trench way of functioning?Or you want somebody that decides how things should be done?",
+    "client_line": "Which is someone who was.",
+    "context_before": "and it's hard for you to think differently.Very true, Yeah, now you have business, is that it or no.",
+    "context_after": "Which is someone who was. That's why is that?Because I'm flexible, people are impossible to work oka",
+    "quality_score": 0.6,
+    "keywords": [
+      "want",
+      "that",
+      "what",
+      "hire",
       "somebody"
     ]
   },
   {
-    "id": "snip_0104",
+    "id": "snip_2183",
     "topic": "其他",
     "technique": "二选一",
-    "philosopher_line": "Yeah, Ok, take something from another.Yeah, do you have a name for this?You take something from another.",
-    "client_line": "No, I know.",
-    "context_before": " yeah, and why is it negative? Because if somebody to shut me, he.This takes some soup from another.",
-    "context_after": "No. Well, I have two words.",
+    "philosopher_line": "What more you would like to hire the first, which is what?",
+    "client_line": "Which is someone who was.",
+    "context_before": "with all this trench way of functioning?Or you want somebody that decides how things should be done?",
+    "context_after": "That's why is that?Because I'm flexible, people are impossible to work okay.Is it difficult?I won't ",
     "quality_score": 0.6,
     "keywords": [
-      "yeah",
-      "take",
-      "something",
-      "from",
-      "another"
+      "what",
+      "which",
+      "more",
+      "would",
+      "like"
     ]
   },
   {
-    "id": "snip_0110",
-    "topic": "价值冲突",
-    "technique": "二选一",
-    "philosopher_line": "Of course, hey, don't say of course now because it took 15min for you.Yes, now you say you play cool, right?And you know, of course not.Of course, yes, you have this denial.You know you have a denial function.Okay, you're competitive.Yeah.Are you happy to be competitive or not so happy?",
-    "client_line": "I think i'm happy。",
-    "context_before": " it so competition or stealing is a competition competition, so you're a competitive guy. Of course.",
-    "context_after": "You're happy?No problem, yes. But why you didn't tell me before competitive is that you see and your",
+    "id": "snip_2187",
+    "topic": "其他",
+    "technique": "接受困惑",
+    "philosopher_line": "You don't know that I'm not sure about that.But yeah, but you see, I don't care if you're not sure in our business.We're never sure.So you know, knowledge is about sure.What's the capital of France, Paris?It's knowledge learning, sure, in thinking we're never sure see, It's it's hypothesis.",
+    "client_line": "Yes.",
+    "context_before": "e, because still we're doing something, but it's hard to work with you. I don't know, but I imagine.",
+    "context_after": "Yes. So the fact?",
     "quality_score": 0.6,
     "keywords": [
-      "course",
-      "happy",
+      "sure",
       "know",
-      "have",
-      "denial"
+      "that",
+      "about",
+      "never"
     ]
   },
   {
-    "id": "snip_0113",
+    "id": "snip_2190",
+    "topic": "其他",
+    "technique": "一般对话",
+    "philosopher_line": "So the fact?",
+    "client_line": "I don't know.Sure doesn't matter.",
+    "context_before": "It's making experiment, it's trying out things, understand this idea. Yes.",
+    "context_after": "So now you're rushing, you know this. Yes.",
+    "quality_score": 0.6,
+    "keywords": [
+      "fact",
+      "know",
+      "sure",
+      "doesn",
+      "matter"
+    ]
+  },
+  {
+    "id": "snip_2194",
     "topic": "其他",
     "technique": "苏格拉底追问",
-    "philosopher_line": "But why you didn't tell me before competitive is that you see and your your mother, she says.Competitive good?No.",
-    "client_line": "I think I don't know.",
-    "context_before": "I think i'm happy。 You're happy?No problem, yes.",
-    "context_after": "I think I don't know. Come on, you don't know you.You do.You just just try to think you know, would ",
+    "philosopher_line": "Yes.Why?",
+    "client_line": "Because I am impatient.Yeah.",
+    "context_before": "So now you're rushing, you know this. Yes.",
+    "context_after": "Yeah, I believe in nature.I don't know.I think more in disease.I think impatient is not a nature.Nob",
     "quality_score": 0.6,
     "keywords": [
-      "competitive",
-      "your",
-      "didn",
-      "tell",
-      "before"
+      "because",
+      "impatient",
+      "yeah"
     ]
   },
   {
-    "id": "snip_0116",
+    "id": "snip_2198",
     "topic": "其他",
-    "technique": "二选一",
-    "philosopher_line": "Come on, you don't know you.You do.You just just try to think you know, would they be if she in the education say yeah, competitive, good, or or is there a problem with competitive in their mind, the mother mind?",
-    "client_line": "I think it's good.",
-    "context_before": "Not so good.Okay. I think I don't know.",
-    "context_after": "It's good, no problem.Yeah, how about for your wife?Is it good?Also, yeah, for both of them is good.",
+    "technique": "一般对话",
+    "philosopher_line": "What he may be with this?It makes sense.So no.Okay, yeah, I imagine somebody has to to learn to play the piano.But he's got a chaotic mind.Will he have a hard time with respecting the rhythm of the music?",
+    "client_line": "Do you remember?",
+    "context_before": ", that's good enough indeed, huh? If somebody's chaotic, then for he cannot respect time?Yeah, yeah.",
+    "context_after": "Do you remember? Do you remember the two lies I proposed to you?",
     "quality_score": 0.6,
     "keywords": [
-      "know",
-      "just",
+      "with",
+      "what",
+      "this",
+      "makes",
+      "sense"
+    ]
+  },
+  {
+    "id": "snip_2201",
+    "topic": "其他",
+    "technique": "一般对话",
+    "philosopher_line": "Do you remember the two lies I proposed to you?",
+    "client_line": "Yes.",
+    "context_before": "okay, good.So let's try to go back to our business.So yes, so I give you two lives. Do you remember?",
+    "context_after": "Okay, can you choose the life, which is better for you?You don't remember.I'll tell you again. Theor",
+    "quality_score": 0.6,
+    "keywords": [
+      "remember",
+      "lies",
+      "proposed"
+    ]
+  },
+  {
+    "id": "snip_2203",
+    "topic": "人生意义",
+    "technique": "二选一",
+    "philosopher_line": "Okay, can you choose the life, which is better for you?You don't remember.I'll tell you again.",
+    "client_line": "Theory.",
+    "context_before": "Do you remember the two lies I proposed to you? Yes.",
+    "context_after": "Okay, so which life is better for you? The life of the peace of mind and absence of recognition.",
+    "quality_score": 0.6,
+    "keywords": [
+      "okay",
+      "choose",
+      "life",
+      "which",
+      "better"
+    ]
+  },
+  {
+    "id": "snip_2205",
+    "topic": "人生意义",
+    "technique": "二选一",
+    "philosopher_line": "Okay, so which life is better for you?",
+    "client_line": "The life of the peace of mind and absence of recognition.",
+    "context_before": "ay, can you choose the life, which is better for you?You don't remember.I'll tell you again. Theory.",
+    "context_after": "Okay, and so that that was just to confirm so peace of mind is something that's for you, important. ",
+    "quality_score": 0.6,
+    "keywords": [
+      "life",
+      "okay",
+      "which",
+      "better",
+      "peace"
+    ]
+  },
+  {
+    "id": "snip_2209",
+    "topic": "价值冲突",
+    "technique": "二选一",
+    "philosopher_line": "Can you still think of something more important than a piece of mind or no, you think that would be for you?Major goal?",
+    "client_line": "You mean the value you want to develop?We're good.",
+    "context_before": ", and so that that was just to confirm so peace of mind is something that's for you, important. Yes.",
+    "context_after": "You mean the value you want to develop?We're good. I'm not clear on the language of value.",
+    "quality_score": 0.6,
+    "keywords": [
       "think",
-      "competitive",
-      "good"
+      "still",
+      "something",
+      "more",
+      "important"
     ]
   }
 ]
