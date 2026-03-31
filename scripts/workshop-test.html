@@ -256,6 +256,11 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ room_id: roomId, participant_name: name })
             });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({ detail: '加入失败' }));
+                alert('加入失败: ' + (err.detail || res.status));
+                return;
+            }
             const data = await res.json();
             currentRoom = { room_id: roomId };
             myId = data.participant_id;
@@ -274,16 +279,19 @@
             document.getElementById('currentPhase').textContent = data.phase;
             document.getElementById('myId').textContent = data.host_id;
             document.getElementById('roomInfo').style.display = 'block';
-            document.getElementById('joinSection').style.display = 'none';
+            // 显示加入区，让主持人能分享 room_id 给其他人
+            document.getElementById('joinSection').style.display = 'block';
+            document.getElementById('joinRoomId').value = data.room_id;
             document.getElementById('participantsSection').style.display = 'block';
             document.getElementById('viewpointSection').style.display = 'block';
             refreshRoom();
         }
 
         async function refreshRoom() {
-            if (!currentRoom) return;
+            if (!currentRoom || !currentRoom.room_id) return;
             const res = await fetch(`${API}/workshops/${currentRoom.room_id}`);
             const data = await res.json();
+            document.getElementById('currentTopic').textContent = data.topic;
             document.getElementById('currentPhase').textContent = data.phase;
             renderParticipants(data.viewpoints || []);
         }
@@ -316,15 +324,20 @@
         }
 
         async function startDiscussion() {
-            if (!isHost) return;
-            await fetch(`${API}/workshops/${currentRoom.room_id}/start?host_id=${myId}`, { method: 'POST' });
+            if (!isHost) { alert('只有主持人可以开始讨论'); return; }
+            if (!currentRoom || !currentRoom.room_id) { alert('房间信息无效'); return; }
+            const res = await fetch(`${API}/workshops/${currentRoom.room_id}/start?host_id=${encodeURIComponent(myId)}`, { method: 'POST' });
+            const data = await res.json();
+            if (!res.ok) { alert('开始失败: ' + (data.detail || res.status)); return; }
             refreshRoom();
         }
 
         async function endWorkshop() {
-            if (!isHost) return;
-            const res = await fetch(`${API}/workshops/${currentRoom.room_id}/end?host_id=${myId}`, { method: 'POST' });
+            if (!isHost) { alert('只有主持人可以结束工作坊'); return; }
+            if (!currentRoom || !currentRoom.room_id) { alert('房间信息无效'); return; }
+            const res = await fetch(`${API}/workshops/${currentRoom.room_id}/end?host_id=${encodeURIComponent(myId)}`, { method: 'POST' });
             const data = await res.json();
+            if (!res.ok) { alert('结束失败: ' + (data.detail || res.status)); return; }
             alert('工作坊已结束');
         }
 
