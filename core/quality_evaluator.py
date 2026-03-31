@@ -96,6 +96,85 @@ class QualityEvaluator:
             print(f"Error in quality evaluation: {e}")
             return self._fallback_report(dialogue_history)
 
+    def generate_report(
+        self,
+        session_id: str,
+        dialogue_history: List[Dict],
+        quality_scores: Dict[str, float]
+    ) -> Dict:
+        """
+        Generate a quality report from pre-computed scores.
+
+        Args:
+            session_id: Session ID
+            dialogue_history: List of dialogue turns
+            quality_scores: Dict with depth, contradiction, insight, engagement, style, overall
+
+        Returns:
+            Dict with quality report fields compatible with router_admin.QualityReport
+        """
+        depth = quality_scores.get('depth', 0)
+        contradiction = quality_scores.get('contradiction', 0)
+        insight = quality_scores.get('insight', 0)
+        engagement = quality_scores.get('engagement', 0)
+        style = quality_scores.get('style', 0)
+        overall = quality_scores.get('overall', 0)
+
+        # Generate strengths and weaknesses based on scores
+        strengths = []
+        weaknesses = []
+        suggestions = []
+
+        if depth >= 7:
+            strengths.append("对话深入探索了用户的核心问题")
+        elif depth < 4:
+            weaknesses.append("对话停留在表面，未能深入探索")
+            suggestions.append("尝试问更深层的问题，引导用户探索核心问题")
+
+        if contradiction >= 7:
+            strengths.append("成功暴露了用户的逻辑矛盾")
+        elif contradiction < 4:
+            weaknesses.append("未有效暴露思维矛盾")
+            suggestions.append("更积极地指出用户陈述中的逻辑矛盾")
+
+        if insight >= 7:
+            strengths.append("用户产生了重要的新认知")
+        elif insight < 4:
+            weaknesses.append("用户未产生明显的洞察")
+            suggestions.append("创造更多空间让用户产生自己的洞察")
+
+        if engagement >= 7:
+            strengths.append("用户积极参与，主动思考")
+        elif engagement < 4:
+            weaknesses.append("用户参与度较低")
+            suggestions.append("使用更开放式的问题鼓励用户参与")
+
+        if style >= 7:
+            strengths.append("AI保持了苏格拉底式对话风格")
+        elif style < 4:
+            weaknesses.append("AI风格偏离苏格拉底式对话")
+            suggestions.append("保持Oscar的直接、挑战性风格")
+
+        # If no scores were computed (all 0), provide a default message
+        if all(s == 0 for s in [depth, contradiction, insight, engagement, style]):
+            strengths.append("对话已记录")
+            suggestions.append("等待进一步评估")
+
+        # Limit suggestions
+        suggestions = suggestions[:5]
+
+        return {
+            "depth_score": depth,
+            "contradiction_score": contradiction,
+            "insight_score": insight,
+            "engagement_score": engagement,
+            "style_score": style,
+            "overall_score": overall,
+            "strengths": strengths,
+            "weaknesses": weaknesses,
+            "suggestions": suggestions
+        }
+
     def evaluate_turn(
         self,
         context: List[Dict],

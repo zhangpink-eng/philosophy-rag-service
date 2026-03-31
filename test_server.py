@@ -12,6 +12,7 @@ from datetime import datetime
 from pipeline.retrieval import RetrievalPipeline
 from core.llm_client import LLMClient
 from core.prompt_builder import PromptBuilder, PromptConfig, ConsultationContext
+from core.quality_evaluator import QualityEvaluator
 from db.postgres_client import get_db_direct, init_db, DialogueSession, SessionSummary, Feedback, SafetyLog, Memory, UserProfile, User
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -410,6 +411,31 @@ def summarize_session(request: dict):
                 scenario=session_data.get("scenario", "consultation")
             )
             db.add(s)
+
+        # 质量评估
+        try:
+            evaluator = QualityEvaluator()
+            quality_report = asyncio.run(
+                evaluator.evaluate_session(turns, session_data.get("scenario", "consultation"))
+            )
+            # 更新质量评分
+            if existing:
+                existing.depth_score = quality_report.quality_score.depth_score
+                existing.contradiction_score = quality_report.quality_score.contradiction_score
+                existing.insight_score = quality_report.quality_score.insight_score
+                existing.engagement_score = quality_report.quality_score.engagement_score
+                existing.style_score = quality_report.quality_score.style_score
+                existing.overall_score = quality_report.quality_score.overall_score
+            else:
+                s.depth_score = quality_report.quality_score.depth_score
+                s.contradiction_score = quality_report.quality_score.contradiction_score
+                s.insight_score = quality_report.quality_score.insight_score
+                s.engagement_score = quality_report.quality_score.engagement_score
+                s.style_score = quality_report.quality_score.style_score
+                s.overall_score = quality_report.quality_score.overall_score
+        except Exception as qe:
+            print(f"Quality evaluation error: {qe}")
+
         db.commit()
         db.close()
 
