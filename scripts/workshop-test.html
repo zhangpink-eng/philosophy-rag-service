@@ -219,7 +219,8 @@
     <script>
         const API = 'http://localhost:8000/api';
         let currentRoom = null;
-        let myId = null;
+        let myId = null;       // 当前用户的 participant_id
+        let hostId = null;      // 主持人的 participant_id（创建者）
         let isHost = false;
         let pollInterval = null;
 
@@ -243,6 +244,7 @@
             const data = await res.json();
             currentRoom = data;
             myId = data.host_id;
+            hostId = data.host_id;  // 主持人 ID
             isHost = true;
             showRoomInfo(data);
         }
@@ -265,6 +267,7 @@
             const data = await res.json();
             currentRoom = { room_id: roomId };
             myId = data.participant_id;
+            hostId = data.host_id;  // 主持人的 ID（固定不变）
             isHost = false;
             document.getElementById('currentRoomId').textContent = roomId;
             document.getElementById('currentTopic').textContent = data.topic;
@@ -283,10 +286,11 @@
         }
 
         function showRoomInfo(data) {
+            hostId = data.host_id;  // 保存主持人 ID
             document.getElementById('currentTopic').textContent = data.topic;
             document.getElementById('currentRoomId').textContent = data.room_id;
             document.getElementById('currentPhase').textContent = data.phase;
-            document.getElementById('myId').textContent = data.host_id;
+            document.getElementById('myId').textContent = myId;
             document.getElementById('roomInfo').style.display = 'block';
             // 显示加入区，让主持人能分享 room_id 给其他人
             document.getElementById('joinSection').style.display = 'block';
@@ -304,6 +308,7 @@
             const data = await res.json();
             document.getElementById('currentTopic').textContent = data.topic;
             document.getElementById('currentPhase').textContent = data.phase;
+            hostId = data.host_id;  // 更新主持人 ID（固定）
             renderParticipants(data.viewpoints || []);
 
             // 工作坊结束后停止轮询
@@ -329,19 +334,32 @@
             const count = document.getElementById('participantsSectionCount');
             if (count) count.textContent = `(${viewpoints.length}人)`;
 
-            container.innerHTML = viewpoints.map(v => `
+            container.innerHTML = viewpoints.map(v => {
+                const isMe = v.participant_id === myId;
+                const isHost = v.participant_id === hostId;
+                const history = v.viewpoint_history || [];
+                const latest = v.current_viewpoint || '';
+
+                const historyHtml = history.length > 1
+                    ? history.map((h, i) => `<div style="margin-top:4px;font-size:0.75rem;color:#888;padding:4px 8px;background:rgba(0,0,0,0.1);border-radius:4px;">
+                        <span style="color:#6366f1;">#${i + 1}</span> ${escapeHtml(h.text || '')} <span style="color:#555;">(${h.timestamp ? new Date(h.timestamp).toLocaleTimeString() : ''})</span>
+                       </div>`).join('')
+                    : '';
+
+                return `
                 <div class="participant">
-                    <div>
-                        <div class="name">${escapeHtml(v.name || '未知')} ${v.participant_id === myId ? '👤 (你)' : ''}</div>
-                        <div class="viewpoint" style="margin-top:4px;padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;font-size:0.85rem;">
-                            ${escapeHtml(v.viewpoint || '（未发表观点）')}
+                    <div style="flex:1;">
+                        <div class="name">${escapeHtml(v.name || '未知')} ${isMe ? '👤 (你)' : ''}</div>
+                        <div class="viewpoint" style="margin-top:6px;padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;font-size:0.85rem;">
+                            ${escapeHtml(latest || '（未发表观点）')}
                         </div>
+                        ${historyHtml}
                     </div>
-                    <span class="badge ${v.participant_id === myId ? 'host' : 'active'}" style="align-self:flex-start;margin-top:4px;">
-                        ${v.participant_id === myId ? '主持人' : '参与者'}
+                    <span class="badge ${isHost ? 'host' : 'active'}" style="align-self:flex-start;margin-top:4px;margin-left:8px;">
+                        ${isHost ? '主持人' : '参与者'}
                     </span>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
 
             // 更新房间信息中的人数
             const roomCount = document.getElementById('participantCount');

@@ -133,12 +133,20 @@ class WorkshopManager:
         participant_id: str,
         viewpoint: str
     ) -> bool:
-        """Set participant's viewpoint on the topic"""
+        """Append participant's viewpoint to history (never overwrites)"""
         room = self.rooms.get(room_id)
         if not room:
             return False
 
-        room.viewpoints[participant_id] = viewpoint
+        # Append to history list, never overwrite
+        if participant_id not in room.viewpoints:
+            room.viewpoints[participant_id] = []
+        if not isinstance(room.viewpoints[participant_id], list):
+            room.viewpoints[participant_id] = [room.viewpoints[participant_id]]
+        room.viewpoints[participant_id].append({
+            "text": viewpoint,
+            "timestamp": datetime.utcnow().isoformat()
+        })
         participant = room.participants.get(participant_id)
         if participant:
             participant.viewpoint = viewpoint
@@ -189,7 +197,8 @@ class WorkshopManager:
             {
                 "participant_id": pid,
                 "name": p.name,
-                "viewpoint": room.viewpoints.get(pid, ""),
+                "current_viewpoint": room.viewpoints.get(pid, [{"text": ""}])[-1]["text"] if isinstance(room.viewpoints.get(pid), list) else room.viewpoints.get(pid, ""),
+                "viewpoint_history": room.viewpoints.get(pid, []),
                 "is_active": p.is_active
             }
             for pid, p in room.participants.items()
