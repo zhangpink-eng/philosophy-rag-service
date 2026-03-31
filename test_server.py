@@ -13,6 +13,8 @@ from pipeline.retrieval import RetrievalPipeline
 from core.llm_client import LLMClient
 from core.prompt_builder import PromptBuilder, PromptConfig, ConsultationContext
 from core.quality_evaluator import QualityEvaluator
+from api.router_workshop import router as router_workshop
+from api.router_assist import router as router_assist
 from db.postgres_client import get_db_direct, init_db, DialogueSession, SessionSummary, Feedback, SafetyLog, Memory, UserProfile, User
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,7 +22,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import uvicorn
 
-app = FastAPI(title="Retrieval Test")
+app = FastAPI(title="Philosophia RAG Service")
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,6 +31,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Register routers
+app.include_router(router_workshop)
+app.include_router(router_assist)
 
 retrieval = RetrievalPipeline()
 llm = LLMClient(provider="deepseek")
