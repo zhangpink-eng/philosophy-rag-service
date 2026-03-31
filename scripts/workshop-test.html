@@ -145,7 +145,7 @@
                 </div>
             </div>
 
-            <div class="section" id="joinSection" style="display:none;">
+            <div class="section" id="joinSection">
                 <h2>加入工作坊</h2>
                 <div class="form-group">
                     <label>房间ID</label>
@@ -269,7 +269,11 @@
             document.getElementById('currentTopic').textContent = data.topic;
             document.getElementById('currentPhase').textContent = data.phase;
             document.getElementById('myId').textContent = myId;
+            // 显示参与者的 UI
             document.getElementById('roomInfo').style.display = 'block';
+            document.getElementById('joinSection').style.display = 'none'; // 隐藏加入区
+            document.getElementById('participantsSection').style.display = 'block';
+            document.getElementById('viewpointSection').style.display = 'block';
             refreshRoom();
         }
 
