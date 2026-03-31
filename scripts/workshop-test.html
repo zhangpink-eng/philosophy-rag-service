@@ -221,6 +221,7 @@
         let currentRoom = null;
         let myId = null;
         let isHost = false;
+        let pollInterval = null;
 
         function showTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -275,6 +276,7 @@
             document.getElementById('participantsSection').style.display = 'block';
             document.getElementById('viewpointSection').style.display = 'block';
             refreshRoom();
+            startPolling();
         }
 
         function showRoomInfo(data) {
@@ -289,15 +291,34 @@
             document.getElementById('participantsSection').style.display = 'block';
             document.getElementById('viewpointSection').style.display = 'block';
             refreshRoom();
+            startPolling();
         }
 
         async function refreshRoom() {
             if (!currentRoom || !currentRoom.room_id) return;
             const res = await fetch(`${API}/workshops/${currentRoom.room_id}`);
+            if (!res.ok) return;
             const data = await res.json();
             document.getElementById('currentTopic').textContent = data.topic;
             document.getElementById('currentPhase').textContent = data.phase;
             renderParticipants(data.viewpoints || []);
+
+            // 工作坊结束后停止轮询
+            if (data.phase === 'ended') {
+                stopPolling();
+            }
+        }
+
+        function startPolling() {
+            if (pollInterval) return;
+            pollInterval = setInterval(refreshRoom, 3000);
+        }
+
+        function stopPolling() {
+            if (pollInterval) {
+                clearInterval(pollInterval);
+                pollInterval = null;
+            }
         }
 
         function renderParticipants(viewpoints) {
@@ -342,6 +363,7 @@
             const res = await fetch(`${API}/workshops/${currentRoom.room_id}/end?host_id=${encodeURIComponent(myId)}`, { method: 'POST' });
             const data = await res.json();
             if (!res.ok) { alert('结束失败: ' + (data.detail || res.status)); return; }
+            stopPolling();
             alert('工作坊已结束');
         }
 
