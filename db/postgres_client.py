@@ -30,8 +30,6 @@ class User(Base):
 
     # Relationships
     sessions = relationship("Session", back_populates="user", cascade="all, delete-orphan")
-    profiles = relationship("UserProfile", back_populates="user", cascade="all, delete-orphan")
-    feedbacks = relationship("Feedback", back_populates="user", cascade="all, delete-orphan")
 
 
 class Session(Base):
@@ -60,8 +58,8 @@ class SessionSummary(Base):
     __tablename__ = "session_summaries"
 
     id = Column(String, primary_key=True)
-    session_id = Column(String, ForeignKey("sessions.id"), nullable=True)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    session_id = Column(String, nullable=True)  # 无外键约束
+    user_id = Column(String, nullable=True)  # 测试场景用 anonymous
     topic = Column(Text, nullable=True)
     scenario = Column(String(50))
     duration_minutes = Column(Integer, default=0)
@@ -91,16 +89,13 @@ class SessionSummary(Base):
     # Dialogue history for reference
     dialogue_history = Column(JSON, default=list)
 
-    # Relationships
-    user = relationship("User")
-
 
 class UserProfile(Base):
     """User profile model - tracks user's thinking patterns over time"""
     __tablename__ = "user_profiles"
 
     id = Column(String, primary_key=True)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    user_id = Column(String, nullable=True)  # 无外键约束
     timestamp = Column(DateTime, default=datetime.utcnow)
 
     # Thinking patterns (auto-updated)
@@ -117,24 +112,18 @@ class UserProfile(Base):
     # Session summaries index
     session_summaries = Column(JSON, default=list)  # [{"session_id", "date", "topic"}]
 
-    # Relationships
-    user = relationship("User", back_populates="profiles")
-
 
 class Feedback(Base):
     """Feedback model"""
     __tablename__ = "feedbacks"
 
     id = Column(String, primary_key=True)
-    session_id = Column(String, ForeignKey("sessions.id"), nullable=True)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    session_id = Column(String, nullable=True)  # 无外键约束
+    user_id = Column(String, nullable=True)  # 测试场景用 anonymous
     timestamp = Column(DateTime, default=datetime.utcnow)
     rating = Column(Integer, default=0)  # 1-5
     helpful_aspects = Column(JSON, default=list)  # ["aspect1", "aspect2"]
     improvement_suggestions = Column(Text, nullable=True)
-
-    # Relationships
-    user = relationship("User", back_populates="feedbacks")
 
 
 class Memory(Base):
@@ -162,7 +151,7 @@ class SafetyLog(Base):
     __tablename__ = "safety_logs"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    session_id = Column(String, ForeignKey("sessions.id"), nullable=True)
+    session_id = Column(String, nullable=True)  # 无外键约束
     user_input = Column(Text, nullable=False)
     risk_level = Column(String(20), nullable=False)  # LOW/MEDIUM/HIGH/CRISIS
     message = Column(Text, nullable=True)
@@ -234,3 +223,14 @@ def get_db():
 def get_db_direct():
     """Get database session directly (for non-FastAPI use)"""
     return SessionLocal()
+
+
+class DialogueSession(Base):
+    """轻量对话 session（无用户绑定，用于 test_server）"""
+    __tablename__ = "dialogue_sessions"
+
+    session_id = Column(String, primary_key=True)
+    turns = Column(JSON, default=list)  # [{speaker, message}]
+    scenario = Column(String(50), default="consultation")
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

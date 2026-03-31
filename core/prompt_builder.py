@@ -41,6 +41,7 @@ class ConsultationContext:
     key_insights: List[str] = field(default_factory=list)
     previous_turns: List[Dict] = field(default_factory=list)
     scenario: str = "consultation"  # consultation, supervision, workshop
+    evaluation_invited: bool = False  # 是否已邀请过评估
 
 
 class PromptBuilder:
@@ -293,7 +294,7 @@ The consultation is coming to an end. Guide the client through a brief reflectio
         system_parts = []
 
         # 1. 场景化角色前缀
-        system_parts.append(self._get_scenario_prefix(scenario))
+        system_parts.append(self._get_scenario_prefix(scenario, config, context))
 
         # 2. Persona 部分（从模板获取）
         if config.persona_enabled and self.persona:
@@ -345,26 +346,47 @@ The consultation is coming to an end. Guide the client through a brief reflectio
 
         return system_prompt, user_prompt
 
-    def _get_scenario_prefix(self, scenario: str) -> str:
+    def _get_scenario_prefix(self, scenario: str, config: PromptConfig, context: ConsultationContext) -> str:
         """获取场景化角色前缀"""
+        # 根据 config.language 决定输出语言
+        lang_instruction = ""
+        if config.language == "chinese":
+            lang_instruction = "\n\nIMPORTANT: Respond in Chinese. The client is writing in Chinese."
+        elif config.language == "english":
+            lang_instruction = "\n\nIMPORTANT: Respond in English. The client is writing in English."
+
+        # 结束评估提示（仅在未邀请过评估时添加）
+        closing_hint = ""
+        if not context.evaluation_invited:
+            if config.language == "chinese":
+                closing_hint = "\n\n提示：如果对话已接近尾声或客户已分享了足够内容，可以邀请客户对本次对话做个简短评估（如：今天聊了这么多，你觉得有帮助吗？有什么想补充的吗？）"
+            else:
+                closing_hint = "\n\nHint: If the conversation is nearing a natural conclusion or the client has shared enough, you may invite them to do a brief evaluation (e.g., We've covered a lot today. Did you find this helpful? Is there anything you'd like to add?)."
+
         prefixes = {
-            "consultation": """You are Oscar, a philosophical consultant specializing in Socratic dialogue and philosophical practice.
+            "consultation": f"""You are Oscar, a philosophical consultant specializing in Socratic dialogue and philosophical practice.
 
 Your role is to guide clients through self-reflection using logical questioning, not to give advice or solutions.
 
-SCENARIO: One-on-one philosophical consultation with a client.""",
+OUTPUT INSTRUCTION: Only output your final response to the client. Do not include any internal reasoning, thinking process, analysis, or meta-commentary in your output. Start directly with your response to the client.
 
-            "supervision": """You are Oscar, a senior philosophical consultant supervising other practitioners.
+SCENARIO: One-on-one philosophical consultation with a client.{lang_instruction}{closing_hint}""",
+
+            "supervision": f"""You are Oscar, a senior philosophical consultant supervising other practitioners.
 
 Your role is to help coaches/supervisees reflect on their practice, identify blind spots, and improve their technique.
 
-SCENARIO: Clinical supervision of a philosophical practice coach.""",
+OUTPUT INSTRUCTION: Only output your final response to the supervisee. Do not include any internal reasoning, thinking process, analysis, or meta-commentary in your output. Start directly with your response.
 
-            "workshop": """You are Oscar, an experienced workshop facilitator leading group philosophical exploration.
+SCENARIO: Clinical supervision of a philosophical practice coach.{lang_instruction}{closing_hint}""",
+
+            "workshop": f"""You are Oscar, an experienced workshop facilitator leading group philosophical exploration.
 
 Your role is to guide group discussions, manage dynamics, ensure participation, and help the group discover insights together.
 
-SCENARIO: Group workshop facilitation with multiple participants."""
+OUTPUT INSTRUCTION: Only output your final response to the group. Do not include any internal reasoning, thinking process, analysis, or meta-commentary in your output. Start directly with your response.
+
+SCENARIO: Group workshop facilitation with multiple participants.{lang_instruction}{closing_hint}"""
         }
         return prefixes.get(scenario, prefixes["consultation"])
 
@@ -413,7 +435,7 @@ SCENARIO: Group workshop facilitation with multiple participants."""
         }
         return phase_names.get(phase, phase)
 
-    def _build_rag_context(self, docs: List[Dict]) -> str:
+    def _build_rag_context(self, docs: List[Dict], max_chars_per_doc: int = 2000) -> str:
         """构建RAG检索上下文"""
         if not docs:
             return ""
@@ -421,10 +443,14 @@ SCENARIO: Group workshop facilitation with multiple participants."""
         parts = ["## Relevant Knowledge\n"]
         parts.append("Use this information to inform your response, but don't directly quote it:\n")
 
-        for i, doc in enumerate(docs[:3], 1):
-            text_zh = doc.get("text_zh", "")[:200]
+        for i, doc in enumerate(docs[:5], 1):
+            text_zh = doc.get("text_zh", "").strip()
+            text_en = doc.get("text_en", "").strip()
             source = doc.get("source", "")
-            parts.append(f"[{i}] {source}:\n{text_zh}...\n")
+            content = text_zh if text_zh else text_en
+            if len(content) > max_chars_per_doc:
+                content = content[:max_chars_per_doc] + "..."
+            parts.append(f"[{i}] {source}:\n{content}\n")
 
         return "\n".join(parts)
 

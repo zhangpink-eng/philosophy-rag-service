@@ -22,7 +22,7 @@ DEEPSEEK_MODEL = "deepseek-chat"
 # MiniMax API configuration
 MINIMAX_API_KEY = os.getenv("MINIMAX_API_KEY", "")
 MINIMAX_BASE_URL = "https://api.minimax.chat/v1"
-MINIMAX_MODEL = "MiniMax-M2.7-highspeed"
+MINIMAX_MODEL = "MiniMax-M2.7"
 
 # Model paths
 BGE_M3_MODEL_PATH = str(MODELS_DIR / "bge-m3")
