@@ -272,7 +272,10 @@
             document.getElementById('myId').textContent = myId;
             // 显示参与者的 UI
             document.getElementById('roomInfo').style.display = 'block';
-            document.getElementById('joinSection').style.display = 'none'; // 隐藏加入区
+            // 保持加入区可见，方便主持人继续邀请其他人
+            document.getElementById('joinSection').style.display = 'block';
+            document.getElementById('joinRoomId').value = roomId;
+            document.getElementById('joinName').value = ''; // 清空名字，避免混淆
             document.getElementById('participantsSection').style.display = 'block';
             document.getElementById('viewpointSection').style.display = 'block';
             refreshRoom();
